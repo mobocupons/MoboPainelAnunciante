@@ -1,0 +1,14 @@
+h3.primary-text {
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 45px;
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+
+    img {
+        max-height: 38px;
+        max-width: 32px;
+        margin-right: 20px;
+    }
+}

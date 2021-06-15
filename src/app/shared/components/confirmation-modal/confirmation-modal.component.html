@@ -1,0 +1,21 @@
+<div class="modal-header">
+  <div [ngSwitch]="modalData?.modalType">
+    <i class="icon-check icons success-color" *ngSwitchCase="modalTypeEnum.success"></i>
+    <i class="icon-help-alt icons" *ngSwitchCase="modalTypeEnum.help"></i>
+    <i class="icon-info-alt icons info-color" *ngSwitchCase="modalTypeEnum.info"></i>
+    <i class="icon-alert icons warning-color" *ngSwitchCase="modalTypeEnum.alert"></i>
+  </div>
+  <h4 class="modal-title" id="modal-basic-title">{{ modalData?.title }}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="onDismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+
+  <div [innerHTML]="modalData?.mainInformation"></div>
+  <p class="detail-text" *ngIf="modalData?.secondaryInformation">{{ modalData?.secondaryInformation }}</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="onClose()">Cancelar</button>
+  <button type="button" class="btn btn-primary" (click)="onResult()">Ok</button>
+</div>

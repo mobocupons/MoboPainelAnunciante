@@ -1,0 +1,65 @@
+* {
+  letter-spacing: normal !important;
+  font-weight: 400;
+}
+.btn {
+  border-radius: 20px;
+  font-size: 16px;
+  height: 40px;
+  margin-top: 26px;
+}
+.authentication-box h4 {
+  color: #021733 !important ;
+  font-size: 28px !important;
+  font-weight: 700 !important;
+}
+input.form-control {
+  font-size: 16px !important;
+  border-color: #9bb2d1 !important;
+  height: calc(1.5em + 0.75rem) !important;
+}
+label,
+input {
+  color: #021733 !important;
+}
+label {
+  padding-bottom: 2px;
+  padding-top: 5px;
+}
+.form-group {
+  margin-bottom: 6px !important;
+}
+.input-error-wrapper {
+  height: 14px;
+  width: 100%;
+  .text {
+    margin: 0!important;
+    line-height: 1;
+    font-size: 12px;
+  }
+}
+.card {
+  border-radius: 16px;
+  box-shadow: 1px 5px 24px rgba(0, 0, 0, 0.1);
+}
+.gray-link {
+  margin-top: 20px;
+  color: #777777;
+  text-decoration: underline;
+  display: block;
+  text-align: center;
+}
+.be-a-partner {
+  display: block;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -30px;
+  text-align: center;
+
+  a {
+    color: white !important;
+    text-decoration: underline;
+  }
+}

@@ -1,0 +1,59 @@
+:host{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-filter, .btn-filter:hover{
+  display: flex;
+  align-items: center;
+  border-radius: 60px !important;
+  border-color: #6D35CC !important;
+  color: #6D35CC !important;
+  background-color: transparent !important;
+  height: 40px;;
+  margin-top: 8px;
+  margin-left: 8px;
+  box-shadow: none !important;
+  &.info{
+    border-color: #4D6AF6 !important;
+    color: #4D6AF6 !important;
+  }
+}
+
+.btn-filter:focus, .btn-filter:active, .btn-filter.active {
+  color: white !important;
+  background-color: #6D35CC !important;
+  border-color: #6D35CC !important;
+  box-shadow: none;
+  &.info{
+   color: white !important;
+   background-color: #4D6AF6 !important;
+   border-color: #4D6AF6 !important;
+  }
+}
+
+.filter-by{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.title-filter{
+  color: #8C8C8C;
+  font-size: 30px;
+}
+
+.subtitle-filter{
+  color: #8C8C8C;
+}
+
+.right {
+  position: absolute;
+  right: 0px;
+  margin-right: 20px;
+}
+
+.btn-footer{
+  height: 56px;
+}

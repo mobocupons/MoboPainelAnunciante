@@ -1,0 +1,16 @@
+<div class="d-flex flex-column" [ngClass]="class">
+  <ul class="nav-tabs">
+    <li class="nav-item" *ngFor="let range of ranges" (click)="setActive(range)">
+      <span class="nav-link" [ngClass]="{'active': range.isActive, 'hidden': range.isHidden}">{{ range.name
+        }}</span>
+    </li>
+  </ul>
+
+  <div class="h-20px  mb-3">
+    <div class="rangeLabel" *ngIf="rangeLabel">
+      <span (click)="prev()">&#60;</span>
+      <p class="mx-3 mb-0">{{ rangeLabel }}</p>
+      <span (click)="next()" [ngClass]="{ 'disabled': isNextDisabled}">&#62;</span>
+    </div>
+  </div>
+</div>

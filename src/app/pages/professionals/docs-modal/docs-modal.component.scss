@@ -1,0 +1,16 @@
+.modal-header {
+  position: relative;
+
+  .modal-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.files-wrapper, .files-wrapper > div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

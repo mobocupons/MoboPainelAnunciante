@@ -1,0 +1,68 @@
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex flex-row flex-wrap">
+      <h4 class="card-title mr-md-4" *ngIf="cardData">{{ cardData?.cardTitle }}</h4>
+      <div class="dropdown" [ngClass]="{show: showDropdown}" *ngIf="selectedCycle">
+        <div class="btn-dropdown dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" (click)="showDropdown = !showDropdown">{{ selectedCycle.name }}
+        </div>
+        <div class="dropdown-menu" [ngClass]="{show: showDropdown}" aria-labelledby="dropdownMenuLink">
+          <button class="dropdown-item" *ngFor="let cycle of cycles" (click)="selectCycle(cycle)">
+            {{ cycle.name }}
+          </button>
+        </div>
+      </div>
+
+      <div class="dropdown" [ngClass]="{show: showDropdown}" *ngIf="numberTimes[0] && selectedNumberTimes">
+        <div class="btn-dropdown dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" (click)="showDropdown = !showDropdown">{{
+          selectedNumberTimes.description }}
+        </div>
+        <div class="dropdown-menu" [ngClass]="{show: showDropdown}" aria-labelledby="dropdownMenuLink">
+          <button class="dropdown-item" *ngFor="let nTimes of numberTimes" (click)="selectNumberTimes(nTimes)">
+            {{ nTimes.description }}
+          </button>
+        </div>
+      </div>
+      <app-loader *ngIf="loading" color="purple" style="margin-left: 10px;" size="25px"></app-loader>
+    </div>
+    <div [ngClass]="{'disabled-style': loading}">
+      <app-date-range-selector (rangeChange)="emitRange($event)" [hideOptions]="hideOptions" class="card-small">
+      </app-date-range-selector>
+      <div class="row mt-3">
+        <div class="col-12 col-md-3 d-flex flex-column  mb-3 mb-md-0" *ngIf="cardData">
+          <div class="d-flex flex-md-column mr-md-2 align-items-center align-items-md-stretch"
+            *ngIf="cardData.firstLabel">
+            <h6 class="info-label mr-2 mr-md-0">{{ cardData?.firstLabel }}</h6>
+            <h1 class="number-text blue-text big mb-md-3">
+              <small *ngIf="isInvoicing">R$</small>
+              {{ cardData?.firstValue }}
+              <span *ngIf="isCycleTime">h</span>
+            </h1>
+          </div>
+          <div class="d-flex flex-md-column mr-md-2 align-items-center align-items-md-stretch"
+            *ngIf="cardData.secondLabel">
+            <h6 class="info-label mr-2 mr-md-0">{{ cardData?.secondLabel }}</h6>
+            <h3 class="number-text green-text">
+              <small *ngIf="isInvoicing">R$</small>
+              {{ cardData?.secondValue }}
+              <span *ngIf="isCycleTime">h</span>
+            </h3>
+          </div>
+          <div class="d-flex flex-md-column mr-md-2 align-items-center align-items-md-stretch"
+            *ngIf="cardData.thirdLabel">
+            <h6 class="info-label mr-2 mr-md-0">{{ cardData?.thirdLabel }}</h6>
+            <h3 class="number-text red-text">
+              <small *ngIf="isInvoicing">R$</small>
+              {{ cardData?.thirdValue }}
+              <span *ngIf="isCycleTime">h</span>
+            </h3>
+          </div>
+        </div>
+        <div class="col-12 col-md-9 p-0">
+          <canvas #lineChart height="150px"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

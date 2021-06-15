@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseUrl: 'https://dev.dowing-api.com.br/api/v1.1',
+  absoluteUrl: 'https://dev.dowing-api.com.br',
+  awsBase: 'https://dev-dragon-dowing-images.s3-sa-east-1.amazonaws.com',
+  awsBaseFiles: 'https://dev-dragon-dowing-images.s3-sa-east-1.amazonaws.com/files',
 };
 
 /*

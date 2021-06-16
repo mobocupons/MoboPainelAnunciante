@@ -4,46 +4,43 @@ import {
   Inject,
   OnInit,
   ViewChild,
-} from "@angular/core";
-import { ProfessionalService } from "src/app/shared/services/professional.service";
-import { PriceLevelService } from "src/app/shared/services/price-level.service";
-import { CardDataModel } from "src/app/shared/models/card-data.model";
-import { DocsModalModel } from "src/app/shared/models/docs-modal-model";
-import { RequestModel } from "src/app/shared/models/request-model";
-import { ProfessionalModel } from "src/app/shared/models/professional.model";
-import { OccupationArea } from "src/app/shared/domains/occupation-area.interface";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ToastrService } from "ngx-toastr";
-import {
-  NgbModal,
-  NgbModalRef,
-} from "@ng-bootstrap/ng-bootstrap";
-import { ExperienceEnum } from "src/app/shared/utils/enums/experience.enum";
-import { TotalAssistanceEnum } from "src/app/shared/utils/enums/total-assistance.enum";
-import { PriceLevel } from "src/app/shared/domains/price-level.interface";
-import { IDropdownSettings } from "ng-multiselect-dropdown";
-import { EvaluationStatusEnum } from "src/app/shared/utils/enums/evaluation-status.enum";
-import { ConfirmationModalComponent } from "src/app/shared/components/confirmation-modal/confirmation-modal.component";
-import { ConfirmationModalModel } from "src/app/shared/models/confirmation-modal.model";
-import { ModalTypeEnum } from "src/app/shared/utils/enums/modal-type.enum";
-import { CardDataHelper } from "src/app/shared/utils/helpers/card-data.helper";
-import { DateHelper } from "src/app/shared/utils/helpers/date.helper";
-import { ProfessionalHelper } from "src/app/shared/utils/helpers/professional.helper";
-import { StripeInviteModel } from "src/app/shared/models/stripe.invite.model";
-import { UpdateStripeIdModel } from "src/app/shared/models/update-stripeId-model";
-import { DOCUMENT } from "@angular/common";
-import { FilterModalComponent } from "src/app/shared/components/filter-modal/filter-modal.component";
-import { FilterModalModel } from "src/app/shared/models/filter-modal.model";
-import { DocsModalComponent } from "./docs-modal/docs-modal.component";
-import { environment } from "../../../environments/environment"
+} from '@angular/core';
+import { ProfessionalService } from 'src/app/shared/services/professional.service';
+import { PriceLevelService } from 'src/app/shared/services/price-level.service';
+import { CardDataModel } from 'src/app/shared/models/card-data.model';
+import { DocsModalModel } from 'src/app/shared/models/docs-modal-model';
+import { RequestModel } from 'src/app/shared/models/request-model';
+import { ProfessionalModel } from 'src/app/shared/models/professional.model';
+import { OccupationArea } from 'src/app/shared/domains/occupation-area.interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ExperienceEnum } from 'src/app/shared/utils/enums/experience.enum';
+import { TotalAssistanceEnum } from 'src/app/shared/utils/enums/total-assistance.enum';
+import { PriceLevel } from 'src/app/shared/domains/price-level.interface';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { EvaluationStatusEnum } from 'src/app/shared/utils/enums/evaluation-status.enum';
+import { ConfirmationModalComponent } from 'src/app/shared/components/confirmation-modal/confirmation-modal.component';
+import { ConfirmationModalModel } from 'src/app/shared/models/confirmation-modal.model';
+import { ModalTypeEnum } from 'src/app/shared/utils/enums/modal-type.enum';
+import { CardDataHelper } from 'src/app/shared/utils/helpers/card-data.helper';
+import { DateHelper } from 'src/app/shared/utils/helpers/date.helper';
+import { ProfessionalHelper } from 'src/app/shared/utils/helpers/professional.helper';
+import { StripeInviteModel } from 'src/app/shared/models/stripe.invite.model';
+import { UpdateStripeIdModel } from 'src/app/shared/models/update-stripeId-model';
+import { DOCUMENT } from '@angular/common';
+import { FilterModalComponent } from 'src/app/shared/components/filter-modal/filter-modal.component';
+import { FilterModalModel } from 'src/app/shared/models/filter-modal.model';
+import { DocsModalComponent } from './docs-modal/docs-modal.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: "app-professionals",
-  templateUrl: "./professionals.component.html",
-  styleUrls: ["./professionals.component.scss"],
+  selector: 'app-professionals',
+  templateUrl: './professionals.component.html',
+  styleUrls: ['./professionals.component.scss'],
 })
 export class ProfessionalsComponent implements OnInit {
-  @ViewChild("meuCanvas", { static: true }) elemento: ElementRef;
+  @ViewChild('meuCanvas', { static: true }) elemento: ElementRef;
 
   public occupationAreaForm: FormGroup;
   public OccupationAreaList: OccupationArea[];
@@ -67,7 +64,6 @@ export class ProfessionalsComponent implements OnInit {
   public evaluationStatusEnum = EvaluationStatusEnum;
   public professionalTableHeadEnumLocal = ProfessionalTableHeadEnumLocal;
 
-
   public isLoadingDocs: boolean = false;
   public isLoadingProfessionals: boolean = false;
 
@@ -79,29 +75,29 @@ export class ProfessionalsComponent implements OnInit {
 
   public headElements = [
     {
-      description: "Data",
+      description: 'Data',
       visible: true,
       type: ProfessionalTableHeadEnumLocal.Date,
-      icon: '<i class="icon-exchange-vertical"></i>'
+      icon: '<i class="icon-exchange-vertical"></i>',
     },
     {
-      description: "Profissional",
+      description: 'Profissional',
       visible: true,
       type: ProfessionalTableHeadEnumLocal.Professional,
-      icon: '<i class="icon-exchange-vertical"></i>'
+      icon: '<i class="icon-exchange-vertical"></i>',
     },
     {
-      description: "Status",
+      description: 'Status',
       visible: true,
       type: ProfessionalTableHeadEnumLocal.Status,
-      icon: '<i class="icon-exchange-vertical"></i>'
+      icon: '<i class="icon-exchange-vertical"></i>',
     },
     {
-      description: "Filtro",
+      description: 'Filtro',
       visible: true,
       type: ProfessionalTableHeadEnumLocal.Filter,
-      icon: '<i class="icon-filter"></i>'
-    }
+      icon: '<i class="icon-filter"></i>',
+    },
   ];
 
   // Drag and Scroll
@@ -109,17 +105,24 @@ export class ProfessionalsComponent implements OnInit {
 
   public tabHeaders: any[];
 
-  constructor(private professionalService: ProfessionalService, private priceLevelService: PriceLevelService, private fb: FormBuilder, public toster: ToastrService, private modalService: NgbModal, @Inject(DOCUMENT) private _document: HTMLDocument) {
+  constructor(
+    private professionalService: ProfessionalService,
+    private priceLevelService: PriceLevelService,
+    private fb: FormBuilder,
+    public toster: ToastrService,
+    private modalService: NgbModal,
+    @Inject(DOCUMENT) private _document: HTMLDocument
+  ) {
     this.cardDataSessions = new CardDataModel();
     this.occupationAreaForm = this.fb.group({
-      name: ["", Validators.required],
+      name: ['', Validators.required],
     });
 
     this.dropdownSettings = {
       singleSelection: false,
-      idField: "id",
-      textField: "name",
-      searchPlaceholderText: "Procurar",
+      idField: 'id',
+      textField: 'name',
+      searchPlaceholderText: 'Procurar',
       allowSearchFilter: true,
       enableCheckAll: false,
     };
@@ -128,10 +131,10 @@ export class ProfessionalsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setTabHeaders();
-    this.getAllOccupationArea();
-    this.getAll();
-    this.getAllPriceLevel();
+    //this.setTabHeaders();
+    //this.getAllOccupationArea();
+    //this.getAll();
+    // this.getAllPriceLevel();
   }
 
   private setTabHeaders() {
@@ -142,7 +145,7 @@ export class ProfessionalsComponent implements OnInit {
       ),
       type: EvaluationStatusEnum.All,
       active: true,
-      counter: 0
+      counter: 0,
     });
     this.tabHeaders.push({
       description: ProfessionalHelper.getEvaluationStatusDescription(
@@ -150,7 +153,7 @@ export class ProfessionalsComponent implements OnInit {
       ),
       type: EvaluationStatusEnum.PendingEvaluation,
       active: false,
-      counter: 0
+      counter: 0,
     });
     this.tabHeaders.push({
       description: ProfessionalHelper.getEvaluationStatusDescription(
@@ -158,7 +161,7 @@ export class ProfessionalsComponent implements OnInit {
       ),
       type: EvaluationStatusEnum.PendingStripeRegister,
       active: false,
-      counter: 0
+      counter: 0,
     });
     this.tabHeaders.push({
       description: ProfessionalHelper.getEvaluationStatusDescription(
@@ -166,7 +169,7 @@ export class ProfessionalsComponent implements OnInit {
       ),
       type: EvaluationStatusEnum.PendingStripeAssociationId,
       active: false,
-      counter: 0
+      counter: 0,
     });
     this.tabHeaders.push({
       description: ProfessionalHelper.getEvaluationStatusDescription(
@@ -174,7 +177,7 @@ export class ProfessionalsComponent implements OnInit {
       ),
       type: EvaluationStatusEnum.PendingPriceSelection,
       active: false,
-      counter: 0
+      counter: 0,
     });
     this.tabHeaders.push({
       description: ProfessionalHelper.getEvaluationStatusDescription(
@@ -182,7 +185,7 @@ export class ProfessionalsComponent implements OnInit {
       ),
       type: EvaluationStatusEnum.PendingAvailableTimes,
       active: false,
-      counter: 0
+      counter: 0,
     });
     this.tabHeaders.push({
       description: ProfessionalHelper.getEvaluationStatusDescription(
@@ -190,7 +193,7 @@ export class ProfessionalsComponent implements OnInit {
       ),
       type: EvaluationStatusEnum.Active,
       active: false,
-      counter: 0
+      counter: 0,
     });
     this.tabHeaders.push({
       description: ProfessionalHelper.getEvaluationStatusDescription(
@@ -198,7 +201,7 @@ export class ProfessionalsComponent implements OnInit {
       ),
       type: EvaluationStatusEnum.Rejected,
       active: false,
-      counter: 0
+      counter: 0,
     });
   }
 
@@ -225,7 +228,7 @@ export class ProfessionalsComponent implements OnInit {
           p.collapsed = false;
           p.creationDate = DateHelper.formatDate(
             p.creationDate,
-            "dd/MM/yyyy - HH:MM"
+            'dd/MM/yyyy - HH:MM'
           );
 
           p.status = ProfessionalHelper.getEvaluationStatusDescription(
@@ -234,12 +237,12 @@ export class ProfessionalsComponent implements OnInit {
 
           p.priceLevels = p.priceLevels
             ? p.priceLevels.sort((a, b) =>
-              a.sessionValuePF > b.sessionValuePF ? 1 : -1
-            )
+                a.sessionValuePF > b.sessionValuePF ? 1 : -1
+              )
             : p.priceLevels;
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(err);
       });
     this.isLoadingProfessionals = false;
@@ -261,7 +264,7 @@ export class ProfessionalsComponent implements OnInit {
       .toPromise()
       .then((res) => {
         this.OccupationAreaList = res.sort((a, b) =>
-          a.name.toLowerCase() == "outra" ? 1 : a.name > b.name ? 1 : -1
+          a.name.toLowerCase() == 'outra' ? 1 : a.name > b.name ? 1 : -1
         );
       });
     this.loadingOccupationArea = false;
@@ -271,7 +274,7 @@ export class ProfessionalsComponent implements OnInit {
     if (!this.existsOccupationArea()) {
       this.loadingOccupationArea = true;
       let occupationAreaToSave: any = {
-        name: this.occupationAreaForm.controls["name"].value,
+        name: this.occupationAreaForm.controls['name'].value,
       };
       await this.professionalService
         .saveOccupationArea(occupationAreaToSave)
@@ -279,13 +282,13 @@ export class ProfessionalsComponent implements OnInit {
         .then((res) => {
           this.OccupationAreaList.push(res);
           this.OccupationAreaList.sort((a, b) =>
-            a.name.toLowerCase() == "outra" ? 1 : a.name > b.name ? 1 : -1
+            a.name.toLowerCase() == 'outra' ? 1 : a.name > b.name ? 1 : -1
           );
         });
       this.loadingOccupationArea = false;
     } else {
       this.toster.warning(
-        "Área de atuação existente. Por favor verifique a lista."
+        'Área de atuação existente. Por favor verifique a lista.'
       );
     }
   }
@@ -298,7 +301,7 @@ export class ProfessionalsComponent implements OnInit {
     let docs = await this.getAllDocs(professional);
     this.isLoadingDocs = false;
     this.modalRef = this.modalService.open(DocsModalComponent, {
-      size: "lg",
+      size: 'lg',
       centered: true,
     });
 
@@ -339,11 +342,11 @@ export class ProfessionalsComponent implements OnInit {
 
   openModalDeleteOccupationArea(occuparionArea: OccupationArea) {
     let modalData = new ConfirmationModalModel();
-    modalData.title = "Excluir?";
+    modalData.title = 'Excluir?';
     modalData.mainInformation = `Deseja realmente excluir esta Área de atuação: <b>${occuparionArea.name}</b>?`;
     modalData.modalType = ModalTypeEnum.alert;
     this.modalRef = this.modalService.open(ConfirmationModalComponent, {
-      size: "md",
+      size: 'md',
       centered: true,
     });
     this.modalRef.componentInstance.modalData = modalData;
@@ -356,11 +359,11 @@ export class ProfessionalsComponent implements OnInit {
 
   openModalToApprove(professional: ProfessionalModel) {
     let modalData = new ConfirmationModalModel();
-    modalData.title = "Aprovar?";
+    modalData.title = 'Aprovar?';
     modalData.mainInformation = `Deseja realmente aprovar o Profissional <b>${professional.name}</b>?`;
     modalData.modalType = ModalTypeEnum.success;
     this.modalRef = this.modalService.open(ConfirmationModalComponent, {
-      size: "md",
+      size: 'md',
       centered: true,
     });
     this.modalRef.componentInstance.modalData = modalData;
@@ -373,11 +376,11 @@ export class ProfessionalsComponent implements OnInit {
 
   openModalToReject(professional: ProfessionalModel) {
     let modalData = new ConfirmationModalModel();
-    modalData.title = "Rejeitar?";
+    modalData.title = 'Rejeitar?';
     modalData.mainInformation = `Deseja realmente rejeitar o Profissional <b>${professional.name}</b>?`;
     modalData.modalType = ModalTypeEnum.alert;
     this.modalRef = this.modalService.open(ConfirmationModalComponent, {
-      size: "md",
+      size: 'md',
       centered: true,
     });
     this.modalRef.componentInstance.modalData = modalData;
@@ -393,9 +396,7 @@ export class ProfessionalsComponent implements OnInit {
       .deleteOccupationArea(occuparionArea)
       .toPromise()
       .then((res) => {
-        this.toster.warning(
-          "Área de atuação excluída com sucesso."
-        );
+        this.toster.warning('Área de atuação excluída com sucesso.');
       });
   }
 
@@ -403,7 +404,7 @@ export class ProfessionalsComponent implements OnInit {
     return this.OccupationAreaList.some(
       (x) =>
         x.name.toLowerCase() ==
-        this.occupationAreaForm.controls["name"].value.toLowerCase()
+        this.occupationAreaForm.controls['name'].value.toLowerCase()
     );
   }
 
@@ -433,7 +434,7 @@ export class ProfessionalsComponent implements OnInit {
           .toPromise()
           .then((res) => {
             this.cardDataHeader = res;
-            this.cardDataHeader.cardTitle = "Ativos";
+            this.cardDataHeader.cardTitle = 'Ativos';
           });
         break;
       case CardDataTypeEnumLocal.Sessions:
@@ -442,14 +443,14 @@ export class ProfessionalsComponent implements OnInit {
           .toPromise()
           .then((res) => {
             this.cardDataSessions = res;
-            this.cardDataSessions.cardTitle = "Quantidade de sessões";
+            this.cardDataSessions.cardTitle = 'Quantidade de sessões';
           });
     }
   }
 
-  public chartClicked(e: any): void { }
+  public chartClicked(e: any): void {}
 
-  public chartHovered(e: any): void { }
+  public chartHovered(e: any): void {}
 
   public activeTabChanged(tab: any) {
     this.tabHeaders.map((x) =>
@@ -457,9 +458,11 @@ export class ProfessionalsComponent implements OnInit {
     );
     this.selectedTab = tab.type;
     if (tab.type != EvaluationStatusEnum.All) {
-      this.professionalList = this.professionalListBackup.filter(p => p.evaluationStatus == tab.type);
+      this.professionalList = this.professionalListBackup.filter(
+        (p) => p.evaluationStatus == tab.type
+      );
       this.headElements.map((h) =>
-        h.description == "Status" ? (h.visible = false) : h.visible
+        h.description == 'Status' ? (h.visible = false) : h.visible
       );
     } else {
       this.professionalList = this.professionalListBackup;
@@ -498,15 +501,15 @@ export class ProfessionalsComponent implements OnInit {
             );
             if (multiselector) {
               let pricesSelectedLabels = multiselector.querySelectorAll(
-                ".dropdown-btn>span.ng-star-inserted"
+                '.dropdown-btn>span.ng-star-inserted'
               );
 
               pricesSelectedLabels.forEach((item: HTMLElement) => {
                 if (
                   item.innerText.includes(professional.selectedPriceLevel.name)
                 ) {
-                  item.style.backgroundColor = "purple";
-                  item.style.borderColor = "purple";
+                  item.style.backgroundColor = 'purple';
+                  item.style.borderColor = 'purple';
                   item.innerHTML = professional.selectedPriceLevel.name;
                 }
               });
@@ -516,7 +519,7 @@ export class ProfessionalsComponent implements OnInit {
               ) as HTMLInputElement;
               element.disabled = true;
               let parentElement = element.parentNode as HTMLElement;
-              parentElement.style.pointerEvents = "none";
+              parentElement.style.pointerEvents = 'none';
             }
           });
       }, 100);
@@ -528,65 +531,95 @@ export class ProfessionalsComponent implements OnInit {
     let ocuppationList: any[] = [];
     let specializationList: any[] = [];
 
+    this.professionalListBackup.map((x) =>
+      x.occupationAreas.map(
+        (o) => !ocuppationList.includes(o) && ocuppationList.push(o)
+      )
+    );
+    modalData.push({
+      description: 'Áreas de atuação',
+      filterList: this.listOfFilters(ocuppationList),
+      selected: false,
+      type: FilterOptionEnumLocal.OccupationArea,
+    });
 
-    this.professionalListBackup.map(x => x.occupationAreas.map(o => !ocuppationList.includes(o) && ocuppationList.push(o)));
-    modalData.push(
-      {
-        description: "Áreas de atuação",
-        filterList: this.listOfFilters(ocuppationList),
-        selected: false,
-        type: FilterOptionEnumLocal.OccupationArea
-      });
+    this.professionalListBackup.map((x) =>
+      x.specializations.map(
+        (s) => !specializationList.includes(s) && specializationList.push(s)
+      )
+    );
+    modalData.push({
+      description: 'Especializações',
+      filterList: this.listOfFilters(specializationList),
+      selected: false,
+      type: FilterOptionEnumLocal.Specializations,
+    });
 
-    this.professionalListBackup.map(x => x.specializations.map(s => !specializationList.includes(s) && specializationList.push(s)));
-    modalData.push(
-      {
-        description: "Especializações",
-        filterList: this.listOfFilters(specializationList),
-        selected: false,
-        type: FilterOptionEnumLocal.Specializations
-      });
+    var experienceTime = Object.keys(ExperienceEnum).filter((key) =>
+      isNaN(Number(ExperienceEnum[key]))
+    );
 
-    var experienceTime = Object.keys(ExperienceEnum).filter(key => isNaN(Number(ExperienceEnum[key])));
+    let experienceTimeText = experienceTime.map((ex) =>
+      this.getExperienceTimeText(Number(ex))
+    );
 
-    let experienceTimeText = experienceTime.map(ex => this.getExperienceTimeText(Number(ex)));
-
-    modalData.push(
-      {
-        description: "Tempo de experiência",
-        filterList: this.listOfFilters(experienceTimeText),
-        selected: false,
-        type: FilterOptionEnumLocal.ExperienceTime
-      });
+    modalData.push({
+      description: 'Tempo de experiência',
+      filterList: this.listOfFilters(experienceTimeText),
+      selected: false,
+      type: FilterOptionEnumLocal.ExperienceTime,
+    });
 
     if (this.filterModalData) {
-      modalData.map(m => {
-        (m.description == this.filterModalData.description) ? m.selected = this.filterModalData.selected : false;
-        m.filterList.map(fl => fl.selected = this.filterModalData.filterList.some(fmd => fmd.description == fl.description));
+      modalData.map((m) => {
+        m.description == this.filterModalData.description
+          ? (m.selected = this.filterModalData.selected)
+          : false;
+        m.filterList.map(
+          (fl) =>
+            (fl.selected = this.filterModalData.filterList.some(
+              (fmd) => fmd.description == fl.description
+            ))
+        );
       });
     }
 
-    this.modalRef = this.modalService.open(FilterModalComponent, { windowClass: 'modal-filter' });
+    this.modalRef = this.modalService.open(FilterModalComponent, {
+      windowClass: 'modal-filter',
+    });
     this.modalRef.componentInstance.modalData = modalData;
     this.modalRef.result.then((result) => {
       if (result) {
         if (!result.cancel) {
           switch (result.type) {
             case FilterOptionEnumLocal.OccupationArea:
-              this.professionalList = this.professionalListBackup.filter(p => p.occupationAreas.some(o => result.filterList.some(r => r.description == o)));
+              this.professionalList = this.professionalListBackup.filter((p) =>
+                p.occupationAreas.some((o) =>
+                  result.filterList.some((r) => r.description == o)
+                )
+              );
               break;
             case FilterOptionEnumLocal.ExperienceTime:
-              this.professionalList = this.professionalListBackup.filter(p => result.filterList.some(r => r.description == this.getExperienceTimeText(p.experienceTime)));
+              this.professionalList = this.professionalListBackup.filter((p) =>
+                result.filterList.some(
+                  (r) =>
+                    r.description ==
+                    this.getExperienceTimeText(p.experienceTime)
+                )
+              );
               break;
             case FilterOptionEnumLocal.Specializations:
-              this.professionalList = this.professionalListBackup.filter(p => p.specializations.some(s => result.filterList.some(r => r.description == s)));
+              this.professionalList = this.professionalListBackup.filter((p) =>
+                p.specializations.some((s) =>
+                  result.filterList.some((r) => r.description == s)
+                )
+              );
               break;
           }
           this.setTabCounters();
           this.filterModalData = result;
         }
-      }
-      else {
+      } else {
         this.filterModalData = null;
         this.professionalList = this.professionalListBackup;
         this.setTabCounters();
@@ -595,7 +628,15 @@ export class ProfessionalsComponent implements OnInit {
   }
 
   setTabCounters() {
-    this.tabHeaders.map(tab => tab.counter = (tab.type == this.evaluationStatusEnum.All) ? this.professionalList.length : this.professionalList.filter(p => p.evaluationStatus == tab.type).length);
+    this.tabHeaders.map(
+      (tab) =>
+        (tab.counter =
+          tab.type == this.evaluationStatusEnum.All
+            ? this.professionalList.length
+            : this.professionalList.filter(
+                (p) => p.evaluationStatus == tab.type
+              ).length)
+    );
   }
 
   listOfFilters(listFilter: string[]): FilterModalModel[] {
@@ -605,10 +646,10 @@ export class ProfessionalsComponent implements OnInit {
         description: item,
         filterList: [],
         selected: false,
-        type: FilterOptionEnumLocal.Specializations
-      })
+        type: FilterOptionEnumLocal.Specializations,
+      });
     });
-    return newFilterList
+    return newFilterList;
   }
 
   orderTableByStatus() {
@@ -631,7 +672,7 @@ export class ProfessionalsComponent implements OnInit {
 
   checkPriceLevelSelectLimit(professional: ProfessionalModel) {
     if (professional.priceLevels.length > 3) {
-      this.toster.info("Máximo de 3 níveis");
+      this.toster.info('Máximo de 3 níveis');
     }
   }
 
@@ -645,7 +686,7 @@ export class ProfessionalsComponent implements OnInit {
       .toPromise()
       .then((res) => {
         if (res.id) {
-          this.toster.success("Profissional aprovado com sucesso!");
+          this.toster.success('Profissional aprovado com sucesso!');
         }
       });
     this.getAll();
@@ -657,7 +698,7 @@ export class ProfessionalsComponent implements OnInit {
       .toPromise()
       .then((res) => {
         if (res.id) {
-          this.toster.success("Profissional rejeitado com sucesso!");
+          this.toster.success('Profissional rejeitado com sucesso!');
         }
       });
     this.getAll();
@@ -665,11 +706,11 @@ export class ProfessionalsComponent implements OnInit {
 
   saveStripeCode(professional: ProfessionalModel) {
     let modalData = new ConfirmationModalModel();
-    modalData.title = "Salvar/Enviar";
+    modalData.title = 'Salvar/Enviar';
     modalData.mainInformation = `Deseja salvar/enviar esse Link do Stripe?`;
     modalData.modalType = ModalTypeEnum.help;
     this.modalRef = this.modalService.open(ConfirmationModalComponent, {
-      size: "md",
+      size: 'md',
       centered: true,
     });
     this.modalRef.componentInstance.modalData = modalData;
@@ -683,7 +724,7 @@ export class ProfessionalsComponent implements OnInit {
           .saveStripeInvite(stripeInvite)
           .toPromise()
           .then((res) => {
-            this.toster.success("Código Stripe salvo com sucesso!");
+            this.toster.success('Código Stripe salvo com sucesso!');
           });
         this.getAll();
       }
@@ -692,11 +733,11 @@ export class ProfessionalsComponent implements OnInit {
 
   async saveStripeIDOrPriceLevels(professional: ProfessionalModel) {
     let modalData = new ConfirmationModalModel();
-    modalData.title = "Salvar";
+    modalData.title = 'Salvar';
     modalData.mainInformation = `Deseja salvar?`;
     modalData.modalType = ModalTypeEnum.help;
     this.modalRef = this.modalService.open(ConfirmationModalComponent, {
-      size: "md",
+      size: 'md',
       centered: true,
     });
     this.modalRef.componentInstance.modalData = modalData;
@@ -710,7 +751,7 @@ export class ProfessionalsComponent implements OnInit {
           .updateStripeId(updateStripeIdModel)
           .toPromise()
           .then((res) => {
-            this.toster.success("Dados salvo com sucesso!");
+            this.toster.success('Dados salvo com sucesso!');
           });
         this.getAll();
       }
@@ -718,50 +759,50 @@ export class ProfessionalsComponent implements OnInit {
   }
 
   getExperienceTimeText(experienceTime: ExperienceEnum) {
-    let text: string = "";
+    let text: string = '';
     switch (experienceTime) {
       case ExperienceEnum.LessThanOneYear:
-        text = "menos de 1 ano";
+        text = 'menos de 1 ano';
         break;
       case ExperienceEnum.OneYear:
-        text = "1 ano";
+        text = '1 ano';
         break;
       case ExperienceEnum.FromTwoToFiveYears:
-        text = "2-5 anos";
+        text = '2-5 anos';
         break;
       case ExperienceEnum.FromFiveToTenYears:
-        text = "5 - 10 anos";
+        text = '5 - 10 anos';
         break;
       case ExperienceEnum.MoreThanTenYears:
-        text = "mais de 10 anos";
+        text = 'mais de 10 anos';
         break;
       default:
-        text = "---";
+        text = '---';
         break;
     }
     return text;
   }
 
   getTotalAssistanceText(totalAssistance: TotalAssistanceEnum) {
-    let text: string = "";
+    let text: string = '';
     switch (totalAssistance) {
       case TotalAssistanceEnum.FromOneToTen:
-        text = "1-10";
+        text = '1-10';
         break;
       case TotalAssistanceEnum.FromTenToTwenty:
-        text = "10-20";
+        text = '10-20';
         break;
       case TotalAssistanceEnum.FromTwentyToFifty:
-        text = "20-50";
+        text = '20-50';
         break;
       case TotalAssistanceEnum.FromFiftyToOneHundred:
-        text = "50 - 100";
+        text = '50 - 100';
         break;
       case TotalAssistanceEnum.MoreThanOneHundred:
-        text = "mais de 100";
+        text = 'mais de 100';
         break;
       default:
-        text = "---";
+        text = '---';
         break;
     }
     return text;
@@ -793,6 +834,5 @@ export enum ProfessionalTableHeadEnumLocal {
 export enum FilterOptionEnumLocal {
   OccupationArea,
   Specializations,
-  ExperienceTime
+  ExperienceTime,
 }
-

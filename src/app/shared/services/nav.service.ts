@@ -1,5 +1,5 @@
-import { Injectable, HostListener } from "@angular/core";
-import { BehaviorSubject, Observable, Subscriber } from "rxjs";
+import { Injectable, HostListener } from '@angular/core';
+import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
 
 // Menu
 export interface Menu {
@@ -15,7 +15,7 @@ export interface Menu {
 }
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class NavService {
   public screenWidth: any;
@@ -29,35 +29,35 @@ export class NavService {
   }
 
   // Windows width
-  @HostListener("window:resize", ["$event"])
+  @HostListener('window:resize', ['$event'])
   onResize(event?) {
     this.screenWidth = window.innerWidth;
   }
 
   USER_MENUITEMS: Menu[] = [
     {
-      path: "/dashboard/aplicativos",
-      title: "Aplicativo",
-      icon: "aplicativo",
-      type: "link",
+      path: '/dashboard/aplicativos',
+      title: 'Aplicativo',
+      icon: 'aplicativo',
+      type: 'link',
     },
     {
-      path: "/dashboard/profissionais",
-      title: "Profissionais",
-      icon: "profissionais",
-      type: "link",
+      path: '/dashboard/profissionais',
+      title: 'Profissionais',
+      icon: 'profissionais',
+      type: 'link',
     },
     {
-      path: "/dashboard/usuarios",
-      title: "Usuários",
-      icon: "usuarios",
-      type: "link",
+      path: '/dashboard/usuarios',
+      title: 'Usuários',
+      icon: 'usuarios',
+      type: 'link',
     },
     {
-      path: "logout",
-      title: "Sair",
+      path: 'logout',
+      title: 'Sair',
       icon: null,
-      type: "out",
+      type: 'out',
     },
   ];
   items = new BehaviorSubject<Menu[]>(this.USER_MENUITEMS);

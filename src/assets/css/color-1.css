@@ -7372,6 +7372,7 @@ div .plain-container {
 
 .auth-bg {
   background: url(../images/other-images/auth-bg-1.jpg);
+  background-color: #f4f4f4;
   display: flex;
   align-items: center;
   justify-content: center;

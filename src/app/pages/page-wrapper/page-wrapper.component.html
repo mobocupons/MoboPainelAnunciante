@@ -1,17 +1,7 @@
 <div class="page-wrapper" id="canvas-bookmark">
   <app-header></app-header>
   <div class="page-body-wrapper">
-    <div class="page-body  bg-white">
-      <div class="container-fluid" *ngIf="currentMenuItem">
-        <div class="row">
-          <div class="col-12">
-            <h3 class="primary-text">
-              <img [src]="'assets/images/icons/' + currentMenuItem.icon + '.svg'" [alt]="currentMenuItem.icon">
-              <span>{{currentMenuItem.title}}</span>
-            </h3>
-          </div>
-        </div>
-      </div>
+    <div class="page-body  bg-white pt-5">
       <main class="container-fluid px-md-5 px-0">
         <router-outlet></router-outlet>
       </main>

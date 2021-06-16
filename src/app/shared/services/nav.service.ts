@@ -36,21 +36,21 @@ export class NavService {
 
   USER_MENUITEMS: Menu[] = [
     {
-      path: '/dashboard/aplicativos',
-      title: 'Aplicativo',
-      icon: 'aplicativo',
+      path: '/dashboard/profissionais',
+      title: 'Cupons',
+      icon: 'fa-barcode',
       type: 'link',
     },
     {
-      path: '/dashboard/profissionais',
-      title: 'Profissionais',
-      icon: 'profissionais',
+      path: '/dashboard/aplicativos',
+      title: 'Pedidos',
+      icon: 'fa-bell',
       type: 'link',
     },
     {
       path: '/dashboard/usuarios',
-      title: 'Usuários',
-      icon: 'usuarios',
+      title: 'Histórico',
+      icon: 'fa-history',
       type: 'link',
     },
     {

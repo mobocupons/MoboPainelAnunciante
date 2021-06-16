@@ -1,16 +1,18 @@
-<div class="page-main-header" [ngClass]="{'open' : navServices.collapseSidebar}" id="page-main-header">
+<div class="page-main-header bg-gray" [ngClass]="{'open' : navServices.collapseSidebar}" id="page-main-header">
   <div class="main-header-right row">
     <div class="main-header-left">
-      <div class="logo-wrapper"><a href="javascript::void(0)"><img src="assets/images/logo/logo-mobo.svg" alt=""></a>
+      <div class="logo-wrapper"><a href="javascript::void(0)"><img style="height: 80px;"
+            src="assets/images/logo/logo-mobo.svg" alt=""></a>
       </div>
     </div>
-    <!-- <div class="nav-right col">
+    <div class="nav-right col">
       <ul class="nav-menus" [ngClass]="{'open' : openNav}">
         <li></li>
         <li *ngFor="let menuItem of menuItems" [ngClass]="{active: menuItem.active}" class="border-0">
           <a [routerLink]="!menuItem.type ? null : [menuItem.path]" routerLinkActive="active" class="navbar-link"
             *ngIf="menuItem.type === 'link'">
-            <img [src]="getMenuIcon(menuItem)" [alt]="menuItem.icon">
+            <!-- <img [src]="getMenuIcon(menuItem)" [alt]="menuItem.icon"> -->
+            <i class="fa {{menuItem.icon}}"></i>
             <span class="d-none d-md-block">{{menuItem.title}}</span>
           </a>
 
@@ -22,6 +24,6 @@
       <div class="d-lg-none mobile-toggle pull-right" (click)="openMobileNav()">
         <app-feather-icons [icon]="'more-horizontal'"></app-feather-icons>
       </div>
-    </div> -->
+    </div>
   </div>
 </div>

@@ -12,7 +12,7 @@
           <a [routerLink]="!menuItem.type ? null : [menuItem.path]" routerLinkActive="active" class="navbar-link"
             *ngIf="menuItem.type === 'link'">
             <!-- <img [src]="getMenuIcon(menuItem)" [alt]="menuItem.icon"> -->
-            <i class="fa {{menuItem.icon}}"></i>
+            <i class="fa {{menuItem.icon}}" style="margin-right: 10px;"></i>
             <span class="d-none d-md-block">{{menuItem.title}}</span>
           </a>
 

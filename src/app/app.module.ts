@@ -15,6 +15,7 @@ import { PageWrapperComponent } from './pages/page-wrapper/page-wrapper.componen
 import { MobileModule } from './pages/mobile/mobile.module';
 import { UsersModule } from './pages/users/users.module';
 import { ProfessionalsModule } from './pages/professionals/professionals.module';
+import { CouponsModule } from './pages/coupons/coupons.module';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { ProfessionalsModule } from './pages/professionals/professionals.module'
     MobileModule,
     UsersModule,
     ProfessionalsModule,
+    CouponsModule,
     ToastrModule.forRoot()
   ],
   providers: [

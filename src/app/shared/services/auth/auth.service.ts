@@ -43,7 +43,7 @@ export class AuthService {
   login(email, password) {
     let loginModel = { email, password };
 
-    return this.baseService.post("authenticate", loginModel, BaseUrlTypeEnum.backoffice);
+    return this.baseService.post("authenticate", loginModel, BaseUrlTypeEnum.normal);
   }
 
   getDowingToken() {

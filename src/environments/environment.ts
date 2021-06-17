@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://dev.dowing-api.com.br/api/v1.1',
-  absoluteUrl: 'https://dev.dowing-api.com.br',
+  baseUrl: 'https://dev.mobo.com.br/api/v1',
+  absoluteUrl: 'https://dev.mobo.com.br',
   awsBase: 'https://dev-dragon-dowing-images.s3-sa-east-1.amazonaws.com',
   awsBaseFiles: 'https://dev-dragon-dowing-images.s3-sa-east-1.amazonaws.com/files',
 };

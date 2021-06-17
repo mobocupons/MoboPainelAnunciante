@@ -36,7 +36,7 @@ export class NavService {
 
   USER_MENUITEMS: Menu[] = [
     {
-      path: '/dashboard/profissionais',
+      path: '/dashboard/coupons',
       title: 'Cupons',
       icon: 'fa-barcode',
       type: 'link',

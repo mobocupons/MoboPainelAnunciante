@@ -5,6 +5,7 @@ import { ProfessionalsComponent } from './pages/professionals/professionals.comp
 import { UsersComponent } from './pages/users/users.component';
 import { PageWrapperComponent } from './pages/page-wrapper/page-wrapper.component';
 import { AuthGuard } from './shared/services/auth/auth.guard';
+import { CouponsComponent } from './pages/coupons/coupons.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard/profissionais', pathMatch: 'full' },
@@ -27,8 +28,14 @@ const routes: Routes = [
 
         component: ProfessionalsComponent,
       },
+      {
+        path: 'coupons',
+    
+            component: CouponsComponent,
+      },
     ],
   },
+  
   {
     path: 'login',
     loadChildren: () =>

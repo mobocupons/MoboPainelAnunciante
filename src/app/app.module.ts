@@ -17,6 +17,7 @@ import { UsersModule } from './pages/users/users.module';
 import { ProfessionalsModule } from './pages/professionals/professionals.module';
 import { CouponsModule } from './pages/coupons/coupons.module';
 import { OrdersModule } from './pages/orders/orders.module';
+import { OrdersHistoryModule } from './pages/orders-history/orders-history.module';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { OrdersModule } from './pages/orders/orders.module';
     ProfessionalsModule,
     CouponsModule,
     OrdersModule,
+    OrdersHistoryModule,
     ToastrModule.forRoot()
   ],
   providers: [

@@ -1,0 +1,98 @@
+<div class="modal-header">
+  <h4 class="modal-title text-center">Documentos</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div
+  class="modal-body d-flex flex-column"
+  *ngIf="modalData && modalData[0]; else noDocs"
+>
+  <div class="d-flex align-items-center justify-content-center mb-3">
+    <h5 class="mr-5">Selecione o documento</h5>
+
+    <div ngbDropdown class="d-inline-block">
+      <button
+        class="btn btn-outline-primary"
+        id="dropdownBasic1"
+        ngbDropdownToggle
+      >
+        {{ currentDoc }}
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button ngbDropdownItem *ngFor="let doc of modalData" (click)="fileChange(doc)">
+          {{ doc.name }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div [ngSwitch]="fileType" *ngIf="!isExternal;else externalLink" class="files-wrapper">
+    <div *ngSwitchCase="fileTypeEnum.Image">
+      <img [src]="urlSafe" class="img-fluid" [alt]="currentDoc">
+    </div>
+
+    <div *ngSwitchCase="fileTypeEnum.Video">
+      <div class="ratio-responsive ratio-responsive-16by9">
+        <video class="ratio-responsive-item" controls>
+          <source [src]="urlSafe" [type]="videoDictionary[fileExtension]">
+        </video>
+      </div>
+    </div>
+
+    <div *ngSwitchCase="fileTypeEnum.Pdf">
+      <iframe
+        [src]="urlSafe"
+        width="100%"
+        height="500px"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <div *ngSwitchCase="fileTypeEnum.Doc">
+      <iframe
+        [src]="urlSafe"
+        width="100%"
+        height="500px"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+    </div>
+
+    <div *ngSwitchCase="fileTypeEnum.Audio">
+      <audio controls>
+        <source [src]="urlSafe" [type]="audioDictionary[fileExtension]">
+      </audio>
+    </div>
+
+    <div *ngSwitchDefault>
+      <h2 class="text-center my-5">Este usuário enviou um Documento do tipo .{{ fileExtension }} do qual não há suporte</h2>
+      <a [href]="url" target="_blank" rel="noopener noreferrer" class="w-100 text-center">Para tentar baixa-lo clique aqui</a>
+    </div>
+  </div>
+</div>
+<ng-template #externalLink>
+  <a [href]="url" target="_blank" rel="noopener noreferrer" class="w-100 text-center">{{ url }}</a>
+</ng-template>
+
+<ng-template
+  class="modal-body d-flex flex-column align-items-center justify-content-center"
+  #noDocs
+>
+  <h2 class="text-center my-5">Este usuário não enviou nenhum Documento</h2>
+</ng-template>
+<div class="modal-footer">
+  <button
+    type="button"
+    class="btn btn-outline-dark"
+    (click)="activeModal.close('Close click')"
+  >
+    Close
+  </button>
+</div>

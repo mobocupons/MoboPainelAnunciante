@@ -7,6 +7,7 @@ import { PageWrapperComponent } from './pages/page-wrapper/page-wrapper.componen
 import { AuthGuard } from './shared/services/auth/auth.guard';
 import { CouponsComponent } from './pages/coupons/coupons.component';
 import { OrdersComponent } from './pages/orders/orders.component';
+import { OrdersHistoryComponent } from './pages/orders-history/orders-history.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard/coupons', pathMatch: 'full' },
@@ -18,6 +19,11 @@ const routes: Routes = [
         path: 'orders',
 
         component: OrdersComponent,
+      },
+      {
+        path: 'orders-history',
+
+        component: OrdersHistoryComponent,
       },
       {
         path: 'coupons',

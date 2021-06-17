@@ -48,7 +48,7 @@ export class NavService {
       type: 'link',
     },
     {
-      path: '/dashboard/usuarios',
+      path: '/dashboard/orders-history',
       title: 'Histórico',
       icon: 'fa-history',
       type: 'link',

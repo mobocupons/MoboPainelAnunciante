@@ -16,12 +16,13 @@ import { MobileModule } from './pages/mobile/mobile.module';
 import { UsersModule } from './pages/users/users.module';
 import { ProfessionalsModule } from './pages/professionals/professionals.module';
 import { CouponsModule } from './pages/coupons/coupons.module';
+import { OrdersModule } from './pages/orders/orders.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageWrapperComponent
+    PageWrapperComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +34,7 @@ import { CouponsModule } from './pages/coupons/coupons.module';
     UsersModule,
     ProfessionalsModule,
     CouponsModule,
+    OrdersModule,
     ToastrModule.forRoot()
   ],
   providers: [

@@ -6,27 +6,18 @@ import { UsersComponent } from './pages/users/users.component';
 import { PageWrapperComponent } from './pages/page-wrapper/page-wrapper.component';
 import { AuthGuard } from './shared/services/auth/auth.guard';
 import { CouponsComponent } from './pages/coupons/coupons.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard/profissionais', pathMatch: 'full' },
+  { path: '', redirectTo: '/dashboard/coupons', pathMatch: 'full' },
   {
     path: 'dashboard',
     component: PageWrapperComponent,
     children: [
       {
-        path: 'aplicativos',
-        canActivate: [AuthGuard],
-        component: MobileComponent,
-      },
-      {
-        path: 'usuarios',
-        canActivate: [AuthGuard],
-        component: UsersComponent,
-      },
-      {
-        path: 'profissionais',
+        path: 'orders',
 
-        component: ProfessionalsComponent,
+        component: OrdersComponent,
       },
       {
         path: 'coupons',

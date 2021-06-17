@@ -42,7 +42,7 @@ export class NavService {
       type: 'link',
     },
     {
-      path: '/dashboard/aplicativos',
+      path: '/dashboard/orders',
       title: 'Pedidos',
       icon: 'fa-bell',
       type: 'link',

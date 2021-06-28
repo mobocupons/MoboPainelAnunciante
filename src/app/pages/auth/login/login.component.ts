@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { AuthService } from "src/app/shared/services/auth/auth.service";
 import { Constants } from "src/app/shared/utils/constants";
 import { JwtHelperService } from "@auth0/angular-jwt";
+import {CampanhaService} from "../../../shared/services/campanha.service"
 
 type UserFields = "email" | "password";
 type FormErrors = { [u in UserFields]: string };
@@ -27,9 +28,10 @@ export class LoginComponent implements OnInit {
     public authService: AuthService,
     private fb: FormBuilder,
     private router: Router,
-    private localStorageService: LocalStorageService) {
+    private localStorageService: LocalStorageService,
+   ) {
     this.loginForm = fb.group({
-      email: ["", [Validators.required, Validators.email]],
+      email: ["", [Validators.required]],
       password: ["", Validators.required],
     });
   }
@@ -54,10 +56,9 @@ export class LoginComponent implements OnInit {
       this.loginForm.value["email"],
       this.loginForm.value["password"]
     ).subscribe(res => {
-      localStorage.setItem(Constants.DOWING_TOKEN, JSON.stringify(res));
-      localStorage.setItem(Constants.ACCESS_TOKEN, res.access_token);
+      this.localStorageService.setItem(Constants.ANUNCIANTE,JSON.stringify(res.value))
       this.authService.showLoader = false;
-      this.router.navigate(['/dashboard/profissionais']);
+      this.router.navigate(['/dashboard/coupons']);
     },
       err => {
         console.log(err)

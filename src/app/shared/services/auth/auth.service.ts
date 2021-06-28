@@ -40,10 +40,10 @@ export class AuthService {
       );
   }
 
-  login(email, password) {
-    let loginModel = { email, password };
+  login(user, senha) {
+    let loginModel = { user, senha };
 
-    return this.baseService.post("authenticate", loginModel, BaseUrlTypeEnum.normal);
+    return this.baseService.post("Anunciante/Autenticar", loginModel, BaseUrlTypeEnum.normal);
   }
 
   getDowingToken() {

@@ -26,7 +26,9 @@ export class HeaderComponent implements OnInit {
   }
 
   setMenuItems() {
+    this.navServices.getMenuItens();
     this.navServices.items.subscribe(menuItems => {
+      
       this.menuItems = menuItems
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {

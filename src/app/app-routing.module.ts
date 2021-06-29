@@ -17,17 +17,17 @@ const routes: Routes = [
     children: [
       {
         path: 'orders',
-
+        canActivate: [AuthGuard],
         component: OrdersComponent,
       },
       {
         path: 'orders-history',
-
+        canActivate: [AuthGuard],
         component: OrdersHistoryComponent,
       },
       {
         path: 'coupons',
-    
+        canActivate: [AuthGuard],
             component: CouponsComponent,
       },
     ],

@@ -6,6 +6,7 @@ import { AuthService } from "src/app/shared/services/auth/auth.service";
 import { Constants } from "src/app/shared/utils/constants";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import {CampanhaService} from "../../../shared/services/campanha.service"
+import { Anunciante } from 'src/app/shared/models/anunciante.model';
 
 type UserFields = "email" | "password";
 type FormErrors = { [u in UserFields]: string };
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
     password: "",
   };
   public errorMessage: any;
+
 
   constructor(
     public authService: AuthService,
@@ -56,6 +58,8 @@ export class LoginComponent implements OnInit {
       this.loginForm.value["email"],
       this.loginForm.value["password"]
     ).subscribe(res => {
+      
+      
       this.localStorageService.setItem(Constants.ANUNCIANTE,JSON.stringify(res.value))
       this.authService.showLoader = false;
       this.router.navigate(['/dashboard/coupons']);

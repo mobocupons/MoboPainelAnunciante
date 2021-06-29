@@ -49,8 +49,6 @@ export class NavService {
     var anunciante = this.localStorageService.getAnunciante() as Anunciante;
     if(this.USER_MENUITEMS.length == 1){
       this.campanhaService.getCampanhasAtivasPorAnunciante(anunciante.id).subscribe(item=>{
-        
-        console.log(item)
         if(anunciante != null && anunciante.deliveryApp == true && item!= null){
           this.USER_MENUITEMS.push({
             path: '/dashboard/orders',

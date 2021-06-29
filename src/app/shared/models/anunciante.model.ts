@@ -42,7 +42,7 @@ export class Anunciante{
     informacoes: String
     inscEstadual: String
     inscMunicipal: String
-    locals: any[]
+    locais: any[]
     mostrarConsumidos: boolean
     movimentos: any[]
     nome: String

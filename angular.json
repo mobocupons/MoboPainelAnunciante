@@ -60,9 +60,9 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": ["src/_redirects", "src/favicon.ico", "src/assets"],
+            "assets": ["src/_redirects", "src/favicon.ico", "src/assets", "src/manifest.json", "src/firebase-messaging-sw.js"],
             "styles": ["src/styles.scss", "src/assets/scss/app.scss"],
-            "scripts": []
+            "scripts": ["src/firebase-messaging-sw.ts"]
           },
           "configurations": {
             "production": {

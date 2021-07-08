@@ -18,7 +18,13 @@ import { ProfessionalsModule } from './pages/professionals/professionals.module'
 import { CouponsModule } from './pages/coupons/coupons.module';
 import { OrdersModule } from './pages/orders/orders.module';
 import { OrdersHistoryModule } from './pages/orders-history/orders-history.module';
-
+import { FCMService } from './shared/services/fcm.service';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { environment } from 'src/environments/environment';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AsyncPipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -37,10 +43,16 @@ import { OrdersHistoryModule } from './pages/orders-history/orders-history.modul
     CouponsModule,
     OrdersModule,
     OrdersHistoryModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    AngularFireMessagingModule,
   ],
   providers: [
     AuthService,
+    FCMService,
+    AsyncPipe,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

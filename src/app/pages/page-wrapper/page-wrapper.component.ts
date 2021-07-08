@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Menu, NavService } from 'src/app/shared/services/nav.service';
+import { FCMService} from 'src/app/shared/services/fcm.service';
 
 @Component({
   selector: 'app-page-wrapper',
@@ -11,11 +12,14 @@ export class PageWrapperComponent implements OnInit {
 
   public currentMenuItem: Menu;
   public menuItems: Menu[];
-
-  constructor(public navService: NavService, private router: Router) { }
+  public message;
+  constructor(public navService: NavService, private router: Router, public fcm: FCMService) { }
 
   ngOnInit(): void {
     this.setMenuItems();
+    this.fcm.requestPerm()
+    this.fcm.receiveMessage()
+    this.message = this.fcm.currentMessage
   }
 
   setMenuItems() {

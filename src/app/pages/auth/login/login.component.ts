@@ -58,8 +58,6 @@ export class LoginComponent implements OnInit {
       this.loginForm.value["email"],
       this.loginForm.value["password"]
     ).subscribe(res => {
-      
-      
       this.localStorageService.setItem(Constants.ANUNCIANTE,JSON.stringify(res.value))
       this.authService.showLoader = false;
       this.router.navigate(['/dashboard/coupons']);

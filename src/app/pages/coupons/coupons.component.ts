@@ -61,6 +61,7 @@ export class CouponsComponent implements OnInit {
     this.showLoader = true;
     let coupons = [this.couponsForm.value["name"]];
     let localId = this.localForm.value["name"];
+
     this.couponService.postValidateCoupon(this.anunciante.id, localId, coupons).subscribe(item=>{
       if(item==null){
         Swal.fire('Cupom não existe',
@@ -70,5 +71,4 @@ export class CouponsComponent implements OnInit {
       this.showLoader = false;
     });
   }
-
 }

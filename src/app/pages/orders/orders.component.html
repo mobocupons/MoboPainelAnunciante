@@ -1,10 +1,45 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
   <div class="row mt-5">
     <div class="col-12">
       <div class="container-fluid">
         <div class="row justify-content-around">
 
-          <div class="card fixed-max-height shadow-none rounded border w-100 h-100">
+         
+
+
+
+
+</div> -->
+
+<div class="container-fluid">
+  <div class="d-flex justify-content-between">
+    <div class="card-body w-30 mh-25">
+      <input _ngcontent-msp-c210="" type="text" aria-label="Amount (to the nearest dollar)" class="form-control">
+      <div class="list-group" style="overflow: auto; max-height: 600px;">
+
+        <div class="card-body d-flex justify-content-between shadow-sm mb-2 mt-2 list-group-item-action"
+          style="min-height: 100px;" *ngFor="let order of pendingOrders" >
+          <div class="d-flex flex-column">
+            <label>{{order.codigo}}</label>
+            <label>{{order.horario}}</label>
+          </div>
+          <div class="d-flex flex-column">
+            <label>{{order.nome}}</label>
+            <label>{{order.telefone}}</label>
+          </div>
+          <div class="d-flex flex-column">
+            <label class="bg-red text-center">{{order.status}}</label>
+            <label>{{order.previsao}}</label>
+          </div>
+           <div class="d-flex flex-column">
+            <label><button type="button" placement="top" ngbtooltip="btn btn-success" class="btn btn-success"  style="width: 115px;"(click)="acceptOrder(order.codigo)" >Aceitar</button></label>
+            <label><button type="button" placement="top" ngbtooltip="btn btn-warning" class="btn btn-warning"  style="width: 115px;">Recusar</button></label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body w-70 ">
+       <div class="card fixed-max-height shadow-none rounded border w-100 h-100" style="overflow: auto; max-height: 800px;" >
             <div class="card-body">
               <div class="d-flex justify-content-between mb-3">
                 <h4 class="card-title mb-3">Pedidos</h4>
@@ -23,91 +58,142 @@
                 </div>
               </div>
               <div class="vertical-separator bg-gray"></div>
-              <div class="d-flex h-100 w-100 flex-column justify-content-center  p-5">
+              <div class="d-flex h-100 w-100 flex-column justify-content-center  p-5 " style="width:1800px;" *ngIf="!selectedOrder">
                 <h5 class="text-center text-blue">Fique de olho</h5>
-                <label class="text-center text-blue">Enquanto houver campanhas de delivery ativas, os pedidos de seus
+                <label class="text-center text-blue">Não temos pedidos aceitos para hoje
                   clientes
                   aparecerão
                   aqui.</label>
               </div>
+                <div class="d-flex  justify-content-center shadow" style="padding:20px; marging:20px; " *ngFor="let order of accepetedOrders">
+                
+                  <div class="w-50 mr-5">
+                    <div>
+                      <i class="fa fa-user mr-3 fa-2x"></i>
+                      <label>
+                        <h5 class="mr-3 ">{{order.nome}}</h5>
+                      </label>
+                      <label>{{order.telefone}}</label>
+                    </div>
+                    <div>
+                      <i class="fa fa-map-marker fa-2x mr-3"></i>
+                      <label>
+                        <h5 class="mr-3 ">Bom Fim, Avenida Osvaldo Aranha, 2381, apto 105</h5>
+                      </label>
+                    </div>
+                    <div class="d-flex flex-column mt-4 mb-4">
+                      <label class="text-black"> Delivery: 2 xis salada + refri (600ml) de R$ 42,00 por R$ 35,70. Cupom
+                        XA0CKDelivery: 2 xis
+                        salada + refri (600ml) de R$ 42,00 por R$ 35,70. </label>
+                      <label class="text-black">Cupom XA0CK</label>
+                    </div>
+                    <div class="d-flex mb-2 flex-column">
+                      <label class="text-gray"> Solicitação em 05/02/2022 às 13:54</label>
+                      <label class="text-gray">Aguardando Aprovação</label>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-column w-50">
+                    <label class="text-black">Pagamento em Cartão de Débito (na entrega)</label>
+                    <label class="text-black">Observações: --</label>
+                    <div class="d-flex justify-content-between mt-5">
+                      <label class="text-black">Valor do pedido</label>
+                      <label class="text-black">R$35,70</label>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <label class="text-black">Taxa de entrega</label>
+                      <label class="text-black">R$5,00</label>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <label class="text-blue">Total</label>
+                      <label class="text-blue">R$42,70</label>
+                    </div>
+                    <div class="d-flex justify-content-between m-2 mt-4">
+                      <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-light"
+                        class="btn btn-light btn-lg w-50 mr-1">Recusar</button>
+                      <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-secondary"
+                        class="btn btn-secondary btn-lg w-50 ml-1">Aprovar</button>
+                    </div>
+                  </div>
+                  
+                   
+                 
+                 
+                </div>
+                
             </div>
           </div>
+    </div>
+  </div>
 
-          <div class="card fixed-max-height shadow-none rounded border w-100 h-100">
-            <div class="card-body">
-              <div class="d-flex justify-content-between mb-3">
-                <h4 class="card-title mb-3">Pedidos</h4>
-                <div class="d-flex justify-content-end">
-                  <select _ngcontent-msp-c208="" id="exampleFormControlSelect9" class="form-control digits mr-4">
-                    <option _ngcontent-msp-c208="">1</option>
-                    <option _ngcontent-msp-c208="">2</option>
-                    <option _ngcontent-msp-c208="">3</option>
-                    <option _ngcontent-msp-c208="">4</option>
-                    <option _ngcontent-msp-c208="">5</option>
-                  </select>
+</div>
 
-                  <input _ngcontent-msp-c210="" type="text" aria-label="Amount (to the nearest dollar)"
-                    class="form-control">
-                  <div _ngcontent-msp-c210="" class="input-group-append"></div>
-                </div>
-              </div>
-              <div class="vertical-separator bg-gray"></div>
-              <div class="d-flex h-100 w-100 justify-content-center p-5">
-                <div class="w-50 mr-5">
-                  <div>
-                    <i class="fa fa-user mr-3 fa-2x"></i>
-                    <label>
-                      <h5 class="mr-3 ">João Silva</h5>
-                    </label>
-                    <label>(51999484537)</label>
-                  </div>
-                  <div>
-                    <i class="fa fa-map-marker fa-2x mr-3"></i>
-                    <label>
-                      <h5 class="mr-3 ">Bom Fim, Avenida Osvaldo Aranha, 2381, apto 105</h5>
-                    </label>
-                  </div>
-                  <div class="d-flex flex-column mt-4 mb-4">
-                    <label class="text-black"> Delivery: 2 xis salada + refri (600ml) de R$ 42,00 por R$ 35,70. Cupom
-                      XA0CKDelivery: 2 xis
-                      salada + refri (600ml) de R$ 42,00 por R$ 35,70. </label>
-                    <label class="text-black">Cupom XA0CK</label>
-                  </div>
-                  <div class="d-flex mb-2 flex-column">
-                    <label class="text-gray"> Solicitação em 05/02/2022 às 13:54</label>
-                    <label class="text-gray">Aguardando Aprovação</label>
-                  </div>
-                </div>
-                <div class="d-flex flex-column w-50">
-                  <label class="text-black">Pagamento em Cartão de Débito (na entrega)</label>
-                  <label class="text-black">Observações: --</label>
-                  <div class="d-flex justify-content-between mt-5">
-                    <label class="text-black">Valor do pedido</label>
-                    <label class="text-black">R$35,70</label>
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    <label class="text-black">Taxa de entrega</label>
-                    <label class="text-black">R$5,00</label>
-                  </div>
-                  <div class="d-flex justify-content-between">
-                    <label class="text-blue">Total</label>
-                    <label class="text-blue">R$42,70</label>
-                  </div>
-                  <div class="d-flex justify-content-between m-2 mt-4">
-                    <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-danger"
-                      class="btn btn-danger btn-lg w-50 mr-1">Recusar</button>
-                    <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-success"
-                      class="btn btn-success btn-lg w-50 ml-1">Aprovar</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
+<!-- <div class="card fixed-max-height shadow-none rounded border w-100 h-100">
+  <div class="card-body">
+    <div class="d-flex justify-content-between mb-3">
+      <h4 class="card-title mb-3">Pedidos</h4>
+      <div class="d-flex justify-content-end">
+        <select _ngcontent-msp-c208="" id="exampleFormControlSelect9" class="form-control digits mr-4">
+          <option _ngcontent-msp-c208="">1</option>
+          <option _ngcontent-msp-c208="">2</option>
+          <option _ngcontent-msp-c208="">3</option>
+          <option _ngcontent-msp-c208="">4</option>
+          <option _ngcontent-msp-c208="">5</option>
+        </select>
+
+        <input _ngcontent-msp-c210="" type="text" aria-label="Amount (to the nearest dollar)" class="form-control">
+        <div _ngcontent-msp-c210="" class="input-group-append"></div>
+      </div>
+    </div>
+    <div class="vertical-separator bg-gray"></div>
+    <div class="d-flex h-100 w-100 justify-content-center p-5">
+      <div class="w-50 mr-5">
+        <div>
+          <i class="fa fa-user mr-3 fa-2x"></i>
+          <label>
+            <h5 class="mr-3 ">João Silva</h5>
+          </label>
+          <label>(51999484537)</label>
+        </div>
+        <div>
+          <i class="fa fa-map-marker fa-2x mr-3"></i>
+          <label>
+            <h5 class="mr-3 ">Bom Fim, Avenida Osvaldo Aranha, 2381, apto 105</h5>
+          </label>
+        </div>
+        <div class="d-flex flex-column mt-4 mb-4">
+          <label class="text-black"> Delivery: 2 xis salada + refri (600ml) de R$ 42,00 por R$ 35,70. Cupom
+            XA0CKDelivery: 2 xis
+            salada + refri (600ml) de R$ 42,00 por R$ 35,70. </label>
+          <label class="text-black">Cupom XA0CK</label>
+        </div>
+        <div class="d-flex mb-2 flex-column">
+          <label class="text-gray"> Solicitação em 05/02/2022 às 13:54</label>
+          <label class="text-gray">Aguardando Aprovação</label>
+        </div>
+      </div>
+      <div class="d-flex flex-column w-50">
+        <label class="text-black">Pagamento em Cartão de Débito (na entrega)</label>
+        <label class="text-black">Observações: --</label>
+        <div class="d-flex justify-content-between mt-5">
+          <label class="text-black">Valor do pedido</label>
+          <label class="text-black">R$35,70</label>
+        </div>
+        <div class="d-flex justify-content-between">
+          <label class="text-black">Taxa de entrega</label>
+          <label class="text-black">R$5,00</label>
+        </div>
+        <div class="d-flex justify-content-between">
+          <label class="text-blue">Total</label>
+          <label class="text-blue">R$42,70</label>
+        </div>
+        <div class="d-flex justify-content-between m-2 mt-4">
+          <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-danger"
+            class="btn btn-danger btn-lg w-50 mr-1">Recusar</button>
+          <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-success"
+            class="btn btn-success btn-lg w-50 ml-1">Aprovar</button>
         </div>
       </div>
     </div>
   </div>
-
-
-</div>
+</div> -->

@@ -20,7 +20,7 @@ import { OrdersModule } from './pages/orders/orders.module';
 import { OrdersHistoryModule } from './pages/orders-history/orders-history.module';
 import { FCMService } from './shared/services/fcm.service';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { AngularFireMessaging, AngularFireMessagingModule } from '@angular/fire/messaging';
 import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -53,6 +53,7 @@ import { AsyncPipe } from '@angular/common';
     AuthService,
     FCMService,
     AsyncPipe,
+    ServiceWorker,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

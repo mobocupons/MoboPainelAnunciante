@@ -9,6 +9,7 @@ import { Anunciante } from "../models/anunciante.model";
 import { Constants } from "../utils/constants";
 import{HubConnectionService} from "./hubconnection.service"
 import{Order} from "src/app/shared/models/order.model"
+import { Local } from "../models/local.model";
 
 @Injectable()
 export class  FCMService{
@@ -32,13 +33,12 @@ public prop: any;
 
     requestPerm(){
         this.angularFirebaseMessaging.requestToken.subscribe((token)=>{
-            console.log(token);
             let anunciante = JSON.parse(localStorage.getItem(Constants.ANUNCIANTE)) as Anunciante;
+            let local = JSON.parse(localStorage.getItem(Constants.LOCAL)) as Local;
             let storagedToken = localStorage.getItem(Constants.TOKEN);
             if(anunciante && !storagedToken){
                 localStorage.setItem(Constants.TOKEN, token)
-                console.log(anunciante.locais[0].id);
-                this.hub.setConectionToken(anunciante.locais[0].id,token)
+                this.hub.setConectionToken(local!=null ? local.id : anunciante.locais[0].id,token)
             }
         },
         (err)=>

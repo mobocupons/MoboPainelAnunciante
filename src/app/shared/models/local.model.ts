@@ -1,15 +1,28 @@
+import { Anunciante } from "./anunciante.model"
+
 export class Local{
-    anuncianteId: number
-    campanhaLocals: any[]
-    cartaos: any[]
-    cidade: String
-    coordLat: number
-    coordLong: number
-    endereco: String
-    fidelidadeLocals: any[]
-    id: number
-    nome: String
-    telefone: String
-    uf: String
-    usuario: String
+    id : number 
+    anuncianteId : number 
+    nome :  String
+    endereco :  String
+    cidade :  String
+    uf :  String 
+    coordLat : number 
+    coordLong : number
+    telefone :  String 
+    usuario :  String
+    razaoSocial :  String
+    sedeNumero : String    
+    sedeComplemento : String
+    sedeCep : String
+    registroNumero : String
+    inscMunicipal :    String
+    inscEstadual :  String  
+    email :  String
+    optanteSimples : boolean 
+    anunciante :  Anunciante 
+    campanhaLocals :  any[] 
+    cartaos :  any[] 
+    fidelidadeLocals :  any[] 
+    conexaoHubs :  any[]
 }

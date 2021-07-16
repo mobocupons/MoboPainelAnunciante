@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
+import { OrderService } from 'src/app/shared/services/order.service';
 
 @Component({
   selector: 'app-orders-history',
@@ -10,7 +12,11 @@ export class OrdersHistoryComponent implements OnInit {
 
   public couponsForm: FormGroup;
   public campanhas: String[];
-  constructor( private fb: FormBuilder) { 
+  public orders: any[] = []
+  public haveOrders: boolean = false
+  public meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago","Set","Out","Nov","Dez"];
+  constructor( private fb: FormBuilder,private orderService: OrderService,
+    private localStorageService: LocalStorageService) { 
     this.couponsForm = this.fb.group({
       name: ['', Validators.required],
       
@@ -22,6 +28,25 @@ export class OrdersHistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getOrders()
   }
+getOrders()
+{
+  let anunciante=  this.localStorageService.getAnunciante();
+    let local=  this.localStorageService.getLocal();
+    let localId = local!=null ? local.id : anunciante.locais[0].id;
+    this.orderService.getAll(localId).subscribe(item=>{
+        this.orders = item.value;
+        if(this.orders!=null){
+          this.haveOrders = true
+        }
+    })
+}
+
+getDateTime(date){
+  date = new Date(date);
+  var newDate = ((date.getDate() + " " + this.meses[(date.getMonth())] + " " + date.getFullYear()+ " as " + date.getHours()+ ":" + date.getMinutes()))
+  return newDate
+}
 
 }

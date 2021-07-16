@@ -9,6 +9,7 @@ import { PriceLevelService } from 'src/app/shared/services/price-level.service';
 import { ProfessionalService } from 'src/app/shared/services/professional.service';
 import { CouponService } from 'src/app/shared/services/coupon.service';
 import Swal from 'sweetalert2'
+import { Local } from 'src/app/shared/models/local.model';
 @Component({
   selector: 'app-coupons',
   templateUrl: './coupons.component.html',
@@ -21,6 +22,7 @@ export class CouponsComponent implements OnInit {
   public localForm: FormGroup;
   public campanhas: String[];
   public anunciante: Anunciante = this.localStorageService.getAnunciante() as Anunciante;
+  public local: Local = this.localStorageService.getLocal() as Local;
   public showLoader = false;
 
   constructor(private professionalService: ProfessionalService,
@@ -37,7 +39,7 @@ export class CouponsComponent implements OnInit {
         
       });
       this.localForm = this.fb.group({
-        name: [this.anunciante.locais[0].id, Validators.required],
+        name: [this.local!=null ? this.local.id : this.anunciante.locais[0].id, Validators.required],
         
       });
       this.campanhas = [

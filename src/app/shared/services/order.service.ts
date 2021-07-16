@@ -3,6 +3,7 @@ import { BaseService } from './base.service';
 import { BaseUrlTypeEnum } from '../utils/enums/base-url-type.enum';
 import { PriceLevel } from '../domains/price-level.interface';
 import { Observable } from 'rxjs';
+import {CompleteOrder} from "src/app/shared/models/complete-order.model"
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +14,13 @@ export class OrderService {
 
   constructor(private baseService: BaseService) { }
 
-  getAll(localId): Observable<any[]> {
+  getAll(localId): Observable<CompleteOrder> {
     let url = this.url+"/Local/"+localId;
     return this.baseService.get(url, BaseUrlTypeEnum.normal);
   }
-  changeStatus(status, id): Observable<any[]> {
-      let url = this.url+"/"+id+"/StatusPedido/"+status;
-    return this.baseService.post(url, BaseUrlTypeEnum.normal);
+  changeStatus(pedidoStatusId, id): Observable<any[]> {
+      let url = this.url+"/AtualizarStatusPedido";
+      let body = {id,pedidoStatusId}
+    return this.baseService.post(url,body, BaseUrlTypeEnum.normal);
   }
 }

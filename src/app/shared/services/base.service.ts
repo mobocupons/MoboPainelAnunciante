@@ -34,9 +34,6 @@ export class BaseService {
   }
 
   getURL(baseUrlType: BaseUrlTypeEnum) {
-    if (baseUrlType != BaseUrlTypeEnum.normal) {
-      return `${this.BASE_URL}/${BaseUrlTypeEnum[baseUrlType]}`
-    }
-    return this.BASE_URL;
+    return `${this.BASE_URL}`;
   }
 }

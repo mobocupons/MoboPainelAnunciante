@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { isThisSecond } from 'date-fns';
+import { ValueCompleteOrder } from 'src/app/shared/models/complete-order.model';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import {OrderService} from "src/app/shared/services/order.service"
 import { Constants } from 'src/app/shared/utils/constants';
@@ -12,65 +14,9 @@ import { Constants } from 'src/app/shared/utils/constants';
 export class OrdersComponent implements OnInit {
   public couponsForm: FormGroup;
   public campanhas: String[];
-  
-  public accepetedOrders: any[] = []
-  public pendingOrders:any[] = [{
-    codigo: "0451",
-    titulo:"Teste 1",
-    nome:"Osvaldir",
-    telefone:"51982823634",
-    status:"pendente",
-    previsao:"13:00",
-    horario:"12:00"
-  },{
-    codigo: "0452",
-    titulo:"Teste 2",
-    nome:"Marcelo",
-    telefone:"51982823634",
-    status:"pendente",
-    previsao:"13:00",
-    horario:"12:00"
-  },{
-    codigo: "0453",
-    titulo:"Teste 3",
-    nome:"Matheus",
-    telefone:"51982823634",
-    status:"pendente",
-    previsao:"13:00",
-    horario:"12:00"
-  },{
-    codigo: "0454",
-    titulo:"Teste 4",
-    nome:"Isadora",
-    telefone:"51982823634",
-    status:"pendente",
-    previsao:"13:00",
-    horario:"12:00"
-  },{
-    codigo: "0455",
-    titulo:"Teste 5",
-    nome:"Pedro",
-    telefone:"51982823634",
-    status:"pendente",
-    previsao:"13:00",
-    horario:"12:00"
-  },{
-    codigo: "0456",
-    titulo:"Teste 6",
-    nome:"Mateus",
-    telefone:"51982823634",
-    status:"pendente",
-    previsao:"13:00",
-    horario:"12:00"
-  },{
-    codigo: "0457",
-    titulo:"Teste 7",
-    nome:"Fernanda",
-    telefone:"51982823634",
-    status:"pendente",
-    previsao:"13:00",
-    horario:"12:00"
-  }]
+  public meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago","Set","Out","Nov","Dez"];
+  public accepetedOrders: ValueCompleteOrder[] = []
+  public pendingOrders:ValueCompleteOrder[] = []
 
   selectedOrder: any
   
@@ -87,26 +33,68 @@ export class OrdersComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.getDailyOrder()
   }
 
   selectOrder(code)
   {
-    console.log(code)
-    this.selectedOrder = this.pendingOrders.find(x=>x.codigo == code);
-    console.log(this.selectedOrder)
+    this.selectedOrder = this.pendingOrders.find(x=>x.id == code);
   }
   acceptOrder(code)
   {
-    this.accepetedOrders.push(this.pendingOrders.find(x=>x.codigo == code))
+    this.orderService.changeStatus(2,code).subscribe(item=>console.log(item),error=>console.log(error))
+    this.accepetedOrders.push(this.pendingOrders.find(x=>x.id == code))
     this.selectOrder(code)
-    this.pendingOrders = this.pendingOrders.filter(x=>x.codigo != code)
+    this.pendingOrders = this.pendingOrders.filter(x=>x.id != code)
     
   }
+
+  refuseOrder(code)
+  {
+    this.orderService.changeStatus(3,code).subscribe(item=>console.log(item),error=>console.log(error))
+    this.pendingOrders = this.pendingOrders.filter(x=>x.id != code)
+    
+  }
+
+  cancelOrder(code)
+  {
+    this.orderService.changeStatus(6,code).subscribe(item=>console.log(item),error=>console.log(error))
+    this.accepetedOrders = this.accepetedOrders.filter(x=>x.id != code)
+    
+  }
+  deliverOrder(code)
+  {
+    this.orderService.changeStatus(4,code).subscribe(item=>console.log(item),error=>console.log(error))
+    this.accepetedOrders = this.accepetedOrders.filter(x=>x.id != code)
+    
+  }
+
   getDailyOrder(){
     let anunciante=  this.localStorageService.getAnunciante();
-    let localId = anunciante.locais[0].id;
+    let local=  this.localStorageService.getLocal();
+    let localId = local!=null ? local.id : anunciante.locais[0].id;
     this.orderService.getAll(localId).subscribe(item=>{
-
+      item.value.forEach(x=>{
+        if(x.pedidoStatusId==1){
+          this.pendingOrders.push(x)
+        }
+        else if(x.pedidoStatusId==2){
+          this.accepetedOrders.push(x)
+          this.selectedOrder = x
+        }
+      })
     })
+  }
+
+  getDate(date){
+    date = new Date(date);
+    var newDate = ((date.getDate() + " " + this.meses[(date.getMonth())] + " " + date.getFullYear()))
+    return newDate
+  }
+
+  getDateTime(date){
+    date = new Date(date);
+    var newDate = ((date.getDate() + " " + this.meses[(date.getMonth())] + " " + date.getFullYear()+ " as " + date.getHours()+ ":" + date.getMinutes()))
+    return newDate
   }
 }

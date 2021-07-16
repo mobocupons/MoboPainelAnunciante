@@ -7,6 +7,7 @@ import { Constants } from "src/app/shared/utils/constants";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import {CampanhaService} from "../../../shared/services/campanha.service"
 import { Anunciante } from 'src/app/shared/models/anunciante.model';
+import { Local } from 'src/app/shared/models/local.model';
 
 type UserFields = "email" | "password";
 type FormErrors = { [u in UserFields]: string };
@@ -58,9 +59,20 @@ export class LoginComponent implements OnInit {
       this.loginForm.value["email"],
       this.loginForm.value["password"]
     ).subscribe(res => {
-      this.localStorageService.setItem(Constants.ANUNCIANTE,JSON.stringify(res.value))
-      this.authService.showLoader = false;
-      this.router.navigate(['/dashboard/coupons']);
+      var teste = parseInt(this.loginForm.value["email"])
+      if(!isNaN(teste) && typeof teste == "number"){
+        this.localStorageService.setItem(Constants.ANUNCIANTE,JSON.stringify(res.value))
+        this.authService.showLoader = false;
+        this.router.navigate(['/dashboard/coupons']);
+      }
+      else{
+        this.localStorageService.setItem(Constants.LOCAL,JSON.stringify(res.value))
+        this.localStorageService.setItem(Constants.ANUNCIANTE,JSON.stringify(res.value.anunciante))
+        this.authService.showLoader = false;
+        this.router.navigate(['/dashboard/coupons']);
+      }
+    
+      
     },
       err => {
         console.log(err)

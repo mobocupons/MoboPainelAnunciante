@@ -2,6 +2,7 @@ import { DowingToken } from "./../domains/dowing-token.interface";
 import { Constants } from "./../utils/constants";
 import { Injectable } from "@angular/core";
 import { Anunciante } from "../models/anunciante.model";
+import { Local } from "../models/local.model";
 
 @Injectable({
   providedIn: "root",
@@ -22,6 +23,9 @@ export class LocalStorageService {
   }
   getAnunciante() {
     return ( JSON.parse(localStorage.getItem(Constants.ANUNCIANTE)) as Anunciante) || null;
+  }
+  getLocal() {
+    return ( JSON.parse(localStorage.getItem(Constants.LOCAL)) as Local) || null;
   }
 
   getManager() {

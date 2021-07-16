@@ -3,6 +3,8 @@ import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import {Anunciante} from '../models/anunciante.model'
 import { CampanhaService } from './campanha.service';
+import { AnuncianteService } from './anunciante.service';
+import { Local } from '../models/local.model';
 
 // Menu
 export interface Menu {
@@ -31,7 +33,8 @@ export class NavService {
       type: 'link',
     }];
   constructor(private localStorageService: LocalStorageService,
-    private campanhaService: CampanhaService) {
+    private campanhaService: CampanhaService,
+    private anuncianteService: AnuncianteService) {
     this.onResize();
     
     if (this.screenWidth < 991) {
@@ -47,10 +50,11 @@ export class NavService {
 
   getMenuItens(){
     var anunciante = this.localStorageService.getAnunciante() as Anunciante;
+    var local = this.localStorageService.getLocal() as Local;
+
     if(this.USER_MENUITEMS.length == 1){
       // this.campanhaService.getCampanhasAtivasPorAnunciante(anunciante.id).subscribe(item=>{
-        let anunciante=  this.localStorageService.getAnunciante();
-        if(anunciante != null && anunciante.deliveryApp == true){
+        if(local != null && anunciante.deliveryApp == true){
           this.USER_MENUITEMS.push({
             path: '/dashboard/orders',
             title: 'Pedidos',

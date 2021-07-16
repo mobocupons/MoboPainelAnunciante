@@ -3,5 +3,6 @@ export const Constants = {
     ACCESS_TOKEN: 'access-token',
     IS_ADMIN: 'is-admin',
     ANUNCIANTE: 'anunciante',
+    LOCAL: 'local',
     TOKEN:'token'
 }

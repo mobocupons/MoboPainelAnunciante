@@ -20,7 +20,8 @@ export class CampanhaService {
   }
 
   getCampanhasAtivasPorAnunciante(anuncianteId) {
-      let filterModel = {anuncianteId}
+    anuncianteId = 55
+    let filterModel = {anuncianteId}
     return this.baseService.post(`Campanha/ObterCampanhasAtivasPorAnunciante`,filterModel, BaseUrlTypeEnum.normal);
   }
 }

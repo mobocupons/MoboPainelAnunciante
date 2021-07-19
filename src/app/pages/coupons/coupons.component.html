@@ -45,9 +45,15 @@
                   <!-- <app-loader *ngIf="loadingOccupationArea" color="purple" style="margin-left: 10px;" size="25px">
                           </app-loader> -->
                 </div>
-                <div class="mx-3 d-flex flex-column">
-                    <div *ngFor="let campanha of campanhas; index as i">
+                <div class="mx-3 d-flex flex-column" *ngIf = "hasCampanha">
+                    <div *ngFor="let campanha of campanhas; index as i" >
                         <label>{{campanha}}</label>
+                    </div>
+                   
+                </div>
+                <div class="mx-3 d-flex flex-column" *ngIf="!hasCampanha">
+                    <div  >
+                        <label>Não há campanha de delivery ativa</label>
                     </div>
                 </div>
               </div>

@@ -78,15 +78,15 @@
                     <label class="text-black">Observações:{{order.observacao}} </label>
                     <div class="d-flex justify-content-between mt-5">
                       <label class="text-black">Valor do pedido</label>
-                      <label class="text-black">R$ {{order.pagamento.valor}}</label>
+                      <label class="text-black">R$ {{order.valorTotal - order.taxaEntrega}}</label>
                     </div>
                     <div class="d-flex justify-content-between">
                       <label class="text-black">Taxa de entrega</label>
-                      <label class="text-black">R${{order.pagamento.taxa}}</label>
+                       <label class="text-black">R${{order.taxaEntrega}}</label>
                     </div>
                     <div class="d-flex justify-content-between">
                       <label class="text-blue">Total</label>
-                      <label class="text-blue">R${{order.pagamento.valor + order.pagamento.taxa}}</label>
+                      <label class="text-blue">R$ {{order.valorTotal}}</label>
                     </div>
                   </div>
                 

@@ -20,4 +20,6 @@ export class ValueCompleteOrder{
         pedidoStatus: any
         pagamento: PaymentMethod
         pedidoComplementos: any[]
+        valorTotal:number
+        taxaEntrega:number
     }

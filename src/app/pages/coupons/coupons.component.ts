@@ -24,7 +24,7 @@ export class CouponsComponent implements OnInit {
   public anunciante: Anunciante = this.localStorageService.getAnunciante() as Anunciante;
   public local: Local = this.localStorageService.getLocal() as Local;
   public showLoader = false;
-
+  public hasCampanha = false;
   constructor(private professionalService: ProfessionalService,
     private priceLevelService: PriceLevelService,
     private fb: FormBuilder,
@@ -42,17 +42,18 @@ export class CouponsComponent implements OnInit {
         name: [this.local!=null ? this.local.id : this.anunciante.locais[0].id, Validators.required],
         
       });
-      this.campanhas = [
-        'Não há campanha de delivery ativa',
-      ];
+      this.campanhas = [];
     }
 
   ngOnInit(): void {
+    this.getCampanhasAtivas()
   }
 
   getCampanhasAtivas(){
     this.campanhaService.getCampanhasAtivasPorAnunciante(this.anunciante.id).subscribe(item=>{
+      console.log(item)
       if(item){
+        this.hasCampanha = true;
         this.campanhas.push(item)
       }
       

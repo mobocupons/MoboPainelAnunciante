@@ -74,6 +74,7 @@ export class OrdersComponent implements OnInit {
     let local=  this.localStorageService.getLocal();
     let localId = local!=null ? local.id : anunciante.locais[0].id;
     this.orderService.getAll(localId).subscribe(item=>{
+      console.log(item)
       item.value.forEach(x=>{
         if(x.pedidoStatusId==1){
           this.pendingOrders.push(x)

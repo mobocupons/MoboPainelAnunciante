@@ -47,7 +47,6 @@ export class CouponsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCampanhasAtivas()
-console.log(this.anunciante)
   }
 
   getCampanhasAtivas(){

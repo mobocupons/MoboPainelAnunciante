@@ -70,6 +70,11 @@ export class CouponsComponent implements OnInit {
         'o código indicado não pertence a um cupom',
         'error')
       }
+      else{
+        Swal.fire('Cupom validado!',
+        'os cupons foram validados',
+        'success')
+      }
       this.showLoader = false;
     });
   }

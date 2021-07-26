@@ -62,7 +62,7 @@
                     <div>
                       <i class="fa fa-map-marker fa-2x mr-3"></i>
                       <label>
-                        <h5 class="mr-3 ">{{order.usuarioEndereco.logradouro}} {{order.usuarioEndereco.bairro}} {{order.usuarioEndereco.cidade}}</h5>
+                        <h5 class="mr-3 ">{{order.usuarioEndereco.logradouro}} {{order.usuarioEndereco.bairro}} {{order.usuarioEndereco.cidade.nome}}</h5>
                       </label>
                     </div>
                     <div class="d-flex flex-column mt-4 mb-4">
@@ -71,6 +71,12 @@
                     </div>
                     <div class="d-flex mb-2 flex-column">
                       <label class="text-gray"> Solicitação em {{getDateTime(order.realizadoEm)}}</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 3">Recusado</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 6">Cancelado</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 1">Aguardando aprovação</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 2">Em Preparo</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 4">Saiu para entrega</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 5">Finalizado</label>
                     </div>
                   </div>
                   <div class="d-flex flex-column w-50">

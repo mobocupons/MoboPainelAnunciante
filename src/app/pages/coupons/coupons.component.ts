@@ -47,6 +47,8 @@ export class CouponsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCampanhasAtivas()
+    console.log(this.anunciante)
+    console.log(this.local)   
   }
 
   getCampanhasAtivas(){
@@ -65,6 +67,7 @@ export class CouponsComponent implements OnInit {
     let localId = this.localForm.value["name"];
 
     this.couponService.postValidateCoupon(this.anunciante.id, localId, coupons).subscribe(item=>{
+      console.log(item)
       if(item==null){
         Swal.fire('Cupom não existe',
         'o código indicado não pertence a um cupom',
@@ -76,6 +79,12 @@ export class CouponsComponent implements OnInit {
         'success')
       }
       this.showLoader = false;
+    },
+    error=>{
+      Swal.fire('Cupom não pode ser validado',
+        'o código indicado não pertence a um cupom ou ja foi validado anteriormente',
+        'error')
+        this.showLoader = false;
     });
   }
 

@@ -54,7 +54,7 @@ export class NavService {
 
     if(this.USER_MENUITEMS.length == 1){
       // this.campanhaService.getCampanhasAtivasPorAnunciante(anunciante.id).subscribe(item=>{
-        if(local != null && anunciante.deliveryApp == true){
+        if(local != null ){
           this.USER_MENUITEMS.push({
             path: '/dashboard/orders',
             title: 'Pedidos',

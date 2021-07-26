@@ -24,7 +24,8 @@
                   class="theme-form mb-3 billing-form flex-column d-flex w-100 flex-wrap flex-lg-nowrap">
                   <div class="form-group flex-grow-lg-1 pr-lg-3 w-100 ">
                     <label>Cupons</label>
-                    <input class="form-control" type="text" formControlName="name" placeholder="" autocomplete="off" />
+                    <textarea class="form-control" type="text" formControlName="name" placeholder="" autocomplete="off"></textarea>
+                  
                   </div>
                   <div class="form-group">
                     <button class="btn btn-primary"
@@ -47,7 +48,7 @@
                 </div>
                 <div class="mx-3 d-flex flex-column" *ngIf = "hasCampanha">
                     <div *ngFor="let campanha of campanhas; index as i" >
-                        <label>{{campanha}}</label>
+                        <label>{{campanha.titulo}}</label>
                     </div>
                    
                 </div>

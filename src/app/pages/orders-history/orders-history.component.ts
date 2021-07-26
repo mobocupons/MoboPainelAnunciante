@@ -35,8 +35,9 @@ getOrders()
   let anunciante=  this.localStorageService.getAnunciante();
     let local=  this.localStorageService.getLocal();
     let localId = local!=null ? local.id : anunciante.locais[0].id;
-    this.orderService.getAll(localId).subscribe(item=>{
-        this.orders = item.value;
+    this.orderService.getHistory(localId).subscribe(item=>{
+
+        this.orders = item ? item.value : null;
         if(this.orders!=null){
           this.haveOrders = true
         }

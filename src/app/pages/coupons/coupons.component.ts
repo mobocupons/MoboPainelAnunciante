@@ -20,7 +20,7 @@ export class CouponsComponent implements OnInit {
 
   public couponsForm: FormGroup;
   public localForm: FormGroup;
-  public campanhas: String[];
+  public campanhas: any[];
   public anunciante: Anunciante = this.localStorageService.getAnunciante() as Anunciante;
   public local: Local = this.localStorageService.getLocal() as Local;
   public showLoader = false;
@@ -51,10 +51,9 @@ export class CouponsComponent implements OnInit {
 
   getCampanhasAtivas(){
     this.campanhaService.getCampanhasAtivasPorAnunciante(this.anunciante.id).subscribe(item=>{
-      console.log(item)
       if(item){
         this.hasCampanha = true;
-        this.campanhas.push(item)
+        this.campanhas = item.value
       }
       
     })
@@ -62,7 +61,7 @@ export class CouponsComponent implements OnInit {
 
   validateCoupons(){
     this.showLoader = true;
-    let coupons = [this.couponsForm.value["name"]];
+    let coupons = this.convertCouponsStringToCouponsArray();
     let localId = this.localForm.value["name"];
 
     this.couponService.postValidateCoupon(this.anunciante.id, localId, coupons).subscribe(item=>{
@@ -74,4 +73,11 @@ export class CouponsComponent implements OnInit {
       this.showLoader = false;
     });
   }
+
+  convertCouponsStringToCouponsArray(){
+    let couponString = this.couponsForm.value["name"]
+    let coupomArray = couponString.split(/\r?\n/);
+    return coupomArray;
+  }
+
 }

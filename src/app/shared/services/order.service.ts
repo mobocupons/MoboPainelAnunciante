@@ -18,6 +18,10 @@ export class OrderService {
     let url = this.url+"/Local/"+localId;
     return this.baseService.get(url, BaseUrlTypeEnum.normal);
   }
+  getHistory(localId): Observable<CompleteOrder> {
+    let url = this.url+"/Local/"+localId+"/ObterHistorico";
+    return this.baseService.get(url, BaseUrlTypeEnum.normal);
+  }
   changeStatus(pedidoStatusId, id): Observable<any[]> {
       let url = this.url+"/AtualizarStatusPedido";
       let body = {id,pedidoStatusId}

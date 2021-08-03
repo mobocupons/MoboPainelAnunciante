@@ -47,7 +47,7 @@ export class CouponsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCampanhasAtivas()
-  }
+   }
 
   getCampanhasAtivas(){
     this.campanhaService.getCampanhasAtivasPorAnunciante(this.anunciante.id).subscribe(item=>{

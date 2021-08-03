@@ -9,16 +9,6 @@
               <div class="d-flex justify-content-between mb-3">
                 <h4 class="card-title mb-3">Histórico de Pedidos</h4>
                 <div class="d-flex justify-content-end">
-                  <select _ngcontent-msp-c208="" id="exampleFormControlSelect9" class="form-control digits mr-4">
-                    <option _ngcontent-msp-c208="">1</option>
-                    <option _ngcontent-msp-c208="">2</option>
-                    <option _ngcontent-msp-c208="">3</option>
-                    <option _ngcontent-msp-c208="">4</option>
-                    <option _ngcontent-msp-c208="">5</option>
-                  </select>
-
-                  <input _ngcontent-msp-c210="" type="text" aria-label="Amount (to the nearest dollar)"
-                    class="form-control">
                   <div _ngcontent-msp-c210="" class="input-group-append"></div>
                 </div>
               </div>
@@ -35,21 +25,24 @@
               <div class="d-flex justify-content-between mb-3">
                 <h4 class="card-title mb-3">Histórico de Pedidos</h4>
                 <div class="d-flex justify-content-end">
-                  <select _ngcontent-msp-c208="" id="exampleFormControlSelect9" class="form-control digits mr-4">
-                    <option _ngcontent-msp-c208="">1</option>
-                    <option _ngcontent-msp-c208="">2</option>
-                    <option _ngcontent-msp-c208="">3</option>
-                    <option _ngcontent-msp-c208="">4</option>
-                    <option _ngcontent-msp-c208="">5</option>
-                  </select>
-
-                  <input _ngcontent-msp-c210="" type="text" aria-label="Amount (to the nearest dollar)"
-                    class="form-control">
-                  <div _ngcontent-msp-c210="" class="input-group-append"></div>
+                  
+                  <div class="form-group mb-0">
+                    <div class="d-flex justify-content-between mb-3">
+                      <form class="theme-form" [formGroup]="searchForm">
+                        <input type="text" formControlName="name"  placeholder="Procurar por nome" class="form-control ng-pristine ng-valid ng-touched">
+                        <input type="date" formControlName="date"  class="form-control ng-pristine ng-valid ng-touched">
+                        <button (click)="search()" class="btn btn-primary"> pesquisar </button>
+                        <button (click)="resetFilter()" class="btn btn-primary"> limpar </button>
+                      </form>
+                    </div>
+                  </div>
+                  
+                <div class="input-group-append"></div>
                 </div>
+                
               </div>
               <div class="vertical-separator bg-gray"></div>
-              <div class="d-flex h-100 w-100 justify-content-center p-5" *ngFor="let order of orders">
+              <div class="d-flex h-100 w-100 justify-content-center p-5"  *ngFor="let order of orders | paginate: { itemsPerPage: contador, currentPage: pag }">
                 
                  <div class="w-50 mr-5">
                     <div>
@@ -67,7 +60,7 @@
                     </div>
                     <div class="d-flex flex-column mt-4 mb-4">
                       <label class="text-black"> {{order.cupom.campanha.titulo}}  </label>
-                      <label class="text-black">Cupom {{order.cupomId}}</label>
+                      <label class="text-black">Cupom {{order.cupom.codigo}}</label>
                     </div>
                     <div class="d-flex mb-2 flex-column">
                       <label class="text-gray"> Solicitação em {{getDateTime(order.realizadoEm)}}</label>
@@ -80,7 +73,7 @@
                     </div>
                   </div>
                   <div class="d-flex flex-column w-50">
-                    <!--<label class="text-black">{{order.pagamento.formaPagamento.nome}}</label>-->
+                    <label class="text-black">{{order.pagamento.formaPagamento.nome}}</label>
                     <label class="text-black">Observações:{{order.observacao}} </label>
                     <div class="d-flex justify-content-between mt-5">
                       <label class="text-black">Valor do pedido</label>
@@ -95,9 +88,12 @@
                       <label class="text-blue">R$ {{order.valorTotal}}</label>
                     </div>
                   </div>
-                
-                
               </div>
+               <pagination-controls 
+               (pageChange)="pag = $event" 
+               class="d-flex justify-content-center"
+               previousLabel="Anterior"
+               nextLabel="Proxima"></pagination-controls>
             </div>
           </div>
 

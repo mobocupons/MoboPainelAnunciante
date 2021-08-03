@@ -12,7 +12,7 @@ export class ValueCompleteOrder{
         usuarioEnderecoId: number
         pedidoStatusId: number
         pagamentoId: number
-        realizadoEm: Date
+        realizadoEm: any
         observacao: any
         exibirFoneUsuario: boolean
         cupom: Coupom

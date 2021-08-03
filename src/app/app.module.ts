@@ -25,6 +25,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AsyncPipe } from '@angular/common';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { AsyncPipe } from '@angular/common';
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     AngularFireMessagingModule,
+    NgxPaginationModule,
   ],
   providers: [
     AuthService,

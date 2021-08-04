@@ -10,7 +10,7 @@
                 <h4 class="card-title mb-3">Registro de Cupons</h4>
                   <div class="d-flex justify-content-end">
                   <form [formGroup]="localForm">
-                  <select id="exampleFormControlSelect9" formControlName="name" class="form-control digits mr-4">
+                  <select id="exampleFormControlSelect9" formControlName="name" *ngIf="this.local==null" class="form-control digits mr-4">
                     <option *ngFor="let local of anunciante.locais; index as i" [value]= "local.id">{{local.nome}}</option>
                   </select>
                   </form>

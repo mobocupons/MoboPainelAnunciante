@@ -25,6 +25,7 @@ export class CouponsComponent implements OnInit {
   public local: Local = this.localStorageService.getLocal() as Local;
   public showLoader = false;
   public hasCampanha = false;
+
   constructor(private professionalService: ProfessionalService,
     private priceLevelService: PriceLevelService,
     private fb: FormBuilder,

@@ -47,7 +47,6 @@ getOrders()
     this.orderService.getHistory(localId).subscribe(item=>{
         this.orders = item ? item.value.filter(x=>x.pedidoStatusId!=1&&x.pedidoStatusId!=2) : null;
         if(this.orders!=null){
-          
           this.haveOrders = true
         }
     })
@@ -71,10 +70,10 @@ private filterByName(name)
 {
   if(name !="" && this.oldOrders.length == 0){
     this.oldOrders = this.orders;
-    this.orders.filter(x=>x.usuarioEndereco.usuario.nome == name)
+    this.orders = this.orders.filter(x=>x.usuarioEndereco.usuario.nome == name)
   }
   else if(name !="" && this.oldOrders.length != 0){
-    this.orders.filter(x=>x.usuarioEndereco.usuario.nome == name)
+    this.orders = this.orders.filter(x=>x.usuarioEndereco.usuario.nome == name)
   }
   
 }
@@ -82,28 +81,24 @@ private filterByDate(date)
 {
   
   if(date !="" && this.oldOrders.length == 0){
-   
     this.oldOrders = this.orders;
-    this.orders.filter(x=>this.verifyDate(x.realizadoEm,date))
-    console.log("pesquisou e salvou estado data")
+    this.orders = this.orders.filter(x=>this.verifyDate(x.realizadoEm,date))
   }
   else if(date !="" && this.oldOrders.length != 0){
     let newdate = new Date(date);
-    console.log(newdate)
-    this.orders.filter(x=>this.verifyDate(x.realizadoEm,date))
-    console.log("pesquisou sem salvar estado data")
+    this.orders = this.orders.filter(x=>this.verifyDate(x.realizadoEm,date))
   }
   
 }
 resetFilter(){
     this.orders = this.oldOrders;
-    console.log("Limpou")
 }
 verifyDate(xDate, nDate){
-  console.log(nDate)
-let xdate = new Date(xDate);
-let ndate = new Date(nDate);
-var result = (xdate.getDate() == ndate.getDate() && xdate.getMonth() == ndate.getMonth() && xdate.getFullYear() == ndate.getFullYear())
+ 
+let xdate = new Date(xDate).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+let ndate = new Date(nDate).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+console.log(xdate,ndate)
+var result = xdate == ndate
 return result
 }
 

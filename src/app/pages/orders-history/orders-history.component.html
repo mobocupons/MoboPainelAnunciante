@@ -30,9 +30,11 @@
                     <div class="d-flex justify-content-between mb-3">
                       <form class="theme-form" [formGroup]="searchForm">
                         <input type="text" formControlName="name"  placeholder="Procurar por nome" class="form-control ng-pristine ng-valid ng-touched">
-                        <input type="date" formControlName="date"  class="form-control ng-pristine ng-valid ng-touched">
-                        <button (click)="search()" class="btn btn-primary"> pesquisar </button>
-                        <button (click)="resetFilter()" class="btn btn-primary"> limpar </button>
+                        <input type="date" formControlName="date"  class="form-control ng-pristine ng-valid ng-touched" style="margin-top: 5px;">
+                        <div style="margin-top: 10px;">
+                        <button (click)="search()" class="btn btn-primary" style="margin-right: 5px;"> pesquisar </button>
+                        <button (click)="resetFilter()" class="btn btn-light"> limpar </button>
+                        </div>
                       </form>
                     </div>
                   </div>

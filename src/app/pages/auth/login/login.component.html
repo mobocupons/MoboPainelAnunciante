@@ -26,6 +26,7 @@
 					</div>
 				</div>
 			</div>
+			<div *ngIf="userError" class="invalid-feedback">Usuário ou senha estão incorretos</div>
 			<div class="form-group form-row mt-3 mb-0 mx-0">
 				<button class="btn btn-primary btn-block btn-lg" [disabled]="!loginForm.valid || authService.showLoader"
 					(click)="login()">
@@ -33,6 +34,7 @@
 					<app-loader *ngIf="authService.showLoader" color="white" size="30px">Entrar</app-loader>
 				</button>
 			</div>
+			
 		</form>
 		<div class="text-center">
 			<a class="gray-link" href="javascript:void()" routerLink="/auth/forgot-password">Esqueci minha senha</a>

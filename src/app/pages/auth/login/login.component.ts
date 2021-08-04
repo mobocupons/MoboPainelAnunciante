@@ -8,6 +8,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import {CampanhaService} from "../../../shared/services/campanha.service"
 import { Anunciante } from 'src/app/shared/models/anunciante.model';
 import { Local } from 'src/app/shared/models/local.model';
+import Swal from 'sweetalert2';
 
 type UserFields = "email" | "password";
 type FormErrors = { [u in UserFields]: string };
@@ -20,6 +21,7 @@ type FormErrors = { [u in UserFields]: string };
 export class LoginComponent implements OnInit {
   public helper = new JwtHelperService()
   public loginForm: FormGroup;
+  public userError = false;
   public formErrors: FormErrors = {
     email: "",
     password: "",
@@ -54,6 +56,7 @@ export class LoginComponent implements OnInit {
 
   // Simple Login
   login() {
+    this.userError = false;
     this.authService.showLoader = true
     this.authService.login(
       this.loginForm.value["email"],
@@ -75,7 +78,7 @@ export class LoginComponent implements OnInit {
       
     },
       err => {
-        console.log(err)
+        this.userError = true;
         this.authService.showLoader = false;
       });
   }

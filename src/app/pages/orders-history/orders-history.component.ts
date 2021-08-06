@@ -61,7 +61,9 @@ search()
 {
   let name = this.searchForm.value['name']
   let date = this.searchForm.value['date']
-  
+  if(this.oldOrders.length > 0){
+    this.orders = this.oldOrders;
+  }
   this.filterByName(name);
   this.filterByDate(date)
   

@@ -9,6 +9,7 @@ import {CampanhaService} from "../../../shared/services/campanha.service"
 import { Anunciante } from 'src/app/shared/models/anunciante.model';
 import { Local } from 'src/app/shared/models/local.model';
 import Swal from 'sweetalert2';
+import { OrderService } from 'src/app/shared/services/order.service';
 
 type UserFields = "email" | "password";
 type FormErrors = { [u in UserFields]: string };
@@ -34,6 +35,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private localStorageService: LocalStorageService,
+    private orderService: OrderService,
+    private campanhaService: CampanhaService
    ) {
     this.loginForm = fb.group({
       email: ["", [Validators.required]],
@@ -62,24 +65,53 @@ export class LoginComponent implements OnInit {
       this.loginForm.value["email"],
       this.loginForm.value["password"]
     ).subscribe(res => {
-      var teste = parseInt(this.loginForm.value["email"])
-      if(!isNaN(teste) && typeof teste == "number"){
+      var email = parseInt(this.loginForm.value["email"])
+      if(!isNaN(email) && typeof email == "number"){
         this.localStorageService.setItem(Constants.ANUNCIANTE,JSON.stringify(res.value))
-        this.authService.showLoader = false;
-        this.router.navigate(['/dashboard/coupons']);
+        this.campanhaService.getCampanhasAtivasPorAnunciante(res.value.id).subscribe(item=>{
+          this.menuVerifyItens(item);
+          this.localStorageService.setItem(Constants.ANUNCIANTE,JSON.stringify(res.value))   
+          this.authService.showLoader = false;
+          this.router.navigate(['/dashboard/coupons']);
+        })
+       
       }
       else{
-        this.localStorageService.setItem(Constants.LOCAL,JSON.stringify(res.value))
-        this.localStorageService.setItem(Constants.ANUNCIANTE,JSON.stringify(res.value.anunciante))
-        this.authService.showLoader = false;
-        this.router.navigate(['/dashboard/coupons']);
+        this.campanhaService.getCampanhasAtivasPorAnunciante(res.value.anuncianteId).subscribe(item=>{
+          this.menuVerifyItens(item);
+          this.orderService.getHistory(res.value.id).subscribe(orderitem=>{
+            if(orderitem!=null){
+              this.localStorageService.setItem(Constants.HASORDERHISTORY,"true")
+            }
+            else{
+              this.localStorageService.setItem(Constants.HASORDERHISTORY,"false")
+            }
+            this.localStorageService.setItem(Constants.LOCAL,JSON.stringify(res.value))
+            this.localStorageService.setItem(Constants.ANUNCIANTE,JSON.stringify(res.value.anunciante))
+            this.authService.showLoader = false;
+            this.router.navigate(['/dashboard/coupons']);
+          })
+        });
       }
-    
-      
     },
       err => {
         this.userError = true;
         this.authService.showLoader = false;
       });
+  }
+  menuVerifyItens(item){
+    console.log(item)
+    if(item == null){
+      this.localStorageService.setItem(Constants.HASORDER,"false")
+      this.localStorageService.setItem(Constants.HASORDERHISTORY,"false")
+    }
+    else if(item.value.find(x=>x.deliveryOnline)){
+      this.localStorageService.setItem(Constants.HASORDER,"true")
+      this.localStorageService.setItem(Constants.HASORDERHISTORY,"true")
+    }
+    else{
+      this.localStorageService.setItem(Constants.HASORDER,"false")
+      this.localStorageService.setItem(Constants.HASORDERHISTORY,"false")
+    }
   }
 }

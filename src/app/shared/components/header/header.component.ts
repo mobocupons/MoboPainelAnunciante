@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
 
   setMenuItems() {
     this.navServices.getMenuItens();
-    this.navServices.items.subscribe(menuItems => {
+    let menuItems = this.navServices.USER_MENUITEMS;
       
       this.menuItems = menuItems
       this.router.events.subscribe((event) => {
@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
               this.setNavActive(items)
           })
         }
-      })
+    
     })
   }
 

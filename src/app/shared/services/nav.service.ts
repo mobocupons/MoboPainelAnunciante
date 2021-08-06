@@ -5,6 +5,7 @@ import {Anunciante} from '../models/anunciante.model'
 import { CampanhaService } from './campanha.service';
 import { AnuncianteService } from './anunciante.service';
 import { Local } from '../models/local.model';
+import { Constants } from '../utils/constants';
 
 // Menu
 export interface Menu {
@@ -49,37 +50,37 @@ export class NavService {
   }
 
   getMenuItens(){
-    var anunciante = this.localStorageService.getAnunciante() as Anunciante;
-    var local = this.localStorageService.getLocal() as Local;
-
-    if(this.USER_MENUITEMS.length == 1){
-      // this.campanhaService.getCampanhasAtivasPorAnunciante(anunciante.id).subscribe(item=>{
-        if(local != null ){
-          this.USER_MENUITEMS.push({
-            path: '/dashboard/orders',
-            title: 'Pedidos',
-            icon: 'fa-bell',
-            type: 'link',
-          });
-          this.USER_MENUITEMS.push({
-            path: '/dashboard/orders-history',
-            title: 'Histórico',
-            icon: 'fa-history',
-            type: 'link',
-          });
-        }
+    let hasOrder = this.localStorageService.getItem(Constants.HASORDER)
+    let hasOrderHistory = this.localStorageService.getItem(Constants.HASORDERHISTORY)
+    this.USER_MENUITEMS = [
+      {
+        path: '/dashboard/coupons',
+        title: 'Cupons',
+        icon: 'fa-barcode',
+        type: 'link',
+      }]
+    if(hasOrder == "true"){
         this.USER_MENUITEMS.push({
-          path: 'logout',
-          title: 'Sair',
-          icon: null,
-          type: 'out',
+          path: '/dashboard/orders',
+          title: 'Pedidos',
+          icon: 'fa-bell',
+          type: 'link',
         });
-    //   })
-      
+      }
+    if(hasOrderHistory == "true"){
+        this.USER_MENUITEMS.push({
+          path: '/dashboard/orders-history',
+          title: 'Histórico',
+          icon: 'fa-history',
+          type: 'link',
+        });
     }
-    
+    this.USER_MENUITEMS.push({
+      path: 'logout',
+      title: 'Sair',
+      icon: null,
+      type: 'out',
+    });
   }
-
-  
   items = new BehaviorSubject<Menu[]>(this.USER_MENUITEMS);
 }

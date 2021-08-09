@@ -26,7 +26,7 @@
 					</div>
 				</div>
 			</div>
-			<div *ngIf="userError" class="invalid-feedback">Usuário ou senha estão incorretos</div>
+			<div *ngIf="userError" class="invalid-feedback">Seus dados de usuário ou senha estão incorretos, tente novamente! Revise seus dados e fique atento para as letras maiúsculas e caracteres especiais.</div>
 			<div class="form-group form-row mt-3 mb-0 mx-0">
 				<button class="btn btn-primary btn-block btn-lg" [disabled]="!loginForm.valid || authService.showLoader"
 					(click)="login()">

@@ -75,8 +75,8 @@ export class CouponsComponent implements OnInit {
       });
 
       if(!validado){
-        Swal.fire('Cupom não pode ser validado',
-          'o código indicado não pertence a um cupom ou ja foi validado',
+        Swal.fire('Não foi possível validar o cupom!',
+          'O código informado não pertence a um cupom válido, ou já foi utilizado. Verifique o código e tente novamente',
           'error')
       }
       else{
@@ -87,9 +87,9 @@ export class CouponsComponent implements OnInit {
       this.showLoader = false;
     },
     error=>{
-      Swal.fire('Cupom não pode ser validado',
-        'o código indicado não pertence a um cupom ou ja foi validado anteriormente',
-        'error')
+      Swal.fire('Não foi possível validar o cupom!',
+          'O código informado não pertence a um cupom válido, ou já foi utilizado. Verifique o código e tente novamente',
+          'error')
         this.showLoader = false;
     });
   }

@@ -52,8 +52,8 @@ public prop: any;
             (payload: any) => {
             let order = JSON.parse(payload.notification.body) as Order
             console.log("new message received. ",order);
-            Swal.fire('Novo pedido!',
-            'You clicked the button!',
+            Swal.fire('Recebemos um novo pedido! ',
+            'Fique atento para o formato de pagamento e lembre-se de sinalizar que o pedido saiu para entrega.',
             'success')
             this.currentMessage.next(order);
         })

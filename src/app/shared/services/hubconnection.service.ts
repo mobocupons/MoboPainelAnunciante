@@ -19,9 +19,9 @@ export class HubConnectionService {
 
   }
 
-  setConectionToken(localId, cloudFlareToken) {
+  setConectionToken(localId, fireBaseToken) {
       let filterModel = {localId,
-                         cloudFlareToken}
+                          fireBaseToken}
     return this.baseService.post(`ConexaoHub`,filterModel, BaseUrlTypeEnum.normal);
   }
 }

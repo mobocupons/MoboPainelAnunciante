@@ -26,6 +26,8 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AsyncPipe } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {PhoneHelper} from "src/app/shared/helpers/phoneHelper"
+
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AuthService,
     FCMService,
     AsyncPipe,
+    PhoneHelper,
     ServiceWorker,
     {
       provide: HTTP_INTERCEPTORS,

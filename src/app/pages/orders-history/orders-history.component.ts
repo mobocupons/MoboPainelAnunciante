@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PhoneHelper } from 'src/app/shared/helpers/phoneHelper';
 import { ValueCompleteOrder } from 'src/app/shared/models/complete-order.model';
 import { Order } from 'src/app/shared/models/order.model';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
@@ -16,13 +17,13 @@ export class OrdersHistoryComponent implements OnInit {
   contador : number = 3;
   public couponsForm: FormGroup;
   public searchForm: FormGroup;
-  public campanhas: String[];
   public orders: ValueCompleteOrder[] = []
   public oldOrders: ValueCompleteOrder[] = []
   public haveOrders: boolean = false
   public meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago","Set","Out","Nov","Dez"];
   constructor( private fb: FormBuilder,private orderService: OrderService,
-    private localStorageService: LocalStorageService) { 
+    private localStorageService: LocalStorageService,
+    public phoneHelper: PhoneHelper) { 
     this.couponsForm = this.fb.group({
       name: ['', Validators.required],
     });
@@ -30,10 +31,6 @@ export class OrdersHistoryComponent implements OnInit {
       name: [''],
       date: [''],
     });
-    this.campanhas = [
-      'Delivery: 2 xis salada + refri (600ml) de R$ 42,00 por R$ 35,70.',
-      'Delivery: 2 pizza de mussarela média + refri (2L) de R$ 85,00 por R$ 65,00.'
-    ];
   }
 
   ngOnInit(): void {
@@ -46,9 +43,11 @@ getOrders()
     let localId = local!=null ? local.id : anunciante.locais[0].id;
     this.orderService.getHistory(localId).subscribe(item=>{
         this.orders = item ? item.value.filter(x=>x.pedidoStatusId!=1&&x.pedidoStatusId!=2) : null;
-        if(this.orders!=null){
+       
+        if(this.orders!=null && this.orders.length >=1){
           this.haveOrders = true
         }
+        
     })
 }
 

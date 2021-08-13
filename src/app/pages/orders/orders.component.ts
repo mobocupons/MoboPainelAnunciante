@@ -4,6 +4,7 @@ import { isThisSecond } from 'date-fns';
 import { ValueCompleteOrder } from 'src/app/shared/models/complete-order.model';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import {OrderService} from "src/app/shared/services/order.service"
+import {PhoneHelper} from "src/app/shared/helpers/phoneHelper"
 import { Constants } from 'src/app/shared/utils/constants';
 
 @Component({
@@ -13,7 +14,6 @@ import { Constants } from 'src/app/shared/utils/constants';
 })
 export class OrdersComponent implements OnInit {
   public couponsForm: FormGroup;
-  public campanhas: String[];
   public meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago","Set","Out","Nov","Dez"];
   public accepetedOrders: ValueCompleteOrder[] = []
   public pendingOrders:ValueCompleteOrder[] = []
@@ -21,15 +21,12 @@ export class OrdersComponent implements OnInit {
   selectedOrder: any
   
   constructor( private fb: FormBuilder,private orderService: OrderService,
-    private localStorageService: LocalStorageService) {
+    private localStorageService: LocalStorageService,
+    public phoneHelper: PhoneHelper) {
     this.couponsForm = this.fb.group({
       name: ['', Validators.required],
       
     });
-    this.campanhas = [
-      'Delivery: 2 xis salada + refri (600ml) de R$ 42,00 por R$ 35,70.',
-      'Delivery: 2 pizza de mussarela média + refri (2L) de R$ 85,00 por R$ 65,00.'
-    ];
    }
 
   ngOnInit(): void {

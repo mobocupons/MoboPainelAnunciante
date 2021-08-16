@@ -57,12 +57,12 @@ public prop: any;
     receiveMessage(){
         this.angularFirebaseMessaging.messages.subscribe(
             (payload: any) => {
-            let order = JSON.parse(payload.notification.body) as Order
-            console.log("new message received. ",order);
             Swal.fire('Recebemos um novo pedido! ',
             'Fique atento para o formato de pagamento e lembre-se de sinalizar que o pedido saiu para entrega.',
-            'success')
-            this.router.navigate(['/dashboard/order']);
+            'success').then(()=>{
+                this.router.navigate(['/dashboard/orders']);
+            })
+            
         })
     }
 }

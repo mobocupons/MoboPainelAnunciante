@@ -1,0 +1,43 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Filtro</h4>
+  <button type="button" class="close" aria-label="Close" (click)="onDismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body" style="flex-grow: 2;">
+
+  <div class="filter-by align-items-center">
+    <span class="title-filter">Filtrar por</span>
+    <span class="subtitle-filter right">Selecione 1</span>
+  </div>
+
+  <div class="filter-by">
+    <div *ngFor="let optionFilter of modalData">
+      <div type="button" class="btn btn-outline-info btn-pill btn-air-info btn-sm btn-filter"
+        [ngClass]="{active: optionFilter.selected}" (click)="setFilter(optionFilter)"> {{ optionFilter.description }}
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filterTypeList.length > 0">
+    <div class="filter-by align-items-center mt-3">
+      <span class="title-filter">Tipo</span>
+      <span class="subtitle-filter right">Escolhe multiplos</span>
+    </div>
+
+    <div class="filter-by">
+      <div *ngFor="let optionFilterType of filterTypeList">
+        <div class="btn btn-outline-info btn-pill btn-air-info btn-sm btn-filter info"
+          [ngClass]="{active: optionFilterType.selected}" (click)="setTypeFilter(optionFilterType)"> {{
+          optionFilterType.description }} </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer d-flex flex-column">
+  <button type="button" class="btn btn-primary btn-footer w-100" (click)="onResult()"
+    [disabled]="okToClick()">Aplicar</button>
+  <button type="button" class="btn btn-outline-warning btn-footer w-100" [disabled]="okToClick()"
+    (click)="clearFilters()">Limpar</button>
+  <button type="button" class="btn btn-outline-dark btn-footer w-100" (click)="onClose()">Cancelar</button>
+</div>

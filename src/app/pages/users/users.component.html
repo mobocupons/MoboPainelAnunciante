@@ -1,0 +1,271 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="container-fluid pl-md-5">
+        <app-card-header-information style="width: 100%;" [cardData]="cardDataHeader"
+          (rangeChange)="updateChart($event, cardDataTypeEnumLocal.Header)">
+        </app-card-header-information>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <p class="detail-btn text-center cursor-pointer" mdbWavesEffect (click)="showUsers = !showUsers">
+    <span *ngIf="showUsers">Fechar</span>
+    <span *ngIf="!showUsers">Ver</span>
+    lista de usuários
+    <i class="icofont icofont-simple-up" *ngIf="showUsers"></i>
+    <i class="icofont icofont-simple-down" *ngIf="!showUsers"></i>
+  </p>
+  <br>
+
+  <div class="container-fluid mt-3" *ngIf="showUsers">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body overflow-hidden">
+            <div class="d-flex justify-content-between mb-3">
+              <p class="title-professionals-table">Usuários</p>
+              <div class="input-group mb-3 w-25 ">
+                <input type="text" class="form-control digits border-right-0" (keyup)="updateUserFilter($event)" />
+                <div class="input-group-append">
+                  <span class="input-group-text search-icon" id="basic-addon2">
+                    <i class="icofont icofont-search-alt-2"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex border-tabs">
+              <div class="pb-2 subtitle-professionals-table" *ngFor="let tab of tabUserHeaders"
+                (click)="activeTabChanged(tab)" [ngClass]="{ active: tab.active }">
+                {{ tab.description }} ({{ tab.counter }})
+              </div>
+            </div>
+            <div class="row table-responsive full-row">
+              <table mdbTable [striped]="mdbTableStriped">
+                <thead>
+                  <tr>
+                    <th class="title-head cursor-pointer table-header" *ngFor="let head of headUserElements" scope="col"
+                      (click)="orderTableByHead(head.type)">
+                      <div class="d-flex flex-row">
+                        {{ (head.visible) ? head.description : '' }}
+                        <div *ngIf="head.visible" [innerHTML]="head.icon" style="margin-left: 5px;"></div>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <app-loader *ngIf="!usersList" color="purple" style="margin-left: 10px; margin-top: 20px;" size="25px">
+                </app-loader>
+                <tbody mdbTableCol
+                  *ngFor="let user of usersList | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index">
+                  <tr>
+                    <td class="detail-text">{{ user.lastAccess }}</td>
+                    <td class="detail-text">{{ user.name }}</td>
+                    <td>
+                      <div *ngIf="selectedTab == finalUsersStatusEnum.All"
+                        class="d-inline-flex justify-content-around align-items-center pr-2 btn-ci rounded-border"
+                        style="color:white; height: 30px;"
+                        [style.background-color]="userHelper.getFinalUsersStatusColorStamp(user.status)">
+                        <span class="mr-2 ml-2"> {{ userHelper.getFinalUsersStatusDescription(user.status) }} </span>
+                      </div>
+                    </td>
+                    <td class="detail-text filter-text" colspan="2">
+                      <div [ngSwitch]="selectedFilter">
+                        <div *ngSwitchCase="finalUsersPropertiesEnum.currentCycle">{{ user.currentCycle }}</div>
+                        <div *ngSwitchCase="finalUsersPropertiesEnum.creationDate">{{ user.creationDate }}</div>
+                        <div *ngSwitchCase="finalUsersPropertiesEnum.assessmentCounter">{{ user.assessmentCounter }}
+                        </div>
+                        <div *ngSwitchCase="finalUsersPropertiesEnum.doneCycleCounter">{{ user.doneCycleCounter }}</div>
+                        <div *ngSwitchCase="finalUsersPropertiesEnum.doneTaskCounter">{{ user.doneTaskCounter }}</div>
+                        <div *ngSwitchCase="finalUsersPropertiesEnum.sessionCounter">{{ user.sessionCounter }}</div>
+                        <div *ngSwitchCase="finalUsersPropertiesEnum.timePerCycle">{{ user.timePerCycle }}</div>
+                        <div *ngSwitchCase="finalUsersPropertiesEnum.totalSpentTime">{{ user.totalSpentTime }}</div>
+                        <div *ngSwitchCase="finalUsersPropertiesEnum.trailName">{{ user.trailName }}</div>
+                      </div>
+
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody>
+                  <tr>
+                    <td colspan="4" class="text-center pb-0">
+                      <pagination-controls (pageChange)="paginaAtual = $event"></pagination-controls>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="innerWidth > owlCarouselMinimalSize; else cicloMobile">
+    <div class="col-12">
+      <h2 class="section-title">Ciclo</h2>
+    </div>
+    <div class="col-12 pl-0">
+      <div class="container-fluid pl-0" *ngIf="cycles[0]">
+        <owl-carousel-o [options]="owlcarouselOptions">
+          <ng-template carouselSlide class="pt-3">
+            <app-chart-card-small (rangeChange)="updateChart($event, cardDataTypeEnumLocal.CycleDetails)"
+              [cardData]="cardCycleDetails" [cycles]="cycles"></app-chart-card-small>
+          </ng-template>
+          <ng-template carouselSlide class="pt-3">
+            <app-card-cycles-overview (rangeChange)="updateChart($event, cardDataTypeEnumLocal.CyclesOverview)"
+              [cardCyclesOverview]="cardCyclesOverview"></app-card-cycles-overview>
+          </ng-template>
+          <ng-template carouselSlide class="pt-3">
+            <app-chart-card-small (rangeChange)="updateChart($event, cardDataTypeEnumLocal.CycleTime)"
+              [isCycleTime]="true" [cardData]="cardDataCycleTime" [cycles]="cycles">
+            </app-chart-card-small>
+          </ng-template>
+        </owl-carousel-o>
+      </div>
+    </div>
+  </div>
+  <ng-template #cicloMobile class="row">
+    <div class="col-12 col-md-4" *ngIf="cycles[0]">
+      <app-chart-card-small (rangeChange)="updateChart($event, cardDataTypeEnumLocal.CycleDetails)"
+        [cardData]="cardCycleDetails" [cycles]="cycles"></app-chart-card-small>
+    </div>
+    <div class="col-12 col-md-4">
+      <app-card-cycles-overview (rangeChange)="updateChart($event, cardDataTypeEnumLocal.CyclesOverview)"
+        [cardCyclesOverview]="cardCyclesOverview"></app-card-cycles-overview>
+    </div>
+    <div class="col-12 col-md-4" *ngIf="cycles[0]">
+      <app-chart-card-small (rangeChange)="updateChart($event, cardDataTypeEnumLocal.CycleTime)" [isCycleTime]="true"
+        [cardData]="cardDataCycleTime" [cycles]="cycles"></app-chart-card-small>
+    </div>
+  </ng-template>
+
+  <div class="row">
+    <div class="col-12">
+      <h2 class="section-title">Outros controles</h2>
+    </div>
+    <div class="col-12 pl-0" *ngIf="innerWidth > owlCarouselMinimalSize">
+      <div class="container-fluid pl-0">
+        <owl-carousel-o [options]="owlcarouselOptions">
+          <ng-template carouselSlide class="pt-3">
+            <div class="card fixed-max-height">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  <h4 class="card-title mb-3">Emails não confirmados</h4>
+                  <app-loader *ngIf="loadingUncofirmedEmail" color="purple" style="margin-left: 10px;" size="25px">
+                  </app-loader>
+                </div>
+                <div class="pb-3 w-100">
+                  <input class="form-control" type="text" placeholder="Buscar" (keyup)="filterUnconfirmedEmail($event)">
+                </div>
+                <div class="d-flex  flex-column area-list">
+                  <div *ngFor="let user of filteredUnconfirmedEmail; index as i"
+                    class="d-flex flex-column area-item px-3" (click)="user.collapsed = !user.collapsed">
+                    <div class="d-flex align-items-center w-100">
+                      <p class="my-0 mr-3 user-index">{{ i + 1 }}</p>
+                      <p class="my-0 mr-3 user-name">{{ user.name }}</p>
+                      <p class="my-0 mr-3 dark-gray"><em>{{ user.email }}</em></p>
+                      <i class="icofont icofont-caret-down ml-auto primary-text" role="button"></i>
+                    </div>
+
+                    <div class="collapse align-items-center justify-content-between px-3 pb-1 pt-3" id="collapse"
+                      [ngClass]="user.collapsed ? 'd-flex' : 'd-none'">
+                      <p class="m-0"><span class="dark-gray">enviado em: </span>{{ user.creationDate | date:
+                        'shortDate'}}</p>
+                      <button class="btn btn-primary text-white ml-2"
+                        (click)="resendEmail(user, $event)">Reenviar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+          <ng-template carouselSlide class="pt-3">
+            <app-chart-card-small (rangeChange)="updateChart($event, cardDataTypeEnumLocal.UseContinuosCycle)"
+              [cardData]="cardDataUseContinuosCycle" [numberTimes]="numberTimes" [hideOptions]="hideOptions">
+            </app-chart-card-small>
+          </ng-template>
+          <ng-template carouselSlide class="pt-3">
+            <app-chart-card-small (rangeChange)="updateChart($event, cardDataTypeEnumLocal.Trails)"
+              [cardData]="cardDataTrails" [hideOptions]="hideOptions">
+            </app-chart-card-small>
+          </ng-template>
+        </owl-carousel-o>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mt-3">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body overflow-hidden">
+            <div class="d-flex justify-content-between mb-3">
+              <p class="title-professionals-table">Assessments</p>
+              <div class="input-group mb-3 w-25 ">
+                <input type="text" class="form-control digits border-right-0"
+                  (keyup)="updateAssessmentFilter($event)" />
+                <div class="input-group-append">
+                  <span class="input-group-text search-icon" id="basic-addon2">
+                    <i class="icofont icofont-search-alt-2"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex border-tabs">
+              <div class="pb-2 subtitle-professionals-table" *ngFor="let tab of tabAssessmentHeaders"
+                (click)="activeAssessmentTabChanged(tab)" [ngClass]="{ active: tab.active }">
+                {{ tab.description }} ({{ tab.counter }})
+              </div>
+            </div>
+            <div class="row table-responsive">
+              <table mdbTable [striped]="mdbTableStriped">
+                <thead>
+                  <tr>
+                    <th class="title-head cursor-pointer table-header" *ngFor="let head of headAssessmentElements"
+                      scope="col" (click)="orderTableByHead(head.type)">
+                      <div class="d-flex flex-row">
+                        {{ (head.visible) ? head.description : '' }}
+                        <div *ngIf="head.visible" [innerHTML]="head.icon" style="margin-left: 5px;"></div>
+                      </div>
+                    </th>
+                  </tr>
+                </thead>
+                <app-loader *ngIf="!assessmentList" color="purple" style="margin-left: 10px; margin-top: 20px;"
+                  size="25px">
+                </app-loader>
+                <tbody mdbTableCol
+                  *ngFor="let assessment of assessmentList | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index">
+                  <tr>
+                    <td class="detail-text">{{ assessment.requestDate }}</td>
+                    <td class="detail-text">{{ assessment.username }}</td>
+                    <td>
+                      <span class="mr-2 ml-2"> {{ assessment.email }} </span>
+                    </td>
+                    <td class="detail-text filter-text" colspan="2">
+                      <div class="d-flex flex-col" *ngIf="!assessment.url">
+                        <input class="form-control mr-2" type="email" [(ngModel)]="assessment.link" #ctrl="ngModel"
+                          required placeholder="Informar Url " autocomplete="off" />
+                        <button class="btn btn-outline bg-blue text-white" (click)="sendAssessmentLink(assessment)"
+                          [disabled]="!assessment.link">
+                          Enviar
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody>
+                  <tr>
+                    <td colspan="4" class="text-center pb-0">
+                      <pagination-controls (pageChange)="paginaAtual = $event"></pagination-controls>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

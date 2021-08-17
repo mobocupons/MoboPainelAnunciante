@@ -1,0 +1,28 @@
+<div class="row">
+  <span class="subtitle mb-3">{{ cardData?.cardTitle }}</span>
+  <app-loader *ngIf="loading" color="purple" style="margin-left: 10px; margin-top: 5px;" size="25px"></app-loader>
+</div>
+<div class="row" [ngClass]="{'disabled-style': loading}">
+  <div class="col-md-2 col-12 d-flex">
+    <div class="d-flex flex-column justify-content-center align-items-start border-right border-light w-100">
+      <div class="descriptionText mb-md-5">{{ cardData?.firstLabel }}</div>
+      <div class="number-text blueNumb">{{ cardData?.firstValue }}</div>
+    </div>
+  </div>
+  <div class="col-md-4 col-12 d-flex flex-column justify-content-center align-items-center p-0">
+    <app-date-range-selector (rangeChange)="emitRange($event)" class="card-big w-100"></app-date-range-selector>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="mr-5">
+        <div class="descriptionText">{{ cardData?.secondLabel }}</div>
+        <div class="number-text greenNumb">{{ cardData?.secondValue }}</div>
+      </div>
+      <div class="group">
+        <div class="descriptionText">{{ cardData?.thirdLabel }}</div>
+        <div class="number-text redNumb">{{ cardData?.thirdValue }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-12">
+    <canvas #lineChart height="90px"></canvas>
+  </div>
+</div>

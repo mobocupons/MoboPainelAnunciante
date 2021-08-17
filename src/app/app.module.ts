@@ -58,7 +58,6 @@ import {PhoneHelper} from "src/app/shared/helpers/phoneHelper"
     FCMService,
     AsyncPipe,
     PhoneHelper,
-    ServiceWorker,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

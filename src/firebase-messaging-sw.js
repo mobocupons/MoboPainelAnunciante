@@ -15,6 +15,6 @@ firebase.initializeApp({
 const messaging = firebase.messaging();
 
 // EventEmitter.listen('push', data=>{console.log(data)})
-messaging.onBackgroundMessage( (payload) => {
-    console.log(payload)
-  })
+// messaging.onBackgroundMessage( (payload) => {
+//     console.log(payload)
+//   })

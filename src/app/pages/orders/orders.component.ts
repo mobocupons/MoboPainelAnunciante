@@ -97,4 +97,7 @@ export class OrdersComponent implements OnInit {
     var newDate = ((date.getDate() + " " + this.meses[(date.getMonth())] + " " + date.getFullYear()+ " as " + date.getHours()+ ":" + date.getMinutes()))
     return newDate
   }
+  round(x){
+    return Math.round(x)
+  }
 }

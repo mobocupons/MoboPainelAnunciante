@@ -98,6 +98,6 @@ export class OrdersComponent implements OnInit {
     return newDate
   }
   round(x){
-    return Math.round(x)
+    return Math.round(x).toFixed(2)
   }
 }

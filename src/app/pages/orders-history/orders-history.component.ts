@@ -103,6 +103,6 @@ var result = xdate == ndate
 return result
 }
 round(x){
-  return Math.round(x)
+  return Math.round(x).toFixed(2)
 }
 }

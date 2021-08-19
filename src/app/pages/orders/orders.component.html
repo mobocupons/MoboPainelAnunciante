@@ -89,7 +89,7 @@
                       <label class="text-blue">Total</label>
                       <label class="text-blue">R$ {{order.valorTotal.toFixed(2)}}</label>
                     </div>
-                    <div class="d-flex justify-content-between m-2 mt-4" *ngIf = "order.pedidoStatusId==2">
+                    <div class="d-flex justify-content-between m-2 mt-4" *ngIf = "order.pedidoStatusId!=4">
                       <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-light"
                         class="btn btn-light" (click)="cancelOrder(order.id)">Cancelar</button>
                       <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-secondary"

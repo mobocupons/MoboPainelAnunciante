@@ -40,7 +40,7 @@ export class OrdersComponent implements OnInit {
   acceptOrder(code)
   {
     this.orderService.changeStatus(2,code).subscribe(item=>console.log(item),error=>console.log(error))
-    this.accepetedOrders.push(this.pendingOrders.find(x=>x.id == code))
+    this.accepetedOrders.unshift(this.pendingOrders.find(x=>x.id == code))
     this.selectOrder(code)
     this.pendingOrders = this.pendingOrders.filter(x=>x.id != code)
     

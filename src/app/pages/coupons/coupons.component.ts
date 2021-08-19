@@ -45,7 +45,7 @@ export class CouponsComponent implements OnInit {
       });
       this.campanhas = [];
     }
-
+    get name() { return this.couponsForm.value.name; }
   ngOnInit(): void {
     this.getCampanhasAtivas()
    }

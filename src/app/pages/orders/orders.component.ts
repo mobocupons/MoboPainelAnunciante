@@ -45,6 +45,12 @@ export class OrdersComponent implements OnInit {
     this.pendingOrders = this.pendingOrders.filter(x=>x.id != code)
     
   }
+  finalizeOrder(code)
+  {
+    this.orderService.changeStatus(5,code).subscribe(item=>console.log(item),error=>console.log(error))
+    this.accepetedOrders = this.accepetedOrders.filter(x=>x.id != code)
+    
+  }
 
   refuseOrder(code)
   {
@@ -62,8 +68,10 @@ export class OrdersComponent implements OnInit {
   deliverOrder(code)
   {
     this.orderService.changeStatus(4,code).subscribe(item=>console.log(item),error=>console.log(error))
+    let order = this.accepetedOrders.find(x=>x.id == code)
+    order.pedidoStatusId = 4;
     this.accepetedOrders = this.accepetedOrders.filter(x=>x.id != code)
-    
+    this.accepetedOrders =  this.accepetedOrders.concat(order);
   }
 
   getDailyOrder(){
@@ -76,7 +84,7 @@ export class OrdersComponent implements OnInit {
           if(x.pedidoStatusId==1){
             this.pendingOrders.push(x)
           }
-          else if(x.pedidoStatusId==2){
+          else if(x.pedidoStatusId==2 || x.pedidoStatusId==4){
             this.accepetedOrders.push(x)
             this.selectedOrder = x
           }

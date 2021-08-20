@@ -14,7 +14,7 @@ import { OrderService } from 'src/app/shared/services/order.service';
 
 export class OrdersHistoryComponent implements OnInit {
   pag : number = 1 ;
-  contador : number = 3;
+  contador : number = 10;
   public couponsForm: FormGroup;
   public searchForm: FormGroup;
   public orders: ValueCompleteOrder[] = []
@@ -77,6 +77,46 @@ private filterByName(name)
     this.orders = this.orders.filter(x=>x.usuarioEndereco.usuario.nome == name)
   }
   
+}
+
+filterbyCode(code){
+  if(code !="" && this.oldOrders.length == 0){
+    this.oldOrders = this.orders;
+    this.orders = this.orders.filter(x=>x.cupom.codigo == code)
+  }
+  else if(code !="" && this.oldOrders.length != 0){
+    this.orders = this.orders.filter(x=>x.cupom.codigo == code)
+  }
+}
+filterbyStatus(status){
+  if(status !="" && this.oldOrders.length == 0){
+    let statusNumber =  this.Status("status")
+    this.oldOrders = this.orders;
+    this.orders = this.orders.filter(x=>x.pedidoStatusId == statusNumber)
+  }
+  else if(status !="" && this.oldOrders.length != 0){
+    let statusNumber =  this.Status("status")
+    this.orders = this.orders.filter(x=>x.pedidoStatusId == statusNumber)
+  }
+}
+Status(status){
+  switch(status)
+  {
+    case "Recusado":
+      return 3;
+    case "recusado":
+      return 3;  
+    case "Cancelado":
+      return 6;
+    case "cancelado":
+      return 6;
+    case "Finalizado":
+      return 5;
+    case "finalizado":
+      return 5;
+    default:
+      return 0;
+  }
 }
 private filterByDate(date)
 {

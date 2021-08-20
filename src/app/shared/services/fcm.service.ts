@@ -61,7 +61,13 @@ public prop: any;
             Swal.fire('Recebemos um novo pedido! ',
             'Fique atento para o formato de pagamento e lembre-se de sinalizar que o pedido saiu para entrega.',
             'success').then(()=>{
-                this.router.navigate(['/dashboard/orders']);
+                if(!this.router.isActive("/dashboard/orders", true)){
+                    this.router.navigate(['/dashboard/orders']);
+                }
+                else{
+                    window.location.reload();
+                }
+                
             })
             
         })

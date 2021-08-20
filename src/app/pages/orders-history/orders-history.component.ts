@@ -42,7 +42,7 @@ getOrders()
     let local=  this.localStorageService.getLocal();
     let localId = local!=null ? local.id : anunciante.locais[0].id;
     this.orderService.getHistory(localId).subscribe(item=>{
-        this.orders = item ? item.value.filter(x=>x.pedidoStatusId!=1&&x.pedidoStatusId!=2) : null;
+        this.orders = item ? item.value.filter(x=>x.pedidoStatusId!=1&&x.pedidoStatusId!=2&&x.pedidoStatusId!=4) : null;
        
         if(this.orders!=null && this.orders.length >=1){
           this.haveOrders = true
@@ -93,6 +93,7 @@ private filterByDate(date)
 }
 resetFilter(){
     this.orders = this.oldOrders;
+    this.searchForm.reset()
 }
 verifyDate(xDate, nDate){
  

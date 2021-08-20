@@ -56,71 +56,167 @@ getDateTime(date){
   var newDate = ((date.getDate() + " " + this.meses[(date.getMonth())] + " " + date.getFullYear()+ " as " + date.getHours()+ ":" + date.getMinutes()))
   return newDate
 }
+eventSearch(event)
+{
+  
+  let name = event.target.value as String;
+  name = name.toLowerCase();
+  console.log(name)
+  if(name == ""|| name == null){
+    this.resetFilter()
+  }
+  else{
+    if(this.oldOrders.length > 0){
+      this.orders = this.oldOrders;
+    }
+    this.filterByName(name);
+    if(this.orders.length == 0){
+      this.orders = this.oldOrders;
+      this.filterByAddressStreet(name);
+      if(this.orders.length == 0){
+        this.orders = this.oldOrders;
+        this.filterByAddressCity(name);
+        if(this.orders.length == 0){
+          this.orders = this.oldOrders;
+          this.filterBytitle(name);
+          if(this.orders.length == 0){
+            this.orders = this.oldOrders;
+            this.filterbyStatus(name);
+            if(this.orders.length == 0){
+              this.orders = this.oldOrders;
+              this.filterbyCode(name);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  
+}
+
 search()
 {
   let name = this.searchForm.value['name']
   let date = this.searchForm.value['date']
-  if(this.oldOrders.length > 0){
-    this.orders = this.oldOrders;
+  if(name == ""|| name == null){
+    this.resetFilter()
   }
-  this.filterByName(name);
-  this.filterByDate(date)
+  else{
+    if(this.oldOrders.length > 0){
+      this.orders = this.oldOrders;
+    }
+    this.filterByName(name);
+    if(this.orders.length == 0){
+      this.orders = this.oldOrders;
+      this.filterbyCode(name);
+      if(this.orders.length == 0){
+        this.orders = this.oldOrders;
+        this.filterbyStatus(name);
+        if(this.orders.length == 0){
+          this.orders = this.oldOrders;
+          this.filterBytitle(name);
+          if(this.orders.length == 0){
+            this.orders = this.oldOrders;
+            this.filterByAddressStreet(name);
+            if(this.orders.length == 0){
+              this.orders = this.oldOrders;
+              this.filterByAddressCity(name);
+            }
+          }
+        }
+      }
+    }
+    this.filterByDate(date)
+  }
+  
   
 }
 private filterByName(name)
 {
   if(name !="" && this.oldOrders.length == 0){
     this.oldOrders = this.orders;
-    this.orders = this.orders.filter(x=>x.usuarioEndereco.usuario.nome == name)
+    this.orders = this.orders.filter(x=>x.usuarioEndereco.usuario.nome.toLowerCase().includes(name))
   }
   else if(name !="" && this.oldOrders.length != 0){
-    this.orders = this.orders.filter(x=>x.usuarioEndereco.usuario.nome == name)
+    this.orders = this.orders.filter(x=>x.usuarioEndereco.usuario.nome.toLowerCase().includes(name))
   }
   
 }
+private filterBytitle(name)
+{
+  if(name !="" && this.oldOrders.length == 0){
+    this.oldOrders = this.orders;
+    this.orders = this.orders.filter(x=>x.cupom.campanha.titulo.toLowerCase().includes(name))
+  }
+  else if(name !="" && this.oldOrders.length != 0){
+    this.orders = this.orders.filter(x=>x.cupom.campanha.titulo.toLowerCase().includes(name))
+  }
+  
+}
+private filterByAddressStreet(name)
+{
+  if(name !="" && this.oldOrders.length == 0){
+    this.oldOrders = this.orders;
+    this.orders = this.orders.filter(x=>x.usuarioEndereco.logradouro.toLowerCase().includes(name))
+  }
+  else if(name !="" && this.oldOrders.length != 0){
+    this.orders = this.orders.filter(x=>x.usuarioEndereco.logradouro.toLowerCase().includes(name))
+  }
+}
+private filterByAddressCity(name)
+{
+  if(name !="" && this.oldOrders.length == 0){
+    this.oldOrders = this.orders;
+    this.orders = this.orders.filter(x=>x.usuarioEndereco.cidade.toLowerCase().includes(name))
+  }
+  else if(name !="" && this.oldOrders.length != 0){
+    this.orders = this.orders.filter(x=>x.usuarioEndereco.cidade.nome.toLowerCase().includes(name))
+  }
+}
 
 filterbyCode(code){
+  
   if(code !="" && this.oldOrders.length == 0){
     this.oldOrders = this.orders;
-    this.orders = this.orders.filter(x=>x.cupom.codigo == code)
+    this.orders = this.orders.filter(x=>x.cupom.codigo.toLowerCase().includes(code))
   }
   else if(code !="" && this.oldOrders.length != 0){
-    this.orders = this.orders.filter(x=>x.cupom.codigo == code)
+    this.orders = this.orders.filter(x=>x.cupom.codigo.toLowerCase().includes(code))
   }
 }
 filterbyStatus(status){
   if(status !="" && this.oldOrders.length == 0){
-    let statusNumber =  this.Status("status")
+    let statusNumber =  this.Status(status)
+    console.log(statusNumber)
     this.oldOrders = this.orders;
     this.orders = this.orders.filter(x=>x.pedidoStatusId == statusNumber)
   }
   else if(status !="" && this.oldOrders.length != 0){
-    let statusNumber =  this.Status("status")
+    let statusNumber =  this.Status(status)
+    console.log(statusNumber)
     this.orders = this.orders.filter(x=>x.pedidoStatusId == statusNumber)
   }
 }
 Status(status){
-  switch(status)
-  {
-    case "Recusado":
+
+    if("recusado".toLowerCase().includes(status)){
       return 3;
-    case "recusado":
-      return 3;  
-    case "Cancelado":
+    }
+    if("cancelado".toLowerCase().includes(status)){
       return 6;
-    case "cancelado":
-      return 6;
-    case "Finalizado":
+    }
+    if("finalizado".toLowerCase().includes(status)){
       return 5;
-    case "finalizado":
-      return 5;
-    default:
+    }
+    else{
       return 0;
-  }
+    }
+   
 }
 private filterByDate(date)
 {
-  
+  console.log(this.oldOrders.length)
   if(date !="" && this.oldOrders.length == 0){
     this.oldOrders = this.orders;
     this.orders = this.orders.filter(x=>this.verifyDate(x.realizadoEm,date))
@@ -132,8 +228,11 @@ private filterByDate(date)
   
 }
 resetFilter(){
+  if(this.oldOrders.length != 0){
+    
     this.orders = this.oldOrders;
     this.searchForm.reset()
+  }
 }
 verifyDate(xDate, nDate){
  

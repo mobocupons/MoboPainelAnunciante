@@ -83,6 +83,7 @@ export class CouponsComponent implements OnInit {
           Swal.fire('Cupom validado!',
           'os cupons foram validados',
           'success')
+          this.localForm.value["name"] = "";
         }
       }
       else{

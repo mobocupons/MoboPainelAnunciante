@@ -94,9 +94,18 @@ eventSearch(event)
   
   
 }
+eventSearchDate(event)
+{
+  if(this.oldOrders.length > 0){
+    this.orders = this.oldOrders;
+  }
+  let name = event.target.value as String;
+  this.filterByDate(name)
+}
 
 search()
 {
+  console.log("search")
   let name = this.searchForm.value['name']
   let date = this.searchForm.value['date']
   if(name == ""|| name == null){

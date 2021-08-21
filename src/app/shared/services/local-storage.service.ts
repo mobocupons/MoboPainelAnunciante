@@ -3,6 +3,7 @@ import { Constants } from "./../utils/constants";
 import { Injectable } from "@angular/core";
 import { Anunciante } from "../models/anunciante.model";
 import { Local } from "../models/local.model";
+import { CompleteOrder } from "../models/complete-order.model";
 
 @Injectable({
   providedIn: "root",
@@ -26,6 +27,9 @@ export class LocalStorageService {
   }
   getLocal() {
     return ( JSON.parse(localStorage.getItem(Constants.LOCAL)) as Local) || null;
+  }
+  getOrder() {
+    return ( JSON.parse(localStorage.getItem(Constants.ORDER)) as CompleteOrder) || null;
   }
 
   getManager() {

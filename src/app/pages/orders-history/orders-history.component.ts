@@ -61,7 +61,6 @@ eventSearch(event)
   
   let name = event.target.value as String;
   name = name.toLowerCase();
-  console.log(name)
   if(name == ""|| name == null){
     this.resetFilter()
   }
@@ -105,7 +104,6 @@ eventSearchDate(event)
 
 search()
 {
-  console.log("search")
   let name = this.searchForm.value['name']
   let date = this.searchForm.value['date']
   if(name == ""|| name == null){
@@ -197,13 +195,11 @@ filterbyCode(code){
 filterbyStatus(status){
   if(status !="" && this.oldOrders.length == 0){
     let statusNumber =  this.Status(status)
-    console.log(statusNumber)
     this.oldOrders = this.orders;
     this.orders = this.orders.filter(x=>x.pedidoStatusId == statusNumber)
   }
   else if(status !="" && this.oldOrders.length != 0){
     let statusNumber =  this.Status(status)
-    console.log(statusNumber)
     this.orders = this.orders.filter(x=>x.pedidoStatusId == statusNumber)
   }
 }
@@ -225,7 +221,6 @@ Status(status){
 }
 private filterByDate(date)
 {
-  console.log(this.oldOrders.length)
   if(date !="" && this.oldOrders.length == 0){
     this.oldOrders = this.orders;
     this.orders = this.orders.filter(x=>this.verifyDate(x.realizadoEm,date))
@@ -247,7 +242,6 @@ verifyDate(xDate, nDate){
  
 let xdate = new Date(xDate).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
 let ndate = new Date(nDate).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
-console.log(xdate,ndate)
 var result = xdate == ndate
 return result
 }

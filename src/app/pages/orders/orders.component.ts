@@ -6,6 +6,7 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import {OrderService} from "src/app/shared/services/order.service"
 import {PhoneHelper} from "src/app/shared/helpers/phoneHelper"
 import { Constants } from 'src/app/shared/utils/constants';
+import { EventEmitter }  from 'src/app/shared/helpers/EventeHelper';
 
 @Component({
   selector: 'app-orders',
@@ -27,6 +28,7 @@ export class OrdersComponent implements OnInit {
       name: ['', Validators.required],
       
     });
+    this.eventListener()
    }
 
   ngOnInit(): void {
@@ -80,6 +82,7 @@ export class OrdersComponent implements OnInit {
     let localId = local!=null ? local.id : anunciante.locais[0].id;
     this.orderService.getAll(localId).subscribe(item=>{
       if(item){
+        localStorage.setItem(Constants.ORDER, JSON.stringify(item));
         item.value.forEach(x=>{
           if(x.pedidoStatusId==1){
             this.pendingOrders.push(x)
@@ -107,5 +110,22 @@ export class OrdersComponent implements OnInit {
   }
   round(x){
     return Math.round(x).toFixed(2)
+  }
+
+  eventListener(){
+    EventEmitter.listen('newOrder', item => {
+      if(item){
+        localStorage.setItem(Constants.ORDER, JSON.stringify(item));
+        item.value.forEach(x=>{
+          if(x.pedidoStatusId==1){
+            this.pendingOrders.push(x)
+          }
+          else if(x.pedidoStatusId==2 || x.pedidoStatusId==4){
+            this.accepetedOrders.push(x)
+            this.selectedOrder = x
+          }
+        })
+      }
+    });
   }
 }

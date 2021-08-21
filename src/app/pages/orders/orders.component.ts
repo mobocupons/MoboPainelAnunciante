@@ -116,6 +116,8 @@ export class OrdersComponent implements OnInit {
     EventEmitter.listen('newOrder', item => {
       if(item){
         localStorage.setItem(Constants.ORDER, JSON.stringify(item));
+        this.pendingOrders = [];
+        this.accepetedOrders= [];
         item.value.forEach(x=>{
           if(x.pedidoStatusId==1){
             this.pendingOrders.push(x)

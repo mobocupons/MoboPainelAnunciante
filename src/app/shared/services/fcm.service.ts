@@ -69,7 +69,12 @@ public prop: any;
                     this.router.navigate(['/dashboard/orders']);
                 }
                 else{
-                    window.location.reload();
+                    let local =  this.localStorageService.getLocal();
+                    if(local !=null){
+                        this.orderService.getAll(local.id).subscribe(item=>{
+                            EventEmitter.emit('newOrder',item);
+                        })
+                    }
                 }
                 
             })
@@ -82,7 +87,7 @@ public prop: any;
         if(local != null){
             let localId =  local.id;
             this.orderService.getAll(localId).subscribe(item=>{
-                if(item.value.length > order.value.length && item != null){
+                if((item != null && order == null) || (item.value.length > order.value.length)){
                     Swal.fire('Recebemos um novo pedido! ',
                     'Fique atento para o formato de pagamento e lembre-se de sinalizar que o pedido saiu para entrega.',
                     'success').then(()=>{
@@ -94,7 +99,6 @@ public prop: any;
                         }
                         
                     })
-                   
                 }
                 
             })

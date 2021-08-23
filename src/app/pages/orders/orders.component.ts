@@ -7,6 +7,7 @@ import {OrderService} from "src/app/shared/services/order.service"
 import {PhoneHelper} from "src/app/shared/helpers/phoneHelper"
 import { Constants } from 'src/app/shared/utils/constants';
 import { EventEmitter }  from 'src/app/shared/helpers/EventeHelper';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-orders',
@@ -56,8 +57,21 @@ export class OrdersComponent implements OnInit {
 
   refuseOrder(code)
   {
-    this.orderService.changeStatus(3,code).subscribe(item=>console.log(item),error=>console.log(error))
-    this.pendingOrders = this.pendingOrders.filter(x=>x.id != code)
+    Swal.fire({
+      title: 'Recusar pedido?',
+      text: 'O Cliente será avisado que seu pedido foi recusado e não será mais posssivel atende-lo',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: `Voltar`,
+      denyButtonText: `Recusar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+       if (result.isDenied) {
+        this.orderService.changeStatus(3,code).subscribe(item=>console.log(item),error=>console.log(error))
+        this.pendingOrders = this.pendingOrders.filter(x=>x.id != code)
+      }
+    })
+    
     
   }
 

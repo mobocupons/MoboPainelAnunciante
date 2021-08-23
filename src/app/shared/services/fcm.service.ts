@@ -14,11 +14,14 @@ import { environment } from "src/environments/environment";
 import { EventEmitter }  from 'src/app/shared/helpers/EventeHelper';
 import { OrderService } from "./order.service";
 import { LocalStorageService } from "./local-storage.service";
+import { Title } from "@angular/platform-browser";
+
 
 @Injectable()
 export class  FCMService{
     currentMessage = new BehaviorSubject(null);
     private messaging: firebase.messaging.Messaging;
+    private receivedMessage = false;
 public prop: any;
     constructor(private angularFirebaseMessaging: AngularFireMessaging,
         @Inject(FirebaseApp) private _firebaseApp: firebase.app.App,
@@ -26,6 +29,7 @@ public prop: any;
         private localStorageService: LocalStorageService,
         private hub: HubConnectionService,
         private router: Router,
+        private title :Title
         ){
         this.angularFirebaseMessaging.messaging.subscribe(
             (_messaging) => {
@@ -62,22 +66,29 @@ public prop: any;
     receiveMessage(){
         this.angularFirebaseMessaging.messages.subscribe(
             (payload: any) => {
-            Swal.fire('Recebemos um novo pedido! ',
-            'Fique atento para o formato de pagamento e lembre-se de sinalizar que o pedido saiu para entrega.',
-            'success').then(()=>{
-                if(!this.router.isActive("/dashboard/orders", true)){
-                    this.router.navigate(['/dashboard/orders']);
+                if(!this.receivedMessage){
+                    this.receivedMessage = true;
+                    this.title.setTitle("Novo pedido em aberto")
+                    this.playAudio()
+                    Swal.fire('Recebemos um novo pedido! ',
+                    'Fique atento para o formato de pagamento e lembre-se de sinalizar que o pedido saiu para entrega.',
+                    'success').then(()=>{
+                        if(!this.router.isActive("/dashboard/orders", true)){
+                            this.router.navigate(['/dashboard/orders']);
+                        }
+                        else{
+                            let local =  this.localStorageService.getLocal();
+                            if(local !=null){
+                                this.orderService.getAll(local.id).subscribe(item=>{
+                                    EventEmitter.emit('newOrder',item);
+                                })
+                            }
+                        }
+                        this.title.setTitle("Mobo - Painel do Anunciante")
+                        this.receivedMessage = false;
+                    })
                 }
-                else{
-                    let local =  this.localStorageService.getLocal();
-                    if(local !=null){
-                        this.orderService.getAll(local.id).subscribe(item=>{
-                            EventEmitter.emit('newOrder',item);
-                        })
-                    }
-                }
-                
-            })
+            
             
         })
     }
@@ -88,6 +99,9 @@ public prop: any;
             let localId =  local.id;
             this.orderService.getAll(localId).subscribe(item=>{
                 if((item != null && order == null) || (item.value.length > order.value.length)){
+                    this.receivedMessage = true;
+                    this.playAudio()
+                    this.title.setTitle("Novo pedido em aberto")
                     Swal.fire('Recebemos um novo pedido! ',
                     'Fique atento para o formato de pagamento e lembre-se de sinalizar que o pedido saiu para entrega.',
                     'success').then(()=>{
@@ -97,13 +111,18 @@ public prop: any;
                         else{
                             EventEmitter.emit('newOrder',item);
                         }
-                        
+                        this.title.setTitle("Mobo - Painel do Anunciante")
+                        this.receivedMessage = false;
                     })
                 }
                 
             })
         }
-        
-       
     }
+    playAudio(){
+        let audio = new Audio();
+        audio.src = "../../../assets/audio/NewMessage.mp3";
+        audio.load();
+        audio.play();
+      }
 }

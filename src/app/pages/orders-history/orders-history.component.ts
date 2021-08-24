@@ -60,11 +60,12 @@ eventSearch(event, isFromFunc = false)
 {
   
   let name = event.target.value as String;
-  name = name.toLowerCase();
+  
   if(name == ""|| name == null){
     this.resetFilter()
   }
   else{
+    name = name.toLowerCase();
     if(this.oldOrders.length > 0 && this.orders.length == 0){
       this.orders = this.oldOrders;
      
@@ -107,8 +108,6 @@ eventSearchDate(event, isFromFunc = false)
 {
   if(this.oldOrders.length > 0 && this.orders.length == 0){
     this.orders = this.oldOrders;
-    
-   
   }
   if(this.searchForm.value["name"]!="" && !isFromFunc){
     let event = {
@@ -131,7 +130,6 @@ private filterByName(name)
   else if(name !="" && this.oldOrders.length != 0){
     this.orders = this.orders.filter(x=>x.usuarioEndereco.usuario.nome.toLowerCase().includes(name))
   }
-  console.log(this.orders)
 }
 private filterBytitle(name)
 {

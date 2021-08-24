@@ -72,7 +72,6 @@ export class OrdersComponent implements OnInit {
       }
     })
     
-    
   }
 
   cancelOrder(code)

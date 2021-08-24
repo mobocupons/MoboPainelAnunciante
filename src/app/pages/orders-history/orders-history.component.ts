@@ -216,7 +216,8 @@ resetFilter(){
   if(this.oldOrders.length != 0){
     
     this.orders = this.oldOrders;
-    this.searchForm.reset()
+    this.searchForm.get("name").setValue("")
+    this.searchForm.get("date").setValue("")
   }
 }
 verifyDate(xDate, nDate){

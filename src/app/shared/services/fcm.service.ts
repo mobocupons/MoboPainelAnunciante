@@ -98,7 +98,8 @@ public prop: any;
         if(local != null){
             let localId =  local.id;
             this.orderService.getAll(localId).subscribe(item=>{
-                if((item != null && order == null) || (item.value.length > order.value.length)){
+                let newOrdes = item != null ? item.value.find(x=>x.pedidoStatusId == 1) : null 
+                if((newOrdes != null && order == null) || (item.value.length > order.value.length)){
                     this.receivedMessage = true;
                     this.playAudio()
                     this.title.setTitle("Novo pedido em aberto")

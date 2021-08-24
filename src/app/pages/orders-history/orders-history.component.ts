@@ -56,7 +56,7 @@ getDateTime(date){
   var newDate = ((date.getDate() + " " + this.meses[(date.getMonth())] + " " + date.getFullYear()+ " as " + date.getHours()+ ":" + date.getMinutes()))
   return newDate
 }
-eventSearch(event)
+eventSearch(event, isFromFunc = false)
 {
   
   let name = event.target.value as String;
@@ -65,8 +65,18 @@ eventSearch(event)
     this.resetFilter()
   }
   else{
-    if(this.oldOrders.length > 0){
+    if(this.oldOrders.length > 0 && this.orders.length == 0){
       this.orders = this.oldOrders;
+     
+      
+    }
+    if(this.searchForm.value["date"]!="" && !isFromFunc){
+      let event = {
+        target:{
+          value:this.searchForm.value["date"]
+        }
+      }
+      this.eventSearchDate(event,true)
     }
     this.filterByName(name);
     if(this.orders.length == 0){
@@ -93,52 +103,25 @@ eventSearch(event)
   
   
 }
-eventSearchDate(event)
+eventSearchDate(event, isFromFunc = false)
 {
-  if(this.oldOrders.length > 0){
+  if(this.oldOrders.length > 0 && this.orders.length == 0){
     this.orders = this.oldOrders;
+    
+   
+  }
+  if(this.searchForm.value["name"]!="" && !isFromFunc){
+    let event = {
+      target:{
+        value:this.searchForm.value["name"]
+      }
+    }
+    this.eventSearch(event, true)
   }
   let name = event.target.value as String;
   this.filterByDate(name)
 }
 
-search()
-{
-  let name = this.searchForm.value['name']
-  let date = this.searchForm.value['date']
-  if(name == ""|| name == null){
-    this.resetFilter()
-  }
-  else{
-    if(this.oldOrders.length > 0){
-      this.orders = this.oldOrders;
-    }
-    this.filterByName(name);
-    if(this.orders.length == 0){
-      this.orders = this.oldOrders;
-      this.filterbyCode(name);
-      if(this.orders.length == 0){
-        this.orders = this.oldOrders;
-        this.filterbyStatus(name);
-        if(this.orders.length == 0){
-          this.orders = this.oldOrders;
-          this.filterBytitle(name);
-          if(this.orders.length == 0){
-            this.orders = this.oldOrders;
-            this.filterByAddressStreet(name);
-            if(this.orders.length == 0){
-              this.orders = this.oldOrders;
-              this.filterByAddressCity(name);
-            }
-          }
-        }
-      }
-    }
-    this.filterByDate(date)
-  }
-  
-  
-}
 private filterByName(name)
 {
   if(name !="" && this.oldOrders.length == 0){
@@ -148,7 +131,7 @@ private filterByName(name)
   else if(name !="" && this.oldOrders.length != 0){
     this.orders = this.orders.filter(x=>x.usuarioEndereco.usuario.nome.toLowerCase().includes(name))
   }
-  
+  console.log(this.orders)
 }
 private filterBytitle(name)
 {

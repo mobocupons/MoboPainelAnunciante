@@ -59,7 +59,7 @@ export class OrdersComponent implements OnInit {
   {
     Swal.fire({
       title: 'Recusar pedido?',
-      text: 'O Cliente será avisado que seu pedido foi recusado e não será mais posssivel atende-lo',
+      text: 'O Cliente será avisado que seu pedido foi recusado e não será mais possível atendê-lo',
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: `Voltar`,

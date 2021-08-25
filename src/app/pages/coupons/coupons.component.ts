@@ -68,6 +68,7 @@ export class CouponsComponent implements OnInit {
     this.couponService.postValidateCoupon(this.anunciante.id, localId, coupons).subscribe(item=>{
       let validado = true
       if(item){
+        console.log(item)
         item.value.forEach(x => {
           if(x.validado == false){
            validado = false;
@@ -88,6 +89,7 @@ export class CouponsComponent implements OnInit {
         }
       }
       else{
+        console.log(item)
         Swal.fire('Não foi possível validar o cupom!',
         'O código informado não pertence a um cupom válido, ou já foi utilizado. Verifique o código e tente novamente',
         'error')

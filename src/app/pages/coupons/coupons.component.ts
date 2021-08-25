@@ -68,17 +68,21 @@ export class CouponsComponent implements OnInit {
     let localId = this.localForm.value["name"];
 
     this.couponService.postValidateCoupon(this.anunciante.id, localId, coupons).subscribe(item=>{
-      console.log(item)
+      let allvalid = true;
       if(item){
         item.value.forEach(x => {
           if(x.validado){
             this.toster.success('Cupom validado com sucesso', x.cupom.codigo,{disableTimeOut:true});
           }
           else{
+            allvalid = false;
             this.toster.error('O código informado não pertence a um cupom válido',x.cupom.codigo,{disableTimeOut:true});
           }
         });
-  
+
+        if(allvalid){
+          this.couponsForm.get("name").setValue("") 
+        }
         
       }
      

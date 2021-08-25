@@ -10,6 +10,7 @@ import { ProfessionalService } from 'src/app/shared/services/professional.servic
 import { CouponService } from 'src/app/shared/services/coupon.service';
 import Swal from 'sweetalert2'
 import { Local } from 'src/app/shared/models/local.model';
+
 @Component({
   selector: 'app-coupons',
   templateUrl: './coupons.component.html',
@@ -48,6 +49,7 @@ export class CouponsComponent implements OnInit {
     get name() { return this.couponsForm.value.name; }
   ngOnInit(): void {
     this.getCampanhasAtivas()
+  
    }
 
   getCampanhasAtivas(){
@@ -66,35 +68,20 @@ export class CouponsComponent implements OnInit {
     let localId = this.localForm.value["name"];
 
     this.couponService.postValidateCoupon(this.anunciante.id, localId, coupons).subscribe(item=>{
-      let validado = true
       console.log(item)
       if(item){
-        console.log(item)
         item.value.forEach(x => {
-          if(x.validado == false){
-           validado = false;
+          if(x.validado){
+            this.toster.success('Cupom validado com sucesso', x.cupom.codigo,{disableTimeOut:true});
+          }
+          else{
+            this.toster.error('O código informado não pertence a um cupom válido',x.cupom.codigo,{disableTimeOut:true});
           }
         });
   
-        if(!validado){
-          Swal.fire('Não foi possível validar o cupom!',
-            'O código informado não pertence a um cupom válido, ou já foi utilizado. Verifique o código e tente novamente',
-            'error')
-        }
-        else{
-          Swal.fire('Cupom validado!',
-          'os cupons foram validados',
-          'success').then(()=>{
-            this.couponsForm.get("name").setValue("");
-          })
-        }
-      }
-      else{
         
-        Swal.fire('Não foi possível validar o cupom!',
-        'O código informado não pertence a um cupom válido, ou já foi utilizado. Verifique o código e tente novamente',
-        'error')
       }
+     
       this.showLoader = false;
     },
     error=>{

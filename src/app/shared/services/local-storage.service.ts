@@ -29,7 +29,7 @@ export class LocalStorageService {
     return ( JSON.parse(localStorage.getItem(Constants.LOCAL)) as Local) || null;
   }
   getOrder() {
-    return ( JSON.parse(localStorage.getItem(Constants.ORDER)) as CompleteOrder) || null;
+    return ( JSON.parse(localStorage.getItem(Constants.ORDER)) as CompleteOrder) || {value:[]};
   }
 
   getManager() {

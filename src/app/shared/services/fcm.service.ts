@@ -95,11 +95,11 @@ public prop: any;
     verifyNewOrderByTime(){
         let local =  this.localStorageService.getLocal();
         let order = this.localStorageService.getOrder();
-        if(local != null){
+        if(local != null && !this.receivedMessage){
             let localId =  local.id;
             this.orderService.getAll(localId).subscribe(item=>{
                 let newOrdes = item != null ? item.value.find(x=>x.pedidoStatusId == 1) : null 
-                if((newOrdes != null && order == null) || (item.value.length > order.value.length)){
+                if((newOrdes != null && order.value.length ==0) || (item !=null && (item.value.length > order.value.length))){
                     this.receivedMessage = true;
                     this.playAudio()
                     this.title.setTitle("Novo pedido em aberto")

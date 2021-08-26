@@ -72,11 +72,16 @@ export class CouponsComponent implements OnInit {
       if(item){
         item.value.forEach(x => {
           if(x.validado){
-            this.toster.success('Cupom validado com sucesso', x.cupom.codigo,{disableTimeOut:true});
+            this.toster.success('Cupom validado com sucesso. Clique para fechar', x.cupom.codigo,{disableTimeOut:true});
           }
           else{
             allvalid = false;
-            this.toster.error('O código informado não pertence a um cupom válido',x.cupom.codigo,{disableTimeOut:true});
+            if(x.cupom.id == 0){
+              this.toster.error('O código informado não pertence a um cupom válido. Clique para fechar',x.cupom.codigo,{disableTimeOut:true});
+            }else{
+              this.toster.error('Este cupom já foi utilizado, ou está com restrição. Verifique o código e tente novamente. Clique para fechar',x.cupom.codigo,{disableTimeOut:true});
+            }
+            
           }
         });
 

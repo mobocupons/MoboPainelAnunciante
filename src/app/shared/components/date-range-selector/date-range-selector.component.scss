@@ -1,0 +1,130 @@
+p,
+span {
+  cursor: pointer;
+}
+.disabled {
+  color: #ccc;
+  pointer-events: none;
+}
+.card-small,
+.card-big {
+  .nav-tabs {
+    padding-left: 0;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0 0 0;
+
+    @media screen and (min-width: 768px) {
+      padding-left: 30px;
+      justify-content: flex-start;
+      margin: 0 -30px 15px;
+    }
+
+    @media screen and (max-width: 768px) {
+      border: none;
+    }
+
+    .nav-link {
+      padding-left: 0;
+      padding-right: 0;
+      color: #cccccc;
+      font-weight: 600;
+      transition: all 0.3s ease-in-out;
+      border: none;
+      border-bottom: 4px solid transparent;
+      font-size: 12px;
+
+      @media screen and (min-width: 768px) {
+        padding-left: 25px;
+        padding-right: 25px;
+        font-size: 18px;
+        line-height: 21px;
+      }
+
+      &.active,
+      .nav-tabs .nav-item.show .nav-link {
+        color: #4d6af6;
+        background-color: #fff;
+        border: none;
+        border-bottom: 4px solid #4d6af6;
+        border-radius: 0;
+      }
+    }
+
+    li:first-of-type {
+      span {
+        padding-left: 0;
+      }
+    }
+  }
+  .h-20px {
+    height: 20px;
+  }
+  .rangeLabel {
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 20px;
+    color: #333333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      min-width: 150px;
+      text-align: center;
+      text-transform: capitalize;
+      font-weight: 600;
+      font-size: 17px;
+    }
+  }
+}
+@media screen and (min-width: 768px) {
+  .card-big {
+    .nav-tabs {
+      margin: 0 -30px 15px;
+      padding-left: 30px;
+      display: flex;
+      justify-content: center;
+      border: none;
+
+      .nav-link {
+        padding-left: 25px;
+        padding-right: 25px;
+        color: #cccccc;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 21px;
+        transition: all 0.3s ease-in-out;
+        border: none;
+
+        &.active,
+        .nav-tabs .nav-item.show .nav-link {
+          color: #4d6af6;
+          background-color: #fff;
+          border: none;
+          border-radius: 0;
+        }
+      }
+    }
+    .h-20px {
+      height: 20px;
+    }
+    .rangeLabel {
+      font-weight: 600;
+      font-size: 17px;
+      line-height: 20px;
+      color: #333333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        min-width: 150px;
+        text-align: center;
+        text-transform: capitalize;
+        font-weight: 600;
+        font-size: 17px;
+      }
+    }
+  }
+}

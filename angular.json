@@ -3,9 +3,12 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "MoboAnunciante": {
+    "endless-starterkit": {
       "projectType": "application",
       "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        },
         "@schematics/angular:component": {
           "style": "scss"
         }
@@ -17,20 +20,48 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/MoboAnunciante",
+            "allowedCommonJsDependencies": [
+              "rxjs-compat",
+              "@ks89/angular-modal-gallery",
+              "mousetrap",
+              "hammerjs",
+              "firebase/app",
+              "dragula",
+              "knob",
+              "chartist",
+              "chartjs-plugin-streaming",
+              "@firebase/app",
+              "chart.js",
+              "dom-set",
+              "crossvent",
+              "contra/emitter",
+              "rxjs",
+              "ngx-masonry",
+              "@firebase/firestore",
+              "rxjs/operators",
+              "rxjs/Subject",
+              "rxjs/internal/operators",
+              "rxjs/add/operator/map",
+              "rxjs/Subscription",
+              "masonry-layout",
+              "imagesloaded",
+              "rxjs-compat/add/operator/map",
+              "@mattlewis92/dom-autoscroller",
+              "dom-plane",
+              "@mattlewis92/dom-autoscroller",
+              "@tweenjs/tween.js",
+              "photoswipe",
+              "photoswipe/dist/photoswipe-ui-default",
+              "angular-calendar/date-adapters/date-fns"
+            ],
+            "outputPath": "dist//MoboAnunciante",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/_redirects"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/_redirects", "src/favicon.ico", "src/assets", "src/manifest.json", "src/firebase-messaging-sw.js"],
+            "styles": ["src/styles.scss", "src/assets/scss/app.scss"],
             "scripts": []
           },
           "configurations": {
@@ -52,13 +83,37 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ]
+            },
+            "homol": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.homol.ts"
+                }
+              ]
+            },
+            "prod": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "dev": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
                 }
               ]
             }
@@ -67,18 +122,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "MoboAnunciante:build"
+            "browserTarget": "endless-starterkit:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "MoboAnunciante:build:production"
+              "browserTarget": "endless-starterkit:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "MoboAnunciante:build"
+            "browserTarget": "endless-starterkit:build"
           }
         },
         "test": {
@@ -88,14 +143,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/_redirects"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         },
@@ -107,27 +156,25 @@
               "tsconfig.spec.json",
               "e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "MoboAnunciante:serve"
+            "devServerTarget": "endless-starterkit:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "MoboAnunciante:serve:production"
+              "devServerTarget": "endless-starterkit:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "MoboAnunciante",
+  "defaultProject": "endless-starterkit",
   "cli": {
     "analytics": false
   }

@@ -1,0 +1,107 @@
+<div class="container-fluid">
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="container-fluid">
+        <div class="row justify-content-around">
+
+          <div class="card fixed-max-height shadow-none rounded border w-100 h-100" *ngIf="!haveOrders">
+            <div class="card-body">
+              <div class="d-flex justify-content-between mb-3">
+                <h4 class="card-title mb-3">Histórico de Pedidos</h4>
+                <div class="d-flex justify-content-end">
+                  <div _ngcontent-msp-c210="" class="input-group-append"></div>
+                </div>
+              </div>
+              <div class="vertical-separator bg-gray"></div>
+              <div class="d-flex h-100 w-100 flex-column justify-content-center  p-5">
+                <h5 class="text-center text-blue">Ainda não há nenhum pedido no histórico. </h5>
+                <label class="text-center text-blue">Todos os pedidos serão mostrados aqui após sua conclusão.·</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="card fixed-max-height shadow-none rounded border w-100 h-100" *ngIf="haveOrders">
+            <div class="card-body" >
+              <div class="d-flex justify-content-between mb-3">
+                <h4 class="card-title mb-3">Histórico de Pedidos</h4>
+                <div class="d-flex justify-content-end">
+                  
+                  <div class="form-group mb-0">
+                    <div class="d-flex justify-content-between mb-3">
+                      <form class="theme-form" [formGroup]="searchForm">
+                        <input type="text" formControlName="name" (keyup)="eventSearch($event)"  placeholder="Procurar" class="form-control ng-pristine ng-valid ng-touched">
+                        <input type="date" formControlName="date" (change)="eventSearchDate($event)"   class="form-control ng-pristine ng-valid ng-touched" style="margin-top: 5px;">
+                        <div style="margin-top: 10px;">
+                        <button (click)="resetFilter()" class="btn btn-light"> limpar </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  
+                <div class="input-group-append"></div>
+                </div>
+                
+              </div>
+              <div class="vertical-separator bg-gray"></div>
+              <div class="d-flex h-100 w-100 justify-content-center p-5"  *ngFor="let order of orders | paginate: { itemsPerPage: contador, currentPage: pag }">
+                
+                 <div class="w-50 mr-5">
+                    <div>
+                      <i class="fa fa-user mr-3 fa-2x"></i>
+                      <label>
+                        <h5 class="mr-3 ">{{order.usuarioEndereco.usuario.nome}}</h5>
+                      </label>
+                      <label>{{phoneHelper.convertPhoneToMask(order.usuarioEndereco.usuario.celular)}}</label>
+                    </div>
+                    <div>
+                      <i class="fa fa-map-marker fa-2x mr-3"></i>
+                      <label>
+                        <h5 class="mr-3 ">{{order.usuarioEndereco.logradouro}} {{order.usuarioEndereco.bairro}} {{order.usuarioEndereco.cidade.nome}}</h5>
+                      </label>
+                    </div>
+                    <div class="d-flex flex-column mt-4 mb-4">
+                      <label class="text-black"> {{order.cupom.campanha.titulo}}  </label>
+                      <label class="text-black">Cupom {{order.cupom.codigo}}</label>
+                    </div>
+                    <div class="d-flex mb-2 flex-column">
+                      <label class="text-gray"> Solicitação em {{getDateTime(order.realizadoEm)}}</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 3">Recusado</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 6">Cancelado</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 1">Aguardando aprovação</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 2">Em Preparo</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 4">Saiu para entrega</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 5">Finalizado</label>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-column w-50">
+                    <label class="text-black">{{order.pagamento.formaPagamento.nome}}</label>
+                    <label class="text-black">Observações:{{order.observacao}} </label>
+                    <div class="d-flex justify-content-between mt-5">
+                      <label class="text-black">Valor do pedido</label>
+                      <label class="text-black">R$ {{round(order.valorTotal - order.taxaEntrega)}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <label class="text-black">Taxa de entrega</label>
+                       <label class="text-black">R${{order.taxaEntrega.toFixed(2)}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <label class="text-blue">Total</label>
+                      <label class="text-blue">R$ {{order.valorTotal.toFixed(2)}}</label>
+                    </div>
+                  </div>
+              </div>
+               <pagination-controls 
+               (pageChange)="pag = $event" 
+               class="d-flex justify-content-center"
+               previousLabel="Anterior"
+               nextLabel="Proxima"></pagination-controls>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

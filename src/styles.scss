@@ -1,1 +1,238 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./assets/scss/theme/variables";
+
+$blue: #4d6af6;
+$green: #3cc8b4;
+$red: #ff7070;
+$font: "Raleway";
+$secondary: $blue;
+html {
+  background: white;
+}
+.primary-text {
+  color: $primary-color !important;
+}
+
+.subtitle {
+  font-size: 28px;
+}
+
+.titleH1 {
+  color: #4f4f4f;
+  font-size: 28px;
+  line-height: 32.87px;
+  font-weight: 800;
+}
+.subFilterLabel {
+  padding-top: 10px;
+  font-size: 15px;
+  line-height: 19.96px;
+  color: #333333;
+  font-weight: 600;
+}
+.filterLabel {
+  font-size: 15px;
+  text-align: center;
+  line-height: 18.78px;
+  color: #cccccc;
+  font-weight: 600;
+}
+.descriptionText {
+  font-size: 14px;
+  display: flow-root;
+  line-height: 16.5px;
+  color: #8c8c8c;
+  font-weight: 600;
+}
+
+.number-text {
+  font-family: Roboto, sans-serif;
+  font-weight: 700;
+  white-space: nowrap;
+
+  &.big {
+    font-size: 50px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 18px !important;
+    margin: 0;
+    line-height: 18px !important;
+  }
+}
+
+.blueNumb {
+  display: flow-root;
+  font-size: 58px;
+  text-align: start;
+  line-height: 71px;
+  color: $blue;
+}
+
+.blue-text {
+  color: $blue;
+}
+
+.greenNumb {
+  display: flow-root;
+  font-size: 28px;
+  text-align: center;
+  line-height: 34.19px;
+  color: $green;
+  font-weight: 700;
+}
+
+.green-text {
+  color: $green;
+}
+
+.redNumb {
+  display: flow-root;
+  font-size: 28px;
+  text-align: center;
+  line-height: 34.19px;
+  color: #ff7070;
+  font-weight: 700;
+}
+.red-text {
+  color: #ff7070;
+}
+.purpleNumb {
+  font-size: 28px;
+  text-align: center;
+  line-height: 34.19px;
+  color: #bb6bd9;
+  font-weight: 700;
+}
+.rowDatas {
+  text-align: center !important;
+  align-content: center;
+  align-items: center !important;
+}
+
+.card {
+  box-shadow: -5px 4px 10px rgba(29, 29, 29, 0.11) !important;
+  border-radius: 0 !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.owl-carousel {
+  .owl-stage {
+    padding-left: 20px !important;
+  }
+  .owl-item {
+    padding-top: 1rem !important;
+    cursor: grabbing;
+  }
+}
+
+.bg-green {
+  background-color: #3cc8b4 !important;
+}
+.bg-red {
+  background-color: #ff7070 !important;
+}
+
+.bg-yellow {
+  background-color: #f2c94c !important;
+}
+
+.bg-blue {
+  background-color: #4d6af6 !important;
+}
+
+.bg-orange {
+  background-color: #ff8c19 !important;
+}
+
+.bg-gray {
+  background-color: #f4f4f4 !important;
+}
+
+.text-purple {
+  color: $primary-color !important;
+}
+
+.text-gray {
+  color: #8c8c8c !important;
+}
+
+.text-black {
+  color: #555555;
+}
+
+.text-blue {
+  color: #008bbe;
+}
+
+.vertical-separator {
+  width: 100%;
+  height: 5px;
+}
+
+.btn {
+  text-transform: none !important;
+  border-radius: 6px !important;
+}
+
+.disabled-style {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.modal-filter {
+  .modal-dialog {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 540px;
+    height: 100vh !important;
+    bottom: 0;
+    max-height: none;
+    margin: 0;
+    border-radius: 0 !important;
+    max-width: 100%;
+  }
+  .modal-content {
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+
+.ratio-responsive {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.ratio-responsive::before {
+  display: block;
+  content: "";
+}
+
+.ratio-responsive .ratio-responsive-item,
+.ratio-responsive iframe,
+.ratio-responsive embed,
+.ratio-responsive object,
+.ratio-responsive video {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.ratio-responsive-21by9::before {
+  padding-top: 42.857143%;
+}
+
+.ratio-responsive-16by9::before {
+  padding-top: 56.25%;
+}

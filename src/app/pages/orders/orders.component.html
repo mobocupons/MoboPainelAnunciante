@@ -1,0 +1,117 @@
+<div class="container-fluid">
+  <div class="d-flex justify-content-between">
+    <div class="card-body w-30 mh-25">
+      <!--<input _ngcontent-msp-c210="" type="text" aria-label="Amount (to the nearest dollar)" class="form-control">-->
+      <div class="list-group" style="overflow: auto; max-height: 600px;">
+
+        <div class="card-body d-flex justify-content-between shadow-sm mb-2 mt-2 list-group-item-action"
+          style="min-height: 100px;" *ngFor="let order of pendingOrders" >
+          <div class="d-flex flex-column">
+            <label>{{order.id}}</label>
+            <label>{{getDate(order.realizadoEm)}}</label>
+          </div>
+          <div class="d-flex flex-column">
+            <label>{{order.usuarioEndereco.usuario.nome}}</label>
+            <label>{{phoneHelper.convertPhoneToMask(order.usuarioEndereco.usuario.celular)}}</label>
+          </div>
+          <div class="d-flex flex-column">
+            <label class="bg-red text-center">{{order.pedidoStatus}}</label>
+            <!--<label>{{order.previsao}}</label>-->
+          </div>
+           <div class="d-flex flex-column">
+            <label><button type="button" placement="top" ngbtooltip="btn btn-success" class="btn btn-success"  style="width: 115px;" (click)="acceptOrder(order.id)" >Aceitar</button></label>
+            <label><button type="button" placement="top" ngbtooltip="btn btn-warning" class="btn btn-warning"  style="width: 115px;" (click)="refuseOrder(order.id)">Recusar</button></label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body w-70 ">
+       <div class="card fixed-max-height shadow-none rounded border w-100 h-100" style="overflow: auto; max-height: 800px;" >
+            <div class="card-body">
+              <div class="d-flex justify-content-between mb-3">
+                <h4 class="card-title mb-3">Pedidos</h4>
+                <!--<div class="d-flex justify-content-end">
+                  <select _ngcontent-msp-c208="" id="exampleFormControlSelect9" class="form-control digits mr-4">
+                    <option _ngcontent-msp-c208="">1</option>
+                    <option _ngcontent-msp-c208="">2</option>
+                    <option _ngcontent-msp-c208="">3</option>
+                    <option _ngcontent-msp-c208="">4</option>
+                    <option _ngcontent-msp-c208="">5</option>
+                  </select>
+
+                  <input _ngcontent-msp-c210="" type="text" aria-label="Amount (to the nearest dollar)"
+                    class="form-control">
+                  <div _ngcontent-msp-c210="" class="input-group-append"></div>
+                </div>-->
+              </div>
+              <div class="vertical-separator bg-gray"></div>
+              <div class="d-flex h-100 w-100 flex-column justify-content-center  p-5 " style="width:1800px;" *ngIf="!selectedOrder">
+                <h5 class="text-center text-blue">Ainda não temos nenhum pedido em andamento.</h5>
+                <label class="text-center text-blue"> Todos os pedidos novos serão mostrados aqui, junto com todas as informações para a entrega e cobrança.·</label>
+              </div>
+                <div class="d-flex  justify-content-center shadow" style="padding:20px; margin:20px;" *ngFor="let order of accepetedOrders">
+                
+                  <div class="w-50 mr-5">
+                    <div>
+                      <i class="fa fa-user mr-3 fa-2x"></i>
+                      <label>
+                        <h5 class="mr-3 ">{{order.usuarioEndereco.usuario.nome}}</h5>
+                      </label>
+                      <label>{{phoneHelper.convertPhoneToMask(order.usuarioEndereco.usuario.celular)}}</label>
+                    </div>
+                    <div>
+                      <i class="fa fa-map-marker fa-2x mr-3"></i>
+                      <label>
+                        <h5 class="mr-3 ">{{order.usuarioEndereco.logradouro}} {{order.usuarioEndereco.bairro}} {{order.usuarioEndereco.cidade.nome}}</h5>
+                      </label>
+                    </div>
+                    <div class="d-flex flex-column mt-4 mb-4">
+                      <label class="text-black"> {{order.cupom.campanha.titulo}}  </label>
+                      <label class="text-black">Cupom {{order.cupom.codigo}}</label>
+                    </div>
+                    <div class="d-flex mb-2 flex-column">
+                      <label class="text-gray"> Solicitação em {{getDateTime(order.realizadoEm)}}</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 3">Recusado</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 6">Cancelado</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 1">Aguardando aprovação</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 2">Em Preparo</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 4">Saiu para entrega</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 5">Finalizado</label>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-column w-50">
+                    <label class="text-black">{{order.pagamento.formaPagamento.nome}}</label>
+                    <label class="text-black">Observações:{{order.observacao}} </label>
+                    <div class="d-flex justify-content-between mt-5">
+                      <label class="text-black">Valor do pedido</label>
+                      <label class="text-black">R$ {{round(order.valorTotal - order.taxaEntrega)}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <label class="text-black">Taxa de entrega</label>
+                      <label class="text-black">R${{order.taxaEntrega.toFixed(2)}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <label class="text-blue">Total</label>
+                      <label class="text-blue">R$ {{order.valorTotal.toFixed(2)}}</label>
+                    </div>
+                    <div class="d-flex justify-content-between m-2 mt-4" *ngIf = "order.pedidoStatusId!=4">
+                      <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-light"
+                        class="btn btn-light" (click)="cancelOrder(order.id)">Cancelar</button>
+                      <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-secondary"
+                        class="btn btn-secondary" (click)="deliverOrder(order.id)">Enviar para entrega</button>
+                    </div>
+                     <div class="d-flex justify-content-between m-2 mt-4"*ngIf = "order.pedidoStatusId==4">
+                      <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-light"
+                        class="btn btn-light" (click)="cancelOrder(order.id)">Cancelar</button>
+                      <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-secondary"
+                        class="btn btn-secondary" (click)="finalizeOrder(order.id)">Finalizar</button>
+                    </div>
+                  </div>
+                </div>
+                
+            </div>
+          </div>
+    </div>
+  </div>
+
+</div>

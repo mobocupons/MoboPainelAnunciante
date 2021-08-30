@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col-12 pl-0">
+    <div class="container-fluid pl-md-5">
+      <app-card-header-information style="width: 100%;" [cardData]="cardDataHeader"
+        (rangeChange)="updateChart($event, cardDataTypeEnumLocal.Header)">
+      </app-card-header-information>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="row">
+  <div class="col-12 pl-0">
+    <div class="container-fluid pl-0">
+      <owl-carousel-o [options]="owlcarouselOptions">
+        <ng-template carouselSlide class="pt-3">
+          <app-chart-card-small (rangeChange)="updateChart($event, cardDataTypeEnumLocal.AppUse)"
+            [cardData]="cardDataAppUse"></app-chart-card-small>
+        </ng-template>
+        <ng-template carouselSlide class="pt-3">
+          <app-chart-card-small (rangeChange)="updateChart($event, cardDataTypeEnumLocal.Accounts)"
+            [cardData]="cardDataAccounts">
+          </app-chart-card-small>
+        </ng-template>
+        <ng-template carouselSlide class="pt-3">
+          <app-chart-card-small (rangeChange)="updateChart($event, cardDataTypeEnumLocal.Invoicing)"
+            [isInvoicing]="true" [cardData]="cardDataInvoicing">
+          </app-chart-card-small>
+        </ng-template>
+      </owl-carousel-o>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt-3">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body overflow-hidden">
+          <div class="d-flex justify-content-between mb-3">
+            <p class="title-professionals-table">Comentários</p>
+            <div class="input-group mb-3 w-25 ">
+              <input type="text" class="form-control digits border-right-0" (keyup)="updateFilter($event)" />
+              <div class="input-group-append">
+                <span class="input-group-text search-icon" id="basic-addon2">
+                  <i class="icofont icofont-search-alt-2"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex border-tabs">
+            <div class="pb-2 subtitle-professionals-table" *ngFor="let tab of tabHeaders"
+              (click)="activeTabChanged(tab)" [ngClass]="{ active: tab.active }">
+              {{ tab.description }} ({{ tab.counter }})
+            </div>
+          </div>
+          <div class="row">
+            <table mdbTable [striped]="mdbTableStriped">
+              <thead>
+                <tr>
+                  <th class="title-head cursor-pointer table-header" *ngFor="let head of commentsHeadElements"
+                    scope="col" (click)="orderTableByHead(head.type)">
+                    <div class="d-flex flew-row" *ngIf="head.visible">
+                      {{ head.description}}
+                      <div [innerHTML]="head.icon" class="icon-size" style="margin-left: 5px;"></div>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody mdbTableCol *ngFor="let rating of ratingList">
+                <tr [ngStyle]="{'background-color': rating.expandDetail ? 'rgba(0, 0, 0, 0.015)' : 'white'}"
+                  class="mb-5">
+                  <td class="detail-text p-2 w-10">{{ rating.date }}</td>
+                  <td class="detail-text p-2 w-15">{{ rating.username }}</td>
+                  <td class="detail-text p-2 w-15">{{ rating.email }}</td>
+                  <td class="detail-text p-2 w-35">
+                    <div>
+                      <app-feather-icons [icon]="'message-circle'" style="color: #4D6AF6;"></app-feather-icons>
+                      <!-- <i class="icon-comment" style="color: blue;"></i> -->
+                      "{{ rating.comment }}"
+                    </div>
+                  </td>
+                  <td class="details w-25 p-2">
+                    <p class="text-purple detail-btn text-right cursor-pointer" mdbWavesEffect
+                      (click)="showDetails(rating)">
+                      Detalhes
+                      <i class="icofont icofont-simple-up" *ngIf="rating.expandDetail"></i>
+                      <i class="icofont icofont-simple-down" *ngIf="!rating.expandDetail"></i>
+                    </p>
+                    <div class="d-flex mt-3" [ngClass]="{ hidden: !rating.expandDetail }">
+                      <button
+                        *ngIf="tabSelected == ratingStatusEnum.Pending || tabSelected == ratingStatusEnum.Rejected"
+                        class="btn btn-outline bg-green text-white mr-2" (click)="openModalToApproveRating(rating)">
+                        Aprovar
+                      </button>
+                      <button
+                        *ngIf="tabSelected == ratingStatusEnum.Pending || tabSelected == ratingStatusEnum.Approved"
+                        class="btn btn-outline bg-red text-white ml-2" (click)="openModalToReproveRating(rating)">
+                        Rejeitar
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

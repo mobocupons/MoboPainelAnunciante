@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex flex-row flex-wrap">
+            <h4 class="card-title mr-4">Visão geral dos ciclos</h4>
+            <app-loader *ngIf="loading" color="purple" style="margin-left: 10px;" size="25px"></app-loader>
+        </div>
+        <div [ngClass]="{'disabled-style': loading}">
+            <app-date-range-selector (rangeChange)="emitRange($event)" class="card-small">
+            </app-date-range-selector>
+            <div class="row mt-3 inside-scroll-wrapper">
+                <div class="col-12 col-md-3 d-flex flex-column inside-scroll p-md-0">
+                    <p *ngFor="let dataset of datasetSelectors" [ngClass]="{'active': dataset.isVisible}"
+                        [style.color]="dataset.color" (click)="toggleActive(dataset)" class="dataset-selector">
+                        {{ dataset.label }}
+                    </p>
+                </div>
+                <div class="col-12 col-md-9 p-0 offset-md-3">
+                    <canvas #lineChart height="150px"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

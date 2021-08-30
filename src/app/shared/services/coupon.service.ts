@@ -23,6 +23,6 @@ export class CouponService {
       let filterModel = { anuncianteId,
                           localId,
                           codigos}
-    return this.baseService.post(`Cupom/ValidarCupons`,filterModel, BaseUrlTypeEnum.normal);
+    return this.baseService.post(`Cupom/Validar`,filterModel, BaseUrlTypeEnum.normal);
   }
 }

@@ -10,6 +10,7 @@ import { ProfessionalService } from 'src/app/shared/services/professional.servic
 import { CouponService } from 'src/app/shared/services/coupon.service';
 import Swal from 'sweetalert2'
 import { Local } from 'src/app/shared/models/local.model';
+
 @Component({
   selector: 'app-coupons',
   templateUrl: './coupons.component.html',
@@ -45,9 +46,10 @@ export class CouponsComponent implements OnInit {
       });
       this.campanhas = [];
     }
-
+    get name() { return this.couponsForm.value.name; }
   ngOnInit(): void {
     this.getCampanhasAtivas()
+  
    }
 
   getCampanhasAtivas(){
@@ -66,30 +68,29 @@ export class CouponsComponent implements OnInit {
     let localId = this.localForm.value["name"];
 
     this.couponService.postValidateCoupon(this.anunciante.id, localId, coupons).subscribe(item=>{
-      let validado = true
+      let allvalid = true;
       if(item){
         item.value.forEach(x => {
-          if(x.validado == false){
-           validado = false;
+          if(x.validado){
+            this.toster.success('Cupom validado com sucesso. Clique para fechar', x.cupom.codigo,{disableTimeOut:true});
+          }
+          else{
+            allvalid = false;
+            if(x.cupom.id == 0){
+              this.toster.error('O código informado não pertence a um cupom válido. Clique para fechar',x.cupom.codigo,{disableTimeOut:true});
+            }else{
+              this.toster.error('Este cupom já foi utilizado, ou está com restrição. Verifique o código e tente novamente. Clique para fechar',x.cupom.codigo,{disableTimeOut:true});
+            }
+            
           }
         });
-  
-        if(!validado){
-          Swal.fire('Não foi possível validar o cupom!',
-            'O código informado não pertence a um cupom válido, ou já foi utilizado. Verifique o código e tente novamente',
-            'error')
+
+        if(allvalid){
+          this.couponsForm.get("name").setValue("") 
         }
-        else{
-          Swal.fire('Cupom validado!',
-          'os cupons foram validados',
-          'success')
-        }
+        
       }
-      else{
-        Swal.fire('Não foi possível validar o cupom!',
-        'O código informado não pertence a um cupom válido, ou já foi utilizado. Verifique o código e tente novamente',
-        'error')
-      }
+     
       this.showLoader = false;
     },
     error=>{

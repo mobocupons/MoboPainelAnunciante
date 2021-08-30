@@ -6,5 +6,6 @@ export const Constants = {
     HASORDER: 'hasorder',
     HASORDERHISTORY: 'hasorderhistory',
     LOCAL: 'local',
+    ORDER:'order',
     TOKEN:'token'
 }

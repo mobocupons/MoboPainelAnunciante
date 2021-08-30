@@ -30,7 +30,7 @@
                   <div class="form-group">
                     <button class="btn btn-primary"
                     (click)="validateCoupons()"
-                      >	<span *ngIf="!showLoader">Validar</span>
+                   [disabled]="name==''" >	<span *ngIf="!showLoader">Validar </span>
 					<app-loader *ngIf="showLoader" color="white" size="30px">Validar</app-loader></button>
                   </div>
                 </form>

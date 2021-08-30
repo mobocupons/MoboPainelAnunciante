@@ -71,7 +71,12 @@
                     </div>
                     <div class="d-flex mb-2 flex-column">
                       <label class="text-gray"> Solicitação em {{getDateTime(order.realizadoEm)}}</label>
-                      <label class="text-gray">Em Preparo</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 3">Recusado</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 6">Cancelado</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 1">Aguardando aprovação</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 2">Em Preparo</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 4">Saiu para entrega</label>
+                      <label class="text-gray" *ngIf="order.pedidoStatusId == 5">Finalizado</label>
                     </div>
                   </div>
                   <div class="d-flex flex-column w-50">
@@ -79,21 +84,27 @@
                     <label class="text-black">Observações:{{order.observacao}} </label>
                     <div class="d-flex justify-content-between mt-5">
                       <label class="text-black">Valor do pedido</label>
-                      <label class="text-black">R$ {{order.valorTotal - order.taxaEntrega}}</label>
+                      <label class="text-black">R$ {{round(order.valorTotal - order.taxaEntrega)}}</label>
                     </div>
                     <div class="d-flex justify-content-between">
                       <label class="text-black">Taxa de entrega</label>
-                      <label class="text-black">R${{order.taxaEntrega}}</label>
+                      <label class="text-black">R${{order.taxaEntrega.toFixed(2)}}</label>
                     </div>
                     <div class="d-flex justify-content-between">
                       <label class="text-blue">Total</label>
-                      <label class="text-blue">R$ {{order.valorTotal}}</label>
+                      <label class="text-blue">R$ {{order.valorTotal.toFixed(2)}}</label>
                     </div>
-                    <div class="d-flex justify-content-between m-2 mt-4">
+                    <div class="d-flex justify-content-between m-2 mt-4" *ngIf = "order.pedidoStatusId!=4">
                       <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-light"
                         class="btn btn-light" (click)="cancelOrder(order.id)">Cancelar</button>
                       <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-secondary"
                         class="btn btn-secondary" (click)="deliverOrder(order.id)">Enviar para entrega</button>
+                    </div>
+                     <div class="d-flex justify-content-between m-2 mt-4"*ngIf = "order.pedidoStatusId==4">
+                      <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-light"
+                        class="btn btn-light" (click)="cancelOrder(order.id)">Cancelar</button>
+                      <button _ngcontent-pey-c206="" type="button" placement="top" ngbtooltip="btn btn-secondary"
+                        class="btn btn-secondary" (click)="finalizeOrder(order.id)">Finalizar</button>
                     </div>
                   </div>
                 </div>

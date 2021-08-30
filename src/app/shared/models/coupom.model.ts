@@ -6,7 +6,7 @@ export class Coupom{
     campanhaId: number 
     usuarioId: number 
     canalId: number 
-    codigo:  number  
+    codigo:  String  
     status: number 
     referencia:  any 
     baixadoEm:  Date  

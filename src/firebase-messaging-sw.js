@@ -17,4 +17,8 @@ const messaging = firebase.messaging();
 // EventEmitter.listen('push', data=>{console.log(data)})
 // messaging.onBackgroundMessage( (payload) => {
 //     console.log(payload)
+//     let audio = new Audio();
+//         audio.src = "src/assets/audio/NewMessage.mp3";
+//         audio.load();
+//         audio.play();
 //   })

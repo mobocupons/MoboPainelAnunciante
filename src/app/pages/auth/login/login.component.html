@@ -6,13 +6,13 @@
 		</div>
 		<form class="theme-form" [formGroup]="loginForm">
 			<div class="form-group">
-				<label class="col-form-label pt-0">User</label>
+				<label class="col-form-label pt-0">Usuário</label>
 				<input class="form-control" formControlName="email"  required="">
 
 				<div class="input-error-wrapper">
 					<div *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.required"
 						class="text text-danger mt-1">
-						Email é um campo obrigatório
+						Usuário é um campo obrigatório
 					</div>
 				</div>
 			</div>

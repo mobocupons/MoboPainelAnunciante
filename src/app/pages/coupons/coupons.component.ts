@@ -72,7 +72,7 @@ export class CouponsComponent implements OnInit {
   validateCoupons(){
     this.showLoader = true;
     let coupons = this.convertCouponsStringToCouponsArray();
-    let localId = this.local!=null ? this.local.id : this.anunciante.locais[0].id;
+    let localId = this.local!=null ? this.local.id : null;
 
     this.couponService.postValidateCoupon(this.anunciante.id, localId, coupons).subscribe(item=>{
       let allvalid = true;

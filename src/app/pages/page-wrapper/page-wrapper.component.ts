@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Menu, NavService } from 'src/app/shared/services/nav.service';
 import { FCMService} from 'src/app/shared/services/fcm.service';
+import { Anunciante } from 'src/app/shared/models/anunciante.model';
+import { Constants } from 'src/app/shared/utils/constants';
 
 @Component({
   selector: 'app-page-wrapper',
@@ -17,9 +19,12 @@ export class PageWrapperComponent implements OnInit {
 
   ngOnInit(): void {
     this.setMenuItems();
-    this.fcm.requestPerm()
-    this.fcm.receiveMessage()
-    this.message = this.fcm.currentMessage
+    var anunciante = JSON.parse(localStorage.getItem(Constants.ANUNCIANTE)) as Anunciante;
+    if(anunciante.deliveryApp){
+      this.fcm.requestPerm()
+      this.fcm.receiveMessage()
+      this.message = this.fcm.currentMessage
+    }
   }
 
   setMenuItems() {

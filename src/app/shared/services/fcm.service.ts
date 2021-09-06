@@ -43,24 +43,26 @@ public prop: any;
     }
 
     requestPerm(){
-        this.angularFirebaseMessaging.requestToken.subscribe((token)=>{
-            let anunciante = JSON.parse(localStorage.getItem(Constants.ANUNCIANTE)) as Anunciante;
-            let local = JSON.parse(localStorage.getItem(Constants.LOCAL)) as Local;
-            let storagedToken = localStorage.getItem(Constants.TOKEN);
-            if(anunciante && !storagedToken){
-                localStorage.setItem(Constants.TOKEN, token)
-                this.hub.setConectionToken(local!=null ? local.id : anunciante.locais[0].id,token).subscribe(item=>{
-                    console.log(item)
-
-                },error=>{
-                    console.log(error)
-                })
-            }
-        },
-        (err)=>
-        {
-            console.error("No Permission "+ err);
-        })
+        var anunciante = JSON.parse(localStorage.getItem(Constants.ANUNCIANTE)) as Anunciante;
+        var local = JSON.parse(localStorage.getItem(Constants.LOCAL)) as Local;
+        if(anunciante.deliveryApp){
+            this.angularFirebaseMessaging.requestToken.subscribe((token)=>{
+                let storagedToken = localStorage.getItem(Constants.TOKEN);
+                if(anunciante && !storagedToken){
+                    localStorage.setItem(Constants.TOKEN, token)
+                    this.hub.setConectionToken(local!=null ? local.id : anunciante.locais[0].id,token).subscribe(item=>{
+                        console.log(item)
+    
+                    },error=>{
+                        console.log(error)
+                    })
+                }
+            },
+            (err)=>
+            {
+                console.error("No Permission "+ err);
+            })
+        }
     }
 
     receiveMessage(){

@@ -56,7 +56,14 @@ export class CouponsComponent implements OnInit {
     this.campanhaService.getCampanhasAtivasPorAnunciante(this.anunciante.id).subscribe(item=>{
       if(item){
         this.hasCampanha = true;
-        this.campanhas = item.value
+        console.log(item.value)
+        item.value.forEach(value => {
+          if(!this.campanhas.find(x=>x.titulo == value.titulo)){
+            this.campanhas.push(value)
+          }
+          
+        });
+        
       }
       
     })
@@ -65,7 +72,7 @@ export class CouponsComponent implements OnInit {
   validateCoupons(){
     this.showLoader = true;
     let coupons = this.convertCouponsStringToCouponsArray();
-    let localId = this.localForm.value["name"];
+    let localId = this.local!=null ? this.local.id : this.anunciante.locais[0].id;
 
     this.couponService.postValidateCoupon(this.anunciante.id, localId, coupons).subscribe(item=>{
       let allvalid = true;

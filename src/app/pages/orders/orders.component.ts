@@ -70,8 +70,7 @@ export class OrdersComponent implements OnInit {
         this.orderService.changeStatus(3,code).subscribe(item=>console.log(item),error=>console.log(error))
         this.pendingOrders = this.pendingOrders.filter(x=>x.id != code)
       }
-    })
-    
+    })    
   }
 
   cancelOrder(code)

@@ -55,6 +55,7 @@ export class CouponsComponent implements OnInit {
   getCampanhasAtivas(){
     this.campanhaService.getCampanhasAtivasPorAnunciante(this.anunciante.id).subscribe(item=>{
       if(item){
+        console.log(item)
         this.hasCampanha = true;
         console.log(item.value)
         item.value.forEach(value => {

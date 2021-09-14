@@ -8,13 +8,6 @@
             <div class="card-body">
               <div class="d-flex justify-content-between mb-3">
                 <h4 class="card-title mb-3">Registro de Cupons</h4>
-                  <div class="d-flex justify-content-end">
-                  <form [formGroup]="localForm">
-                  <select id="exampleFormControlSelect9" formControlName="name" *ngIf="this.local==null" class="form-control digits mr-4">
-                    <option *ngFor="let local of anunciante.locais; index as i" [value]= "local.id">{{local.nome}}</option>
-                  </select>
-                  </form>
-                </div>
                 <!-- <app-loader *ngIf="loadingOccupationArea" color="purple" style="margin-left: 10px;" size="25px">
                 </app-loader> -->
               </div>
@@ -54,7 +47,7 @@
                 </div>
                 <div class="mx-3 d-flex flex-column" *ngIf="!hasCampanha">
                     <div  >
-                        <label>Não há campanha de delivery ativa</label>
+                        <label>Não há campanhas ativas</label>
                     </div>
                 </div>
               </div>

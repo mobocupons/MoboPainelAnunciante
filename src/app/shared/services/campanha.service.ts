@@ -14,10 +14,7 @@ import { CardTypeEnum } from '../utils/enums/card-type.enum';
 })
 export class CampanhaService {
 
-  constructor(private baseService: BaseService,
-    private http: HttpClient) {
-
-  }
+  constructor(private baseService: BaseService) {}
 
   getCampanhasAtivasPorAnunciante(anuncianteId) {
     let filterModel = {anuncianteId}

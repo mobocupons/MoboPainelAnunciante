@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://dev.mobo.com.br/api/v1',
-  absoluteUrl: 'https://dev.mobo.com.br',
+  baseUrl: 'https://prod.mobo.com.br/api/v1',
+  absoluteUrl: 'https://prod.mobo.com.br',
   awsBase: 'https://dev-dragon-dowing-images.s3-sa-east-1.amazonaws.com',
   awsBaseFiles: 'https://dev-dragon-dowing-images.s3-sa-east-1.amazonaws.com/files',
   firebase:{

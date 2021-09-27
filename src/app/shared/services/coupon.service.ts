@@ -14,10 +14,7 @@ import { CardTypeEnum } from '../utils/enums/card-type.enum';
 })
 export class CouponService {
 
-  constructor(private baseService: BaseService,
-    private http: HttpClient) {
-
-  }
+  constructor(private baseService: BaseService) {}
 
   postValidateCoupon(anuncianteId, localId, codigos) {
       let filterModel = { anuncianteId,

@@ -40,14 +40,19 @@ export class OrdersComponent implements OnInit {
   {
     this.selectedOrder = this.pendingOrders.find(x=>x.id == code);
   }
+
   acceptOrder(code)
   {
     this.orderService.changeStatus(2,code).subscribe(item=>console.log(item),error=>console.log(error))
+    this.pendingOrders.forEach(x=>{
+      if(x.id == code){
+        x.pedidoStatusId = 2;
+    }});
     this.accepetedOrders.unshift(this.pendingOrders.find(x=>x.id == code))
     this.selectOrder(code)
     this.pendingOrders = this.pendingOrders.filter(x=>x.id != code)
-    
   }
+  
   finalizeOrder(code)
   {
     this.orderService.changeStatus(5,code).subscribe(item=>console.log(item),error=>console.log(error))

@@ -21,6 +21,7 @@ export class OrdersHistoryComponent implements OnInit {
   public oldOrders: ValueCompleteOrder[] = []
   public haveOrders: boolean = false
   public meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago","Set","Out","Nov","Dez"];
+  
   constructor( private fb: FormBuilder,private orderService: OrderService,
     private localStorageService: LocalStorageService,
     public phoneHelper: PhoneHelper) { 

@@ -110,7 +110,7 @@ export class CouponsComponent implements OnInit {
   }
 
   convertCouponsStringToCouponsArray(){
-    let couponString = this.couponsForm.value["name"]
+    let couponString = this.couponsForm.value["name"].toUpperCase();
     let coupomArray = couponString.split(/\r?\n/);
     return coupomArray;
   }

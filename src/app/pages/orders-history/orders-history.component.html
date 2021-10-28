@@ -3,8 +3,19 @@
     <div class="col-12">
       <div class="container-fluid">
         <div class="row justify-content-around">
+        <div class="card fixed-max-height shadow-none rounded border w-100 h-100" *ngIf="haveOrders && loadingCampain">
+            <div class="card-body">
+              <div class="d-flex justify-content-between mb-3">
+                <h4 class="card-title mb-3">Histórico de Pedidos</h4>
+              </div>
+              <div class="vertical-separator bg-gray"></div>
+              <div class="d-flex h-100 w-100 justify-content-center  p-5">
+                <app-loader *ngIf="loadingCampain" color="#FE9311" style="margin-left: 10px;" size="25px"></app-loader> 
+              </div>
+            </div>
+          </div>
 
-          <div class="card fixed-max-height shadow-none rounded border w-100 h-100" *ngIf="!haveOrders">
+          <div class="card fixed-max-height shadow-none rounded border w-100 h-100" *ngIf="!haveOrders && !loadingCampain">
             <div class="card-body">
               <div class="d-flex justify-content-between mb-3">
                 <h4 class="card-title mb-3">Histórico de Pedidos</h4>
@@ -12,6 +23,7 @@
                   <div _ngcontent-msp-c210="" class="input-group-append"></div>
                 </div>
               </div>
+              
               <div class="vertical-separator bg-gray"></div>
               <div class="d-flex h-100 w-100 flex-column justify-content-center  p-5">
                 <h5 class="text-center text-blue">Ainda não há nenhum pedido no histórico. </h5>
@@ -20,7 +32,7 @@
             </div>
           </div>
 
-          <div class="card fixed-max-height shadow-none rounded border w-100 h-100" *ngIf="haveOrders">
+          <div class="card fixed-max-height shadow-none rounded border w-100 h-100" *ngIf="haveOrders && !loadingCampain">
             <div class="card-body" >
               <div class="d-flex justify-content-between mb-3">
                 <h4 class="card-title mb-3">Histórico de Pedidos</h4>

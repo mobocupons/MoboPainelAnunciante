@@ -24,7 +24,7 @@
                     <button class="btn btn-primary"
                     (click)="validateCoupons()"
                    [disabled]="name==''" >	<span *ngIf="!showLoader">Validar </span>
-					<app-loader *ngIf="showLoader" color="white" size="30px">Validar</app-loader></button>
+					        <app-loader *ngIf="showLoader" color="white" size="30px">Validar</app-loader></button>
                   </div>
                 </form>
               </div>
@@ -36,8 +36,7 @@
               <div class="card-body">
                 <div class="d-flex align-items-center flex-column mb-3">
                   <h4 class="card-title mb-3">Campanhas Ativas</h4>
-                  <!-- <app-loader *ngIf="loadingOccupationArea" color="purple" style="margin-left: 10px;" size="25px">
-                          </app-loader> -->
+                  <app-loader *ngIf="loadingCampain" color="#FE9311" style="margin-left: 10px;" size="25px"></app-loader> 
                 </div>
                 <div class="mx-3 d-flex flex-column" *ngIf = "hasCampanha" >
                     <div *ngFor="let campanha of campanhas; index as i" >
@@ -45,7 +44,7 @@
                     </div>
                    
                 </div>
-                <div class="mx-3 d-flex flex-column" *ngIf="!hasCampanha">
+                <div class="mx-3 d-flex flex-column" *ngIf="!hasCampanha && !loadingCampain">
                     <div  >
                         <label>Não há campanhas ativas</label>
                     </div>

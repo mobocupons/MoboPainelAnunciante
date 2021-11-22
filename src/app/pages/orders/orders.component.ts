@@ -19,6 +19,7 @@ export class OrdersComponent implements OnInit {
   public meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago","Set","Out","Nov","Dez"];
   public accepetedOrders: ValueCompleteOrder[] = []
   public pendingOrders:ValueCompleteOrder[] = []
+  public loadingCampain = true;
 
   selectedOrder: any
   

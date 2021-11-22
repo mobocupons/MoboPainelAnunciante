@@ -100,7 +100,6 @@ export class LoginComponent implements OnInit {
       });
   }
   menuVerifyItens(item){
-    console.log(item)
     if(item == null){
       this.localStorageService.setItem(Constants.HASORDER,"false")
       this.localStorageService.setItem(Constants.HASORDERHISTORY,"false")

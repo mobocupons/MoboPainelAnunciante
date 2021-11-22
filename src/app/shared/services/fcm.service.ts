@@ -50,7 +50,7 @@ public prop: any;
                 if(anunciante && !storagedToken){
                     localStorage.setItem(Constants.TOKEN, token)
                     this.hub.setConectionToken(local!=null ? local.id : anunciante.locais[0].id,token).subscribe(item=>{
-                        console.log(item)
+                        
     
                     },error=>{
                         console.log(error)

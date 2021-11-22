@@ -65,8 +65,14 @@ export class LoginComponent implements OnInit {
       this.loginForm.value["email"],
       this.loginForm.value["password"]
     ).subscribe(res => {
+
       var email = parseInt(this.loginForm.value["email"])
       if(!isNaN(email) && typeof email == "number"){
+        res.value.locais.forEach(x => {
+          if(x.nome.toLowerCase().includes("delivery")){
+            this.localStorageService.setItem(Constants.LOCAL,JSON.stringify(x))
+          }
+        });
         this.localStorageService.setItem(Constants.ANUNCIANTE,JSON.stringify(res.value))
         this.campanhaService.getCampanhasAtivasPorAnunciante(res.value.id).subscribe(item=>{
           this.menuVerifyItens(item);
@@ -100,7 +106,6 @@ export class LoginComponent implements OnInit {
       });
   }
   menuVerifyItens(item){
-    console.log(item)
     if(item == null){
       this.localStorageService.setItem(Constants.HASORDER,"false")
       this.localStorageService.setItem(Constants.HASORDERHISTORY,"false")

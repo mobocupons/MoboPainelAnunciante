@@ -100,6 +100,7 @@ export class OrdersComponent implements OnInit {
     let localId = local!=null ? local.id : anunciante.locais[0].id;
     this.orderService.getAll(localId).subscribe(item=>{
       this.loadingCampain = false;
+      console.log(localId)
       if(item){
         localStorage.setItem(Constants.ORDER, JSON.stringify(item));
         item.value.forEach(x=>{

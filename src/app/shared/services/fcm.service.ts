@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@angular/core";
 import { FirebaseApp } from "@angular/fire";
 import { AngularFireMessaging } from '@angular/fire/messaging';
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
 import { BehaviorSubject } from 'rxjs';
 import Swal from "sweetalert2";
 import { Anunciante } from "../models/anunciante.model";
@@ -37,8 +37,7 @@ public prop: any;
               _messaging.onTokenRefresh = _messaging.onTokenRefresh.bind(_messaging);
               _messaging.onBackgroundMessage = _messaging.onBackgroundMessage.bind(_messaging)
               _messaging.setBackgroundMessageHandler = _messaging.setBackgroundMessageHandler.bind(_messaging)
-            })
-          this.messaging = firebase.messaging(this._firebaseApp);
+            });
           setInterval(()=>{this.verifyNewOrderByTime()}, 20000);
     }
 

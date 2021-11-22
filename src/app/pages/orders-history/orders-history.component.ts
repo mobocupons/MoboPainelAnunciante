@@ -21,6 +21,7 @@ export class OrdersHistoryComponent implements OnInit {
   public oldOrders: ValueCompleteOrder[] = []
   public haveOrders: boolean = false
   public meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago","Set","Out","Nov","Dez"];
+  public loadingCampain = true;
   
   constructor( private fb: FormBuilder,private orderService: OrderService,
     private localStorageService: LocalStorageService,
@@ -44,11 +45,10 @@ getOrders()
     let localId = local!=null ? local.id : anunciante.locais[0].id;
     this.orderService.getHistory(localId).subscribe(item=>{
         this.orders = item ? item.value.filter(x=>x.pedidoStatusId!=1&&x.pedidoStatusId!=2&&x.pedidoStatusId!=4) : null;
-       
+        this.loadingCampain = false;
         if(this.orders!=null && this.orders.length >=1){
           this.haveOrders = true
         }
-        
     })
 }
 

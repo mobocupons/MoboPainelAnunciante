@@ -26,6 +26,7 @@ export class CouponsComponent implements OnInit {
   public local: Local = this.localStorageService.getLocal() as Local;
   public showLoader = false;
   public hasCampanha = false;
+  public loadingCampain = true;
 
   constructor(private professionalService: ProfessionalService,
     private priceLevelService: PriceLevelService,
@@ -55,18 +56,15 @@ export class CouponsComponent implements OnInit {
   getCampanhasAtivas(){
     this.campanhaService.getCampanhasAtivasPorAnunciante(this.anunciante.id).subscribe(item=>{
       if(item){
-        console.log(item)
         this.hasCampanha = true;
-        console.log(item.value)
         item.value.forEach(value => {
           if(!this.campanhas.find(x=>x.titulo == value.titulo)){
             this.campanhas.push(value)
           }
           
         });
-        
       }
-      
+      this.loadingCampain = false;
     })
   }
 

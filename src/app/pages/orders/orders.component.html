@@ -30,27 +30,13 @@
             <div class="card-body">
               <div class="d-flex justify-content-between mb-3">
                 <h4 class="card-title mb-3">Pedidos</h4>
-                <!--<div class="d-flex justify-content-end">
-                  <select _ngcontent-msp-c208="" id="exampleFormControlSelect9" class="form-control digits mr-4">
-                    <option _ngcontent-msp-c208="">1</option>
-                    <option _ngcontent-msp-c208="">2</option>
-                    <option _ngcontent-msp-c208="">3</option>
-                    <option _ngcontent-msp-c208="">4</option>
-                    <option _ngcontent-msp-c208="">5</option>
-                  </select>
-
-                  <input _ngcontent-msp-c210="" type="text" aria-label="Amount (to the nearest dollar)"
-                    class="form-control">
-                  <div _ngcontent-msp-c210="" class="input-group-append"></div>
-                </div>-->
               </div>
               <div class="vertical-separator bg-gray"></div>
-              <div class="d-flex h-100 w-100 flex-column justify-content-center  p-5 " style="width:1800px;" *ngIf="!selectedOrder">
+              <div class="d-flex h-100 w-100 flex-column justify-content-center  p-5 " style="width:1800px;" *ngIf="!selectedOrder && !loadingCampain">
                 <h5 class="text-center text-blue">Ainda não temos nenhum pedido em andamento.</h5>
                 <label class="text-center text-blue"> Todos os pedidos novos serão mostrados aqui, junto com todas as informações para a entrega e cobrança.·</label>
               </div>
-                <div class="d-flex  justify-content-center shadow" style="padding:20px; margin:20px;" *ngFor="let order of accepetedOrders">
-                
+              <div class="d-flex  justify-content-center shadow" style="padding:20px; margin:20px;" *ngFor="let order of accepetedOrders">
                   <div class="w-50 mr-5">
                     <div>
                       <i class="fa fa-user mr-3 fa-2x"></i>
@@ -110,7 +96,10 @@
                     </div>
                   </div>
                 </div>
-                
+              
+              <div class="d-flex h-100 w-100 flex-column justify-content-center  p-5 " style="width:1800px;" *ngIf="!selectedOrder && loadingCampain">
+                <app-loader color="#FE9311"  style="margin-left: 10%;" size="25px"></app-loader> 
+              </div>
             </div>
           </div>
     </div>

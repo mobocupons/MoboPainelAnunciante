@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   baseUrl: 'https://prod.mobo.com.br/api/v1',
   absoluteUrl: 'https://prod.mobo.com.br',
   awsBase: 'https://dev-dragon-dowing-images.s3-sa-east-1.amazonaws.com',
